@@ -5,116 +5,116 @@ import { Avatar, Card, IconButton, Text, ProgressBar, MD3Colors, } from 'react-n
 const FoodScreen = () => (
   <ScrollView>
     <View style={styles.box}>
-    <View style={styles.iconbutton}>
-    <IconButton
-    icon="calendar-month"
-    iconColor="white"
-    mode='contained-tonal'
-    containerColor='#FD9A86'
-    size={20}
-    onPress={() => console.log('Pressed')}
-  />
-    </View>
-    <Text style={styles.text_header}>วันนี้คุณรับประทานไปทั้งหมด 500 Kcal</Text>
-    
-    
-     <Text style={styles.text_Regular}>Mon, 23 Jan 2023</Text>
+      <View style={styles.iconbutton}>
+        <IconButton
+          icon="calendar-month"
+          iconColor="white"
+          mode='contained-tonal'
+          containerColor='#FD9A86'
+          size={20}
+          onPress={() => console.log('Pressed')}
+        />
+      </View>
+      <Text style={styles.text_header}>วันนี้คุณรับประทานไปทั้งหมด 500 Kcal</Text>
 
-    {/* Information */}
-    <View style={styles.container}>
-      <Card.Title
-        style={{ backgroundColor: 'white'  , borderRadius: 10 }}
-        titleStyle={{ color: "#1A212F" }}
-        title="แคลอรี่ (kcal)"
-        left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <Text style={styles.text_details}>500</Text>}
-      />
-      <ProgressBar progress={0.5} color='#E2D784' style={styles.progress}/>
+
+      <Text style={styles.text_Regular}>Mon, 23 Jan 2023</Text>
+
+      {/* Information */}
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="แคลอรี่ (kcal)"
+          left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <Text style={styles.text_details}>500</Text>}
+        />
+        <ProgressBar progress={0.5} color='#E2D784' style={styles.progress} />
+      </View>
+
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="โปรตีน (g)"
+          left={(props) => <Avatar.Icon {...props} icon="egg" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <Text style={styles.text_details}>500</Text>}
+        />
+        <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
+
+      </View>
+
+      <View style={styles.container}>
+
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="คาร์โบไฮเดรต (g)"
+          left={(props) => <Avatar.Icon {...props} icon="hamburger" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <Text style={styles.text_details}>500</Text>}
+        />
+        <ProgressBar progress={0.5} color="#50BFC3" style={styles.progress} />
+
+      </View>
+
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="ไขมันทั้งหมด (g) "
+          left={(props) => <Avatar.Icon {...props} icon="water" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <Text style={styles.text_details}>500</Text>}
+        />
+        <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
+      </View>
+
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="น้ำตาล (g) "
+          left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <Text style={styles.text_details}>500</Text>}
+        />
+        <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
+      </View>
+
+      <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="อาหารเช้า"
+          subtitle="120 kcal"
+          left={(props) => <Avatar.Icon {...props} icon="weather-sunset" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
+        />
+      </View>
+
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="อาหารกลางวัน"
+          subtitle="120 kcal"
+          left={(props) => <Avatar.Icon {...props} icon="white-balance-sunny" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
+        />
+      </View>
+
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="อาหารเย็น"
+          subtitle="120 kcal"
+          left={(props) => <Avatar.Icon {...props} icon="weather-night" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
+        />
+      </View>
+
     </View>
 
-    <View style={styles.container}>
-      <Card.Title
-        style={{ backgroundColor: 'white'  , borderRadius: 10}}
-        titleStyle={{ color: "#1A212F" }}
-        title="โปรตีน (g)"
-        left={(props) => <Avatar.Icon {...props} icon="egg" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <Text style={styles.text_details}>500</Text>}
-      />
-       <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress}/>
-      
-    </View>
-
-    <View style={styles.container}>
-   
-      <Card.Title
-        style={{ backgroundColor: 'white'  , borderRadius: 10}}
-        titleStyle={{ color: "#1A212F" }}
-        title="คาร์โบไฮเดรต (g)"
-        left={(props) => <Avatar.Icon {...props} icon="hamburger" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <Text style={styles.text_details}>500</Text>}
-      />
-      <ProgressBar progress={0.5} color="#50BFC3" style={styles.progress} />
-         
-    </View>
-
-    <View style={styles.container}>
-      <Card.Title
-        style={{ backgroundColor: 'white'  , borderRadius: 10}}
-        titleStyle={{ color: "#1A212F" }}
-        title="ไขมันทั้งหมด (g) "
-        left={(props) => <Avatar.Icon {...props} icon="water" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <Text style={styles.text_details}>500</Text>}
-      />
-      <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
-    </View>
-
-    <View style={styles.container}>
-      <Card.Title
-        style={{ backgroundColor: 'white'  , borderRadius: 10}}
-        titleStyle={{ color: "#1A212F" }}
-        title="น้ำตาล (g) "
-        left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <Text style={styles.text_details}>500</Text>}
-      />
-      <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress}/>
-    </View>
-
-    <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
-    <View style={styles.container}>
-      <Card.Title
-        style={{ backgroundColor: 'white'  , borderRadius: 10}}
-        titleStyle={{ color: "#1A212F" }}
-        title="อาหารเช้า"
-        subtitle="120 kcal"
-        left={(props) => <Avatar.Icon {...props} icon="weather-sunset" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => {}} />}
-      />
-    </View>
-
-    <View style={styles.container}>
-      <Card.Title
-        style={{ backgroundColor: 'white'  , borderRadius: 10 }}
-        titleStyle={{ color: "#1A212F" }}
-        title="อาหารกลางวัน"
-        subtitle="120 kcal"
-        left={(props) => <Avatar.Icon {...props} icon="white-balance-sunny" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => {}} />}
-      />
-    </View>
-
-    <View style={styles.container}>
-      <Card.Title
-        style={{ backgroundColor: 'white' , borderRadius: 10 }}
-        titleStyle={{ color: "#1A212F" }}
-        title="อาหารเย็น"
-        subtitle="120 kcal"
-        left={(props) => <Avatar.Icon {...props} icon="weather-night" color='#1A212F' backgroundColor='#E9EFF2' />}
-        right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F'  onPress={() => {}} />}
-      />
-    </View>
-
-    </View>
-     
 
   </ScrollView>
 
@@ -123,7 +123,7 @@ const FoodScreen = () => (
 export default FoodScreen;
 
 const styles = StyleSheet.create({
-  box:{
+  box: {
     paddingBottom: 13
 
   },
@@ -155,7 +155,7 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   iconbutton: {
-    paddingHorizontal:350,
+    paddingHorizontal: 350,
     top: 50
   }
 
