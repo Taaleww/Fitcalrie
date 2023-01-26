@@ -1,6 +1,5 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-// import { Icon } from 'react-native-elements'
 // import { Icon } from '@rneui/themed';
 // import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
@@ -23,7 +22,7 @@ const screenOptionStyle = {
 const Tabs = () => {
     return(
         <Tab.Navigator >
-            <Tab.Screen name="หน้าหลัก" component={HomeScreen} options={{headerShown: false}} />
+            <Tab.Screen name="หน้าหลัก" component={HomeScreen} options={{headerShown: false}}  />
             <Tab.Screen name="อาหาร" component={FoodScreen} options={{headerShown: false}} />
             <Tab.Screen name="ออกกำลังกาย" component={ExerciseScreen} options={{headerShown: false}}/>
             <Tab.Screen name="โปรไฟล์" component={ProfileScreen} options={{headerShown: false}}/>

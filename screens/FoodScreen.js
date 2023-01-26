@@ -78,7 +78,8 @@ const FoodScreen = () => (
         />
         <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
       </View>
-
+      
+      {/* Add Food */}
       <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
       <View style={styles.container}>
         <Card.Title
@@ -112,6 +113,8 @@ const FoodScreen = () => (
           right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
         />
       </View>
+
+      
 
     </View>
 
