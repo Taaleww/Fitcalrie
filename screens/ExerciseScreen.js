@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Card, IconButton, Text, ProgressBar, Button } from 'react-native-paper';
 
 const FoodScreen = () => (
@@ -19,7 +19,7 @@ const FoodScreen = () => (
       <Text style={styles.text_Regular}>Mon, 23 Jan 2023</Text>
 
       {/* Information */}
-      <View style={styles.container}>
+      <View style={{paddingTop: 10}}>
         <Card.Title
           style={{ backgroundColor: 'white', borderRadius: 10 }}
           titleStyle={{ color: "#1A212F" }}
@@ -31,17 +31,18 @@ const FoodScreen = () => (
       </View>
 
       <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
+      <TouchableOpacity activeOpacity={0.5}>
+          <View style={{ paddingTop: 10 }} >
+            <Card.Title
+              style={{ backgroundColor: 'white', borderRadius: 10 }}
+              titleStyle={{ color: "#1A212F" }}
+              title="วิ่ง "
+              left={(props) => <Avatar.Icon {...props} icon="arm-flex" color='#1A212F' backgroundColor='#E9EFF2' />}
+              right={(props) => <Text style={{paddingRight: 10,fontSize: 14}}>120 kcal</Text>}
+            />
+          </View>
+        </TouchableOpacity>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="วิ่ง"
-          subtitle="120 kcal"
-          left={(props) => <Avatar.Icon {...props} icon="arm-flex" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <IconButton {...props} icon="chevron-right" iconColor='#1A212F' onPress={() => { }} />}
-        />
-      </View>
 
       <View style={{ paddingTop: 120}}>
       <View style={styles.button}>
@@ -57,9 +58,6 @@ const FoodScreen = () => (
 
       </View>
 
-
-     
-
     </View>
 
 
@@ -71,25 +69,21 @@ export default FoodScreen;
 
 const styles = StyleSheet.create({
   box: {
-    paddingBottom: 13
-
-  },
-  container: {
-    paddingTop: 10,
+    paddingBottom: 13,
     paddingLeft: 18,
     paddingRight: 18,
+
   },
   text_header: {
     color: '#1A212F',
     fontWeight: 'bold',
     fontSize: 20,
-    paddingHorizontal: 116,
+    paddingHorizontal: 100,
     textAlign: 'center',
     paddingTop: 20
   },
   text_Regular: {
     color: '#1A212F',
-    paddingLeft: 18,
     fontSize: 14,
     paddingTop: 24
   },
@@ -102,15 +96,13 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   iconbutton: {
-    paddingHorizontal: 350,
+    paddingHorizontal: 332,
     top: 50
   },
   button: {
     flex: 1,
     justifyContent: "center",
-    paddingLeft: 18,
-    paddingRight: 18,
-    paddingBottom: 10
+    paddingTop: 10
   }
 
 });

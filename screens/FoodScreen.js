@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
+import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Card, IconButton, Text, ProgressBar, MD3Colors, } from 'react-native-paper';
 
 const FoodScreen = () => (
@@ -81,38 +81,44 @@ const FoodScreen = () => (
       
       {/* Add Food */}
       <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="อาหารเช้า"
-          subtitle="120 kcal"
-          left={(props) => <Avatar.Icon {...props} icon="weather-sunset" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
-        />
-      </View>
+      <TouchableOpacity activeOpacity={0.5}>
+          <View style={{ paddingTop: 10 }} >
+            <Card.Title
+              style={{ backgroundColor: 'white', borderRadius: 10 }}
+              titleStyle={{ color: "#1A212F" }}
+              title="มื้อเช้า "
+              subtitle="120 kcal"
+              left={(props) => <Avatar.Icon {...props} icon="weather-sunset" color='#1A212F' backgroundColor='#E9EFF2' />}
+              right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
+            />
+          </View>
+        </TouchableOpacity>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="อาหารกลางวัน"
-          subtitle="120 kcal"
-          left={(props) => <Avatar.Icon {...props} icon="white-balance-sunny" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
-        />
-      </View>
+        <TouchableOpacity activeOpacity={0.5}>
+          <View style={{ paddingTop: 10 }} >
+            <Card.Title
+              style={{ backgroundColor: 'white', borderRadius: 10 }}
+              titleStyle={{ color: "#1A212F" }}
+              title="มื้อกลางวัน "
+              subtitle="120 kcal"
+              left={(props) => <Avatar.Icon {...props} icon="white-balance-sunny" color='#1A212F' backgroundColor='#E9EFF2' />}
+              right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
+            />
+          </View>
+        </TouchableOpacity>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="อาหารเย็น"
-          subtitle="120 kcal"
-          left={(props) => <Avatar.Icon {...props} icon="weather-night" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
-        />
-      </View>
+        <TouchableOpacity activeOpacity={0.5}>
+          <View style={{ paddingTop: 10 }} >
+            <Card.Title
+              style={{ backgroundColor: 'white', borderRadius: 10 }}
+              titleStyle={{ color: "#1A212F" }}
+              title="มื้อเย็น "
+              subtitle="120 kcal"
+              left={(props) => <Avatar.Icon {...props} icon="weather-night" color='#1A212F' backgroundColor='#E9EFF2' />}
+              right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
+            />
+          </View>
+        </TouchableOpacity>
 
       
 
@@ -127,25 +133,24 @@ export default FoodScreen;
 
 const styles = StyleSheet.create({
   box: {
-    paddingBottom: 13
+    paddingBottom: 13,
+    paddingLeft: 18,
+    paddingRight: 18
 
   },
   container: {
-    paddingTop: 10,
-    paddingLeft: 18,
-    paddingRight: 18,
+    paddingTop: 10
   },
   text_header: {
     color: '#1A212F',
     fontWeight: 'bold',
     fontSize: 20,
-    paddingHorizontal: 116,
+    paddingHorizontal: 100,
     textAlign: 'center',
     paddingTop: 20
   },
   text_Regular: {
     color: '#1A212F',
-    paddingLeft: 18,
     fontSize: 14,
     paddingTop: 24
   },
@@ -158,7 +163,7 @@ const styles = StyleSheet.create({
     borderRadius: 8
   },
   iconbutton: {
-    paddingHorizontal: 350,
+    paddingHorizontal: 332,
     top: 50
   }
 
