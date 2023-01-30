@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Avatar, Card, IconButton, Text, Button } from 'react-native-paper';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Avatar, Card, IconButton, Text, ProgressBar, Button } from 'react-native-paper';
 
-const NutritionScreen = ({ navigation }) => (
-  <ScrollView>
+const NutritionLunchScreen = ({navigation}) => (
+  <ScrollView name="NutritionScreen">
     <View style={styles.box}>
       {/* <View style={styles.iconbutton}>
         <IconButton
@@ -18,23 +18,16 @@ const NutritionScreen = ({ navigation }) => (
       <Text style={styles.text_detail}>120 Kcal</Text> */}
       <Text style={styles.text_Regular}>เมนูอาหาร</Text>
 
-
-
-
-      <TouchableOpacity activeOpacity={0.5} onPress={() =>
-        navigation.navigate('DeleteFood')
-      } >
-        <View style={styles.container}>
-          <Card.Title
-            style={{ backgroundColor: 'white', borderRadius: 10 }}
-            titleStyle={{ color: "#1A212F" }}
-            title="ข้าวกระเพราไก่"
-            subtitle="120 kcal"
-            left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
-            right={(props) => <IconButton {...props} icon="chevron-right" iconColor='#1A212F' onPress={() => { }} />}
-          />
-        </View>
-      </TouchableOpacity>
+      <View style={styles.container}>
+        <Card.Title
+          style={{ backgroundColor: 'white', borderRadius: 10 }}
+          titleStyle={{ color: "#1A212F" }}
+          title="ข้าวกระเพราไก่"
+          subtitle="120 kcal"
+          left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
+          right={(props) => <IconButton {...props} icon="chevron-right" iconColor='#1A212F' onPress={() => { }} />}
+        />
+      </View>
 
       <View style={{ paddingTop: 120 }}>
         <View style={styles.button}>
@@ -57,7 +50,7 @@ const NutritionScreen = ({ navigation }) => (
 
 );
 
-export default NutritionScreen;
+export default NutritionLunchScreen;
 
 const styles = StyleSheet.create({
   box: {

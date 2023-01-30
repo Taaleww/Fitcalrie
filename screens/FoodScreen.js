@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Card, IconButton, Text, ProgressBar, MD3Colors, } from 'react-native-paper';
 
-const FoodScreen = () => (
+const FoodScreen = ({navigation}) => (
   <ScrollView>
     <View style={styles.box}>
       <View style={styles.iconbutton}>
@@ -81,7 +81,9 @@ const FoodScreen = () => (
       
       {/* Add Food */}
       <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
-      <TouchableOpacity activeOpacity={0.5}>
+      <TouchableOpacity activeOpacity={0.5} onPress={() =>
+                navigation.navigate('Nutrition')
+                }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -94,7 +96,9 @@ const FoodScreen = () => (
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5}onPress={() =>
+                navigation.navigate('NutritionLunch')
+                }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -107,7 +111,9 @@ const FoodScreen = () => (
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5}onPress={() =>
+                navigation.navigate('NutritionNight')
+                }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}

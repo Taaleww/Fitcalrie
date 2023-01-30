@@ -11,7 +11,7 @@ const SearchFoodScreen = () => {
     <ScrollView>
       <View style={styles.box}>
 
-        <View style={styles.iconbutton}>
+        {/* <View style={styles.iconbutton}>
           <IconButton
             icon="chevron-left"
             iconColor="#1A212F"
@@ -20,10 +20,10 @@ const SearchFoodScreen = () => {
           />
         </View>
 
-        <Text style={styles.text_header}>อาหาร</Text>
+        <Text style={styles.text_header}>อาหาร</Text> */}
         <View style={{ paddingLeft: 18, paddingRight: 18, paddingTop: 24 }}>
           <Searchbar
-            style={{ borderRadius: 10, height: 48, width: 380 }}
+            style={{ borderRadius: 10, height: 48, width: 380, backgroundColor:'white' }}
             placeholder="ค้นหาเมนูอาหาร"
             onChangeText={onChangeSearch}
             value={searchQuery}

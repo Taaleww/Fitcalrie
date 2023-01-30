@@ -3,7 +3,9 @@ import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { IconButton, Text, Card, Avatar, Button } from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle'
 
-const MainScreen = () => {
+
+const MainScreen = ({navigation}) => {
+
   return (
     <ScrollView>
       <View style={styles.box}>
@@ -78,9 +80,11 @@ const MainScreen = () => {
           />
         </View>
 
-        <Text style={{ paddingTop: 16 }}>เมนูแนะนำสำหรับคุณ</Text>
+        <Text style={{ paddingTop: 16, fontFamily: "NotoSans"}}>เมนูแนะนำสำหรับคุณ</Text>
 
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} onPress={() =>
+                navigation.navigate('SuggestionMorning')
+                }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -93,7 +97,9 @@ const MainScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5}onPress={() =>
+                navigation.navigate('SuggestionLunch')
+                }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -106,7 +112,9 @@ const MainScreen = () => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}>
+        <TouchableOpacity activeOpacity={0.5} onPress={() =>
+                navigation.navigate('SuggestionNight')
+                }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -134,7 +142,8 @@ const styles = StyleSheet.create({
   box: {
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 13
+    paddingBottom: 13,
+    
   },
   container_header: {
     flexDirection: 'row'

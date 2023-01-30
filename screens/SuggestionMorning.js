@@ -1,19 +1,21 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView, Icon } from 'react-native';
-import { Avatar, Card, IconButton, Text, ProgressBar, Button } from 'react-native-paper';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Avatar, Card, IconButton, Text, Button } from 'react-native-paper';
 
-const DeleteFoodScreen = () => (
+const SuggestionMorning = ({navigation}) => (
   <ScrollView>
     <View style={styles.box}>
-      <View style={styles.iconbutton}>
-        {/* <IconButton
+      {/* <View style={styles.iconbutton}>
+        <IconButton
           icon="chevron-left"
           iconColor="#1A212F"
           size={36}
-           onPress={() => navigation.goBack(null)}/> */}
-      </View>
+          onPress={() =>
+            navigation.navigate('Home')
+            }/>
+      </View> */}
 
-      {/* <Text style={styles.text_header}>อาหารกลางวัน</Text>
+      {/* <Text style={styles.text_header}>ข้าวกระเพราไก่</Text>
       <Text style={styles.text_detail}>120 Kcal</Text> */}
       <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
@@ -70,7 +72,7 @@ const DeleteFoodScreen = () => (
       <View style={{ paddingTop: 40 }}>
         <View style={styles.button}>
           <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => console.log('Pressed')}>
-            ลบเมนูอาหาร
+            บันทึกเมนูอาหาร
           </Button>
         </View>
 
@@ -82,7 +84,7 @@ const DeleteFoodScreen = () => (
 
 );
 
-export default DeleteFoodScreen;
+export default SuggestionMorning;
 
 const styles = StyleSheet.create({
   box: {
@@ -98,7 +100,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 116,
-    textAlign: 'center'
+    textAlign: 'center',
+    paddingTop: 20
   },
   text_detail: {
     color: '#FD9A86',
