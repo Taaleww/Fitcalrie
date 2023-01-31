@@ -21,6 +21,8 @@
     "metro-runtime": "^0.74.1",
     "react": "17.0.2",
     "react-native": "0.68.2",
+    "react-native-date-picker": "^4.2.6",
+    "react-native-datefield": "^0.3.6",
     "react-native-gesture-handler": "^2.9.0",
     "react-native-paper": "^5.1.4",
     "react-native-paper-form-builder": "^2.1.2",
@@ -41,5 +43,8 @@
   },
   "jest": {
     "preset": "react-native"
+  },
+  "rnpm": {
+    "assets": ["./assets/fonts"]
   }
 }

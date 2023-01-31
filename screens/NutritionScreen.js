@@ -36,7 +36,7 @@ const NutritionScreen = ({ navigation }) => (
         </View>
       </TouchableOpacity>
 
-      <View style={{ paddingTop: 120 }}>
+      <View style={{ paddingTop: 410 }}>
         <View style={styles.button}>
           <Button
             style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}

@@ -2,21 +2,12 @@ import * as React from 'react';
 import { View, StyleSheet, ScrollView } from 'react-native';
 import { Avatar, Card, IconButton, Text, Button } from 'react-native-paper';
 
-const SuggestionMorning = ({navigation}) => (
+const SuggestionMorning = ({ navigation }) => (
   <ScrollView>
     <View style={styles.box}>
-      {/* <View style={styles.iconbutton}>
-        <IconButton
-          icon="chevron-left"
-          iconColor="#1A212F"
-          size={36}
-          onPress={() =>
-            navigation.navigate('Home')
-            }/>
-      </View> */}
 
-      {/* <Text style={styles.text_header}>ข้าวกระเพราไก่</Text>
-      <Text style={styles.text_detail}>120 Kcal</Text> */}
+      <Text style={styles.text_header}>ข้าวกระเพราไก่</Text>
+      <Text style={styles.text_detail}>120 Kcal</Text>
       <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
       <View style={styles.container}>
@@ -100,8 +91,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 116,
-    textAlign: 'center',
-    paddingTop: 20
+    textAlign: 'center'
   },
   text_detail: {
     color: '#FD9A86',
@@ -126,9 +116,5 @@ const styles = StyleSheet.create({
     paddingLeft: 18,
     paddingRight: 18,
     paddingBottom: 10
-  },
-  iconbutton: {
-    paddingLeft: 3,
-    top: 50
   }
 });

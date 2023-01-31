@@ -9,7 +9,7 @@ const FormWeight = () => {
   return (
     <ScrollView>
       <View style={styles.box}>
-        <View style={styles.iconbutton}>
+        {/* <View style={styles.iconbutton}>
           <IconButton
             icon="chevron-left"
             iconColor="#1A212F"
@@ -18,7 +18,7 @@ const FormWeight = () => {
           />
         </View>
 
-        <Text style={styles.text_header}>น้ำหนัก (กิโลกรัม)</Text>
+        <Text style={styles.text_header}>น้ำหนัก (กิโลกรัม)</Text> */}
         <View style={styles.container}>
           <Image
             style={{ width: 300, height: 300 }}

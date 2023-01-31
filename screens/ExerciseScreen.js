@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Card, IconButton, Text, ProgressBar, Button } from 'react-native-paper';
 
-const FoodScreen = () => (
+const FoodScreen = ({navigation}) => (
   <ScrollView>
     <View style={styles.box}>
       <View style={styles.iconbutton}>
@@ -31,7 +31,9 @@ const FoodScreen = () => (
       </View>
 
       <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
-      <TouchableOpacity activeOpacity={0.5}>
+      <TouchableOpacity activeOpacity={0.5} onPress={() =>
+                navigation.navigate('DeleteExercise')
+                }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -46,12 +48,16 @@ const FoodScreen = () => (
 
       <View style={{ paddingTop: 120}}>
       <View style={styles.button}>
-        <Button style={{ backgroundColor: 'white', borderRadius: 10 }} textColor="#FD9A86" mode="contained" onPress={() => console.log('Pressed')}>
+        <Button style={{ backgroundColor: 'white', borderRadius: 10 }} textColor="#FD9A86" mode="contained" onPress={() =>
+                navigation.navigate('CalculationExercise')
+                }>
           เพิ่มการเผาผลาญจากการวิ่ง
         </Button>
       </View>
       <View style={styles.button}>
-        <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => console.log('Pressed')}>
+        <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() =>
+                navigation.navigate('SearchExercise')
+                }>
           เพิ่มการเผาผลาญ
         </Button>
       </View>

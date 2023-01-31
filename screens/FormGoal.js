@@ -29,7 +29,7 @@ const FormGoal = () => {
               style={styles.input}
               onChangeText={onChangeNumber}
               value={number}
-              placeholder="น้ำหนัก"
+              placeholder="เป้าหมายน้ำหนัก"
               keyboardType="numeric"
             />
           </SafeAreaView>

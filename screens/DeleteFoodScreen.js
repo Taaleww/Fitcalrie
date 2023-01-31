@@ -67,13 +67,12 @@ const DeleteFoodScreen = () => (
         />
       </View>
 
-      <View style={{ paddingTop: 40 }}>
+      <View style={{ paddingTop: 90 }}>
         <View style={styles.button}>
           <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => console.log('Pressed')}>
             ลบเมนูอาหาร
           </Button>
         </View>
-
       </View>
     </View>
 

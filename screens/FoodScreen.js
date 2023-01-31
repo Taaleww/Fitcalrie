@@ -1,9 +1,23 @@
-import * as React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Avatar, Card, IconButton, Text, ProgressBar, MD3Colors, } from 'react-native-paper';
+import { Avatar, Card, IconButton, Text, ProgressBar } from 'react-native-paper';
 
-const FoodScreen = ({navigation}) => (
-  <ScrollView>
+const FoodScreen = ({navigation}) => {
+
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    var monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May','Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var date = new Date().getDate(); //Current Date
+    var month = monthNames[new Date().getMonth()]; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setCurrentDate(
+      date + ' ' + month + ' ' + year
+    );
+  }, []);
+  return (
+    <ScrollView>
     <View style={styles.box}>
       <View style={styles.iconbutton}>
         <IconButton
@@ -18,7 +32,7 @@ const FoodScreen = ({navigation}) => (
       <Text style={styles.text_header}>วันนี้คุณรับประทานไปทั้งหมด 500 Kcal</Text>
 
 
-      <Text style={styles.text_Regular}>Mon, 23 Jan 2023</Text>
+      <Text style={styles.text_Regular}>{currentDate}</Text>
 
       {/* Information */}
       <View style={styles.container}>
@@ -132,8 +146,8 @@ const FoodScreen = ({navigation}) => (
 
 
   </ScrollView>
-
-);
+  );
+};
 
 export default FoodScreen;
 
