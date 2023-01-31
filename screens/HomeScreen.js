@@ -1,10 +1,23 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { IconButton, Text, Card, Avatar, Button } from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle'
 
 
-const MainScreen = ({navigation}) => {
+const MainScreen = ({ navigation }) => {
+
+  const [currentDate, setCurrentDate] = useState('');
+
+  useEffect(() => {
+    var monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May','Jun',
+    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var date = new Date().getDate(); //Current Date
+    var month = monthNames[new Date().getMonth()]; //Current Month
+    var year = new Date().getFullYear(); //Current Year
+    setCurrentDate(
+      date + ' ' + month + ' ' + year
+    );
+  }, []);
 
   return (
     <ScrollView>
@@ -47,7 +60,7 @@ const MainScreen = ({navigation}) => {
           </Card>
         </View>
 
-        <Text style={{ paddingTop: 16 }}>Mon, 23 Jan 2023</Text>
+        <Text style={{ paddingTop: 16, fontFamily: "Roboto-Medium" }}> {currentDate}</Text>
 
         <View style={styles.container_cardtitle}>
           <View style={{ paddingRight: 16 }}>
@@ -74,17 +87,19 @@ const MainScreen = ({navigation}) => {
             style={{ backgroundColor: 'white', borderRadius: 10 }}
             title="น้ำหนักปัจจุบัน (kg) "
             subtitle="44 /40"
-            right={(props) => <Button mode="text" textColor='#FD9A86' onPress={() => console.log('Pressed')}>
+            right={(props) => <Button mode="text" textColor='#FD9A86' onPress={() =>
+              navigation.navigate('EditCurrentWeight')
+            }>
               บันทึกน้ำหนัก
             </Button>}
           />
         </View>
 
-        <Text style={{ paddingTop: 16, fontFamily: "NotoSans"}}>เมนูแนะนำสำหรับคุณ</Text>
+        <Text style={{ paddingTop: 16, fontFamily: "Roboto-Medium" }}>เมนูแนะนำสำหรับคุณ</Text>
 
         <TouchableOpacity activeOpacity={0.5} onPress={() =>
-                navigation.navigate('SuggestionMorning')
-                }>
+          navigation.navigate('SuggestionMorning')
+        }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -92,14 +107,14 @@ const MainScreen = ({navigation}) => {
               title="มื้อเช้า "
               subtitle="แซนวิช"
               left={(props) => <Avatar.Icon {...props} icon="weather-sunset" color='#1A212F' backgroundColor='#E9EFF2' />}
-              right={(props) => <Text style={{paddingRight: 10,fontSize: 14}}>120 kcal</Text>}
+              right={(props) => <Text style={{ paddingRight: 10, fontSize: 14 }}>120 kcal</Text>}
             />
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}onPress={() =>
-                navigation.navigate('SuggestionLunch')
-                }>
+        <TouchableOpacity activeOpacity={0.5} onPress={() =>
+          navigation.navigate('SuggestionLunch')
+        }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -107,14 +122,14 @@ const MainScreen = ({navigation}) => {
               title="มื้อกลางวัน "
               subtitle="แซนวิช"
               left={(props) => <Avatar.Icon {...props} icon="white-balance-sunny" color='#1A212F' backgroundColor='#E9EFF2' />}
-              right={(props) => <Text style={{paddingRight: 10,fontSize: 14}}>120 kcal</Text>}
+              right={(props) => <Text style={{ paddingRight: 10, fontSize: 14 }}>120 kcal</Text>}
             />
           </View>
         </TouchableOpacity>
 
         <TouchableOpacity activeOpacity={0.5} onPress={() =>
-                navigation.navigate('SuggestionNight')
-                }>
+          navigation.navigate('SuggestionNight')
+        }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -122,7 +137,7 @@ const MainScreen = ({navigation}) => {
               title="มื้อเย็น "
               subtitle="แซนวิช"
               left={(props) => <Avatar.Icon {...props} icon="weather-night" color='#1A212F' backgroundColor='#E9EFF2' />}
-              right={(props) => <Text style={{paddingRight: 10,fontSize: 14}}>120 kcal</Text>}
+              right={(props) => <Text style={{ paddingRight: 10, fontSize: 14 }}>120 kcal</Text>}
             />
           </View>
         </TouchableOpacity>
@@ -142,8 +157,8 @@ const styles = StyleSheet.create({
   box: {
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 13,
-    
+    paddingBottom: 13
+
   },
   container_header: {
     flexDirection: 'row'
@@ -157,12 +172,14 @@ const styles = StyleSheet.create({
     color: '#1A212F',
     fontSize: 14,
     paddingLeft: 20,
-    paddingTop: 10
+    paddingTop: 10,
+    fontFamily: 'Roboto-Italic'
   },
   text_Information: {
     color: '#1A212F',
     fontSize: 14,
-    width: 160
+    width: 160,
+    fontFamily: 'Roboto-Medium'
   },
   container_card: {
     paddingTop: 20,
