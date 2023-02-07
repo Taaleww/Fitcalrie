@@ -28,7 +28,7 @@ const ProfileScreen = ({navigation}) => (
         style={{ backgroundColor: 'white', borderRadius: 10}}
         title="ชื่อ"
         titleStyle = {{fontSize: 14}}
-        right={(props) => <Text style={{paddingRight: 16,fontSize: 14}}>ตะหลิว</Text>}
+        right={(props) => <Text style={{paddingRight: 16,fontSize: 14}}>มายด์</Text>}
           />
         </View> 
       </TouchableOpacity>

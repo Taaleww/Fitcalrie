@@ -140,10 +140,7 @@ const FoodScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
 
-      
-
     </View>
-
 
   </ScrollView>
   );
