@@ -3,11 +3,14 @@ import {View, Text, TouchableOpacity, TextInput} from 'react-native';
 
 export default function InputField({
   label,
+  value,
   icon,
   inputType,
   keyboardType,
   fieldButtonLabel,
   fieldButtonFunction,
+  onChangeText,
+  onBlur
 }) {
   return (
     <View
@@ -16,12 +19,14 @@ export default function InputField({
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
         paddingBottom: 8,
-        marginBottom: 25,
       }}>
       {icon}
       {inputType == 'password' ? (
         <TextInput
           placeholder={label}
+          value={value}
+          onChangeText={onChangeText}
+          onBlur={onBlur}
           keyboardType={keyboardType}
           style={{flex: 1, paddingVertical: 0}}
           secureTextEntry={true}
@@ -29,6 +34,9 @@ export default function InputField({
       ) : (
         <TextInput
           placeholder={label}
+          value={value}
+          onChangeText={onChangeText}
+          onBlur={onBlur}
           keyboardType={keyboardType}
           style={{flex: 1, paddingVertical: 0}}
         />

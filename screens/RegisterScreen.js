@@ -1,11 +1,27 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
 import { Button } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import InputField from '../components/InputField';
-const Register = ({navigation}) => {
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
+const SignupSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(6, 'ชื่อผู้ใช้อย่างน้อย 6 ตัวอักษร')
+    .required('กรุณากรอกชื่อผู้ใช้'),
+  password: Yup.string()
+    .min(8, 'รหัสผ่านอย่างน้อย 8 ตัวอักษร')
+    .required('กรุณากรอกรหัสผ่าน'),
+  confirmpassword: Yup.string()
+    .min(8, 'ยืนยันรหัสผ่านอย่างน้อย 8 ตัวอักษร')
+    .oneOf([Yup.ref('password')], 'รหัสผ่านไม่ตรงกัน')
+    .required('กรุณายีนยันรหัสผ่าน'),
+
+});
+
+const Register = ({ navigation }) => {
 
   return (
     <ScrollView>
@@ -15,55 +31,107 @@ const Register = ({navigation}) => {
             style={{ width: 160, height: 160 }}
             source={require('./Logo_FITCLRIE.png')}
           />
-
         </View>
+        <Formik initialValues={{
+          username: '',
+          password: '',
+          confirmpassword: '',
+        }}
+          validationSchema={SignupSchema}
+          onSubmit={values => Alert.alert(JSON.stringify(values))}
+        >
 
-        <View style={{paddingTop: 40}}>
-        <InputField
-          label={'ชื่อผู้ใช้'}
-          icon={
-            <MaterialIcons
-            name="person-outline"
-            size={20}
-            color="#666"
-            style={{marginRight: 5}}
-          />
-          }
-        />
-        <InputField
-          label={'รหัสผ่าน'}
-          icon={
-            <Ionicons
-            name="ios-lock-closed-outline"
-            size={20}
-            color="#666"
-            style={{marginRight: 5}}
-          />
-          }
-          inputType="password"
-          fieldButtonFunction={() => {}}
-        />
-        <InputField
-          label={'ยืนยันรหัสผ่าน'}
-          icon={
-            <Ionicons
-              name="ios-lock-closed-outline"
-              size={20}
-              color="#666"
-              style={{marginRight: 5}}
-            />
-          }
-          inputType="password"
-        />
-        </View>
+          {({ values,
+            errors,
+            isValid,
+            touched,
+            handleChange,
+            setFieldTouched,
+            handleSubmit
+          }) => (
+            <View style={{ paddingTop: 40 }}>
+              <View style={{ paddingBottom: 25 }}>
+                <InputField
+                  label={'ชื่อผู้ใช้'}
+                  value={values.username}
+                  onChangeText={handleChange('username')}
+                  onBlur={() => setFieldTouched('username')}
+                  icon={
+                    <MaterialIcons
+                      name="person-outline"
+                      size={20}
+                      color="#666"
+                      style={{ marginRight: 5 }}
+                    />
+                  }
 
-        <View style={{ paddingTop: 55 }}>
-          <View style={styles.button}>
-            <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => console.log('Pressed')}>
-              สมัครสมาชิก
-            </Button>
-          </View>
-        </View>
+                />
+                {touched.username && errors.username && (
+                  <Text style={styles.errorTxt}>{errors.username}</Text>
+                )}
+
+              </View>
+              <View style={{ paddingBottom: 25 }}>
+                <InputField
+                  label={'รหัสผ่าน'}
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={() => setFieldTouched('password')}
+                  icon={
+                    <Ionicons
+                      name="ios-lock-closed-outline"
+                      size={20}
+                      color="#666"
+                      style={{ marginRight: 5 }}
+                    />
+                  }
+                  inputType="password"
+                  fieldButtonFunction={() => { }}
+                />
+                {touched.password && errors.password && (
+                  <Text style={styles.errorTxt}>{errors.password}</Text>
+                )}
+              </View>
+
+
+              <View style={{ paddingBottom: 25 }}>
+                <InputField
+                  label={'ยืนยันรหัสผ่าน'}
+                  value={values.confirmpassword}
+                  onChangeText={handleChange('confirmpassword')}
+                  onBlur={() => setFieldTouched('confirmpassword')}
+                  icon={
+                    <Ionicons
+                      name="ios-lock-closed-outline"
+                      size={20}
+                      color="#666"
+                      style={{ marginRight: 5 }}
+                    />
+                  }
+                  inputType="password"
+                />
+                {touched.confirmpassword && errors.confirmpassword && (
+                  <Text style={styles.errorTxt}>{errors.confirmpassword}</Text>
+                )}
+
+              </View>
+              <View style={{ paddingTop: 55 }}>
+                <View style={styles.button}>
+                  <Button
+                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                    textColor="white"
+                    mode="contained"
+                    onPress={handleSubmit}
+                    disabled={!isValid} >
+                    สมัครสมาชิก
+                  </Button>
+                </View>
+              </View>
+
+            </View>
+
+          )}
+        </Formik>
 
         <View
           style={{
@@ -72,14 +140,12 @@ const Register = ({navigation}) => {
           }}>
           <Text>เคยสมัครแล้ว ?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={{color: '#FD9A86', fontWeight: '700'}}> เข้าสู่ระบบ</Text>
+            <Text style={{ color: '#FD9A86', fontWeight: '700' }}> เข้าสู่ระบบ</Text>
           </TouchableOpacity>
         </View>
 
       </View>
-
     </ScrollView>
-
   );
 };
 
@@ -97,6 +163,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingBottom: 10
+  },
+  errorTxt: {
+    color: 'red',
+    paddingTop: 8
+
   }
 });
 

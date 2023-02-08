@@ -34,7 +34,7 @@ const MainScreen = ({ navigation }) => {
         </View>
         <View style={styles.container_header}>
           <Avatar.Image size={42} source={require('./avatar.png')} />
-          <Text style={styles.text_Regular}>สวัสดี, มายด์</Text>
+          <Text style={styles.text_Regular}>สวัสดี, มายด์ </Text>
         </View>
 
         <View style={styles.container_card}>
@@ -156,8 +156,7 @@ const MainScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   box: {
     paddingLeft: 18,
-    paddingRight: 18,
-    paddingBottom: 13
+    paddingRight: 18
 
   },
   container_header: {
@@ -173,7 +172,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 20,
     paddingTop: 10,
-    fontFamily: 'Roboto-Italic'
+    fontFamily: 'Roboto-Medium'
   },
   text_Information: {
     color: '#1A212F',
