@@ -14,24 +14,13 @@ const ProfileScreen = ({ navigation }) => {
         <Text style={styles.text_header}>โปรไฟล์ของฉัน</Text>
         <Text style={styles.text_Regular}>ข้อมูลส่วนตัว</Text>
 
-        {/* <TouchableOpacity activeOpacity={0.7}>
-        <View style={{ paddingTop: 10 }}>
-          <List.Item
-        style={{ backgroundColor: 'white', borderRadius: 10}}
-        title="ชื่อผู้ใช้งาน"
-        titleStyle = {{fontSize: 14}}
-        right={(props) => <Text style={{paddingRight: 16,fontSize: 14}}>ตะหลิว</Text>}
-          />
-        </View> 
-      </TouchableOpacity> */}
-
         <TouchableOpacity activeOpacity={0.7} onPress={() =>
           navigation.navigate('EditFormName')
         }>
           <View style={{ paddingTop: 10 }}>
             <List.Item
               style={{ backgroundColor: 'white', borderRadius: 10 }}
-              title="ชื่อ"
+              title="ชื่อผู้ใช้งาน"
               titleStyle={{ fontSize: 14 }}
               right={(props) => <Text style={{ paddingRight: 16, fontSize: 14 }}>มายด์</Text>}
             />

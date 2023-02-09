@@ -5,8 +5,17 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import InputField from '../components/InputField';
 import { AuthContext } from '../context/AuthContext';
-import { Formik, Form, Field } from 'formik';
+import { Formik } from 'formik';
 import * as Yup from 'yup';
+
+const SigninSchema = Yup.object().shape({
+  username: Yup.string()
+    .min(6, 'ชื่อผู้ใช้อย่างน้อย 6 ตัวอักษร')
+    .required('กรุณากรอกชื่อผู้ใช้'),
+  password: Yup.string()
+    .min(8, 'รหัสผ่านอย่างน้อย 8 ตัวอักษร')
+    .required('กรุณากรอกรหัสผ่าน')
+});
 
 const Login = ({ navigation }) => {
 
@@ -22,50 +31,89 @@ const Login = ({ navigation }) => {
             source={require('./Logo_FITCLRIE.png')}
           />
         </View>
+        <Formik initialValues={{
+          username: '',
+          password: '',
+          confirmpassword: '',
+        }}
+          validationSchema={SigninSchema}
+          onSubmit={values => Alert.alert(JSON.stringify(values))}
+        >
 
-        <View style={{ paddingTop: 40 }}>
-          <View style={{ paddingBottom: 25 }}>
-            <InputField
-              label={'ชื่อผู้ใช้'}
-              icon={
-                <MaterialIcons
-                  name="person-outline"
-                  size={20}
-                  color="#666"
-                  style={{ marginRight: 5 }}
+          {({ values,
+            errors,
+            isValid,
+            touched,
+            handleChange,
+            setFieldTouched,
+            handleSubmit
+          }) => (
+
+            <View style={{ paddingTop: 40 }}>
+              <View style={{ paddingBottom: 25 }}>
+                <InputField
+                  label={'ชื่อผู้ใช้'}
+                  value={values.username}
+                  onChangeText={handleChange('username')}
+                  onBlur={() => setFieldTouched('username')}
+                  icon={
+                    <MaterialIcons
+                      name="person-outline"
+                      size={20}
+                      color="#666"
+                      style={{ marginRight: 5 }}
+                    />
+                  }
                 />
-              }
-            />
+                {touched.username && errors.username && (
+                  <Text style={styles.errorTxt}>{errors.username}</Text>
+                )}
+              </View>
 
-          </View>
-          <View style={{ paddingBottom: 25 }}>
-            <InputField
-              label={'รหัสผ่าน'}
-              icon={
-                <Ionicons
-                  name="ios-lock-closed-outline"
-                  size={20}
-                  color="#666"
-                  style={{ marginRight: 5 }}
+
+              <View style={{ paddingBottom: 25 }}>
+                <InputField
+                  label={'รหัสผ่าน'}
+                  value={values.password}
+                  onChangeText={handleChange('password')}
+                  onBlur={() => setFieldTouched('password')}
+                  icon={
+                    <Ionicons
+                      name="ios-lock-closed-outline"
+                      size={20}
+                      color="#666"
+                      style={{ marginRight: 5 }}
+                    />
+                  }
+                  inputType="password"
+                  fieldButtonFunction={() => { }}
                 />
-              }
-              inputType="password"
-              fieldButtonFunction={() => { }}
-            />
+                 {touched.password && errors.password && (
+                  <Text style={styles.errorTxt}>{errors.password}</Text>
+                )}
+
+              </View>
+              <View style={{ paddingTop: 120 }}>
+                <View style={styles.button}>
+                  {/* <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => { login() }}>
+                    เข้าสู่ระบบ
+                  </Button> */}
+                  <Button
+                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                    textColor="white"
+                    mode="contained"
+                    onPress={() => { login() }}
+                    disabled={!isValid} >
+                    เข้าสู่ระบบ
+                  </Button>
+                </View>
+              </View>
+
+            </View>
+          )}
+        </Formik>
 
 
-          </View>
-
-
-        </View>
-
-        <View style={{ paddingTop: 120 }}>
-          <View style={styles.button}>
-            <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => { login() }}>
-              เข้าสู่ระบบ
-            </Button>
-          </View>
-        </View>
 
         <View
           style={{
@@ -101,6 +149,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     paddingBottom: 10
+  },
+  errorTxt: {
+    color: '#FD9A86',
+    paddingTop: 8
+
   }
 });
 

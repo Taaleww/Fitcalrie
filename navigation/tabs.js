@@ -33,7 +33,7 @@ const Tab = createBottomTabNavigator();
 
 const HomeStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center', headerTransparent: 'true' }}>
+    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center'  }}>
       <Stack.Screen
         name="Home"
         component={HomeScreen}
@@ -42,22 +42,22 @@ const HomeStack = () => {
       <Stack.Screen
         name="SuggestionMorning"
         component={SuggestionMorningScreen}
-        options={{ title: '' }}
+        options={{ title: 'แซนวิช' }}
       />
       <Stack.Screen
         name="SuggestionLunch"
         component={SuggestionLunchScreen}
-        options={{ title: '' }}
+        options={{ title: 'แซนวิช' }}
       />
       <Stack.Screen
         name="SuggestionNight"
         component={SuggestionNightScreen}
-        options={{ title: '' }}
+        options={{ title: 'แซนวิช' }}
       />
       <Stack.Screen
         name="EditCurrentWeight"
         component={EditCurrentWeightScreen}
-        options={{ title: 'น้ำหนักปัจจุบัน' }}
+        options={{ title: 'น้ำหนักปัจจุบัน', headerTransparent: 'true' }}
       />
     </Stack.Navigator>
   );
@@ -65,7 +65,7 @@ const HomeStack = () => {
 
 const FoodStack = () => {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center' }}>
       <Stack.Screen
         name="Food"
         component={FoodScreen}
@@ -74,27 +74,27 @@ const FoodStack = () => {
       <Stack.Screen
         name="Nutrition"
         component={NutritionScreen}
-        options={{ title: 'มื้อเช้า', headerTitleAlign: 'center' }}
+        options={{ title: 'มื้อเช้า'}}
       />
       <Stack.Screen
         name="NutritionLunch"
         component={NutritionLunchScreen}
-        options={{ title: 'มื้อกลางวัน', headerTitleAlign: 'center' }}
+        options={{ title: 'มื้อกลางวัน'}}
       />
       <Stack.Screen
         name="NutritionNight"
         component={NutritionNightScreen}
-        options={{ title: 'มื้อเย็น', headerTitleAlign: 'center' }}
+        options={{ title: 'มื้อเย็น'}}
       />
       <Stack.Screen
         name="DeleteFood"
         component={DeleteFoodScreen}
-        options={{ title: 'ข้าวกระเพราไก่', headerTitleAlign: 'center' }}
+        options={{ title: 'ข้าวกระเพราไก่'}}
       />
       <Stack.Screen
         name="SearchFood"
         component={SearchFoodScreen}
-        options={{ title: 'อาหาร', headerTitleAlign: 'center' }}
+        options={{ title: 'อาหาร'}}
       />
 
     </Stack.Navigator>

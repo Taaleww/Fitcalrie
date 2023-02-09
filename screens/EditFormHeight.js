@@ -1,60 +1,76 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const EditHeightSchema = Yup.object().shape({
+    height: Yup.number()
+        .min(1, 'ต้องเป็นตัวเลขระหว่าง 1 ถึง 299')
+        .max(299, 'ต้องเป็นตัวเลขระหว่าง 1 ถึง 299')
+        .required('กรุณากรอกส่วนสูง')
+});
 
 const EditFormHeight = () => {
-    const [number, onChangeNumber] = React.useState('');
+    // const [number, onChangeNumber] = React.useState('');
 
     return (
         <ScrollView>
-            <View style={styles.box}>
-                {/* <View style={styles.iconbutton}>
-          <IconButton
-            icon="chevron-left"
-            iconColor="#1A212F"
-            size={36}
-            onPress={() => console.log('Pressed')}
-          />
-        </View>
+            <Formik initialValues={{
+                height: ''
+            }}
+                validationSchema={EditHeightSchema}
+                onSubmit={values => Alert.alert(JSON.stringify(values))}
+            >
 
-        <Text style={styles.text_header}>น้ำหนัก (กิโลกรัม)</Text> */}
-                <View style={styles.container}>
-                    <Image
-                        style={{ width: 300, height: 300 }}
-                        source={require('./personalheight.png')}
-                    />
+                {({ values,
+                    errors,
+                    isValid,
+                    touched,
+                    handleChange,
+                    setFieldTouched,
+                    handleSubmit
+                }) => (
+                    <View style={styles.box}>
+                        <View style={styles.container}>
+                            <Image
+                                style={{ width: 300, height: 300 }}
+                                source={require('./personalheight.png')}
+                            />
 
-                    <SafeAreaView >
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeNumber}
-                            value={number}
-                            placeholder="ส่วนสูง"
-                            keyboardType="numeric"
-                        />
-                    </SafeAreaView>
-                </View>
+                            <SafeAreaView >
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.height}
+                                    onChangeText={handleChange('height')}
+                                    onBlur={() => setFieldTouched('height')}
+                                    placeholder="ส่วนสูง"
+                                    keyboardType="numeric"
+                                />
+                                {touched.height && errors.height && (
+                                    <Text style={styles.errorTxt}>{errors.height}</Text>
+                                )}
+                            </SafeAreaView>
+                        </View>
 
-                <View style={{ paddingTop: 140 }}>
-                    <View style={styles.button}>
-                        <Button
-                            style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
-                            textColor="white"
-                            mode="contained"
-                        >
-                            บันทึก
-                        </Button>
+                        <View style={{ paddingTop: 130 }}>
+                            <View style={styles.button}>
+                                <Button
+                                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                                    textColor="white"
+                                    mode="contained"
+                                    disabled={!isValid}
+                                    onPress={handleSubmit}
+                                >
+                                    บันทึก
+                                </Button>
+                            </View>
+
+                        </View>
+
                     </View>
-
-                </View>
-
-
-
-
-
-            </View>
-
+                )}
+            </Formik>
         </ScrollView>
 
     );
@@ -96,6 +112,11 @@ const styles = StyleSheet.create({
         paddingRight: 18,
         paddingBottom: 10
     },
+    errorTxt: {
+        color: '#FD9A86',
+        paddingLeft: 16,
+
+    }
 });
 
 export default EditFormHeight;

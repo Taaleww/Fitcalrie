@@ -90,7 +90,6 @@ export default FoodScreen;
 
 const styles = StyleSheet.create({
   box: {
-    paddingBottom: 13,
     paddingLeft: 18,
     paddingRight: 18,
 

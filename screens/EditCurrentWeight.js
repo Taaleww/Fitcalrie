@@ -1,44 +1,75 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-const EditCurrentWeight = () => {
-    const [number, onChangeNumber] = React.useState('');
+const EditWeightSchema = Yup.object().shape({
+    weight: Yup.number()
+        .min(20, 'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
+        .max(299,'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
+        .required('กรุณากรอกน้ำหนัก')
+});
+
+const EditCurrrentWeight = () => {
+    // const [number, onChangeNumber] = React.useState('');
 
     return (
         <ScrollView>
-            <View style={styles.box}>
-                <View style={styles.container}>
-                    <Image
-                        style={{ width: 300, height: 300 }}
-                        source={require('./personalweight.png')}
-                    />
+            <Formik initialValues={{
+                weight: ''
+            }}
+                validationSchema={EditWeightSchema}
+                onSubmit={values => Alert.alert(JSON.stringify(values))}
+            >
 
-                    <SafeAreaView >
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeNumber}
-                            value={number}
-                            placeholder="น้ำหนัก"
-                            keyboardType="numeric"
-                        />
-                    </SafeAreaView>
-                </View>
+                {({ values,
+                    errors,
+                    isValid,
+                    touched,
+                    handleChange,
+                    setFieldTouched,
+                    handleSubmit
+                }) => (
+                    <View style={styles.box}>
+                        <View style={styles.container}>
+                            <Image
+                                style={{ width: 300, height: 300 }}
+                                source={require('./personalweight.png')}
+                            />
 
-                <View style={{ paddingTop: 140 }}>
-                    <View style={styles.button}>
-                        <Button
-                            style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
-                            textColor="white"
-                            mode="contained"
-                        >
-                            บันทึก
-                        </Button>
+                            <SafeAreaView >
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.weight}
+                                    onChangeText={handleChange('weight')}
+                                    onBlur={() => setFieldTouched('weight')}
+                                    placeholder="น้ำหนัก"
+                                    keyboardType="numeric"
+                                />
+                                 {touched.weight && errors.weight && (
+                                    <Text style={styles.errorTxt}>{errors.weight}</Text>
+                                )}
+                            </SafeAreaView>
+                        </View>
+
+                        <View style={{ paddingTop: 130 }}>
+                            <View style={styles.button}>
+                                <Button
+                                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                                    textColor="white"
+                                    mode="contained"
+                                    disabled={!isValid}
+                                    onPress={handleSubmit}
+                                >
+                                    บันทึก
+                                </Button>
+                            </View>
+                        </View>
+
                     </View>
-                </View>
-
-            </View>
-
+                )}
+            </Formik>
         </ScrollView>
 
     );
@@ -80,6 +111,11 @@ const styles = StyleSheet.create({
         paddingRight: 18,
         paddingBottom: 10
     },
+    errorTxt: {
+      color: '#FD9A86',
+      paddingLeft: 16,
+  
+    }
 });
 
-export default EditCurrentWeight;
+export default EditCurrrentWeight;

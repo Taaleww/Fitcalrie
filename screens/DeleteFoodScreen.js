@@ -1,97 +1,67 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView, Icon } from 'react-native';
-import { Avatar, Card, IconButton, Text, ProgressBar, Button } from 'react-native-paper';
+import { View, StyleSheet, ScrollView } from 'react-native';
+import { Text, Button, Dialog, Portal, Provider } from 'react-native-paper';
+import ListNutrition from '../components/ListNutrition';
 
-const DeleteFoodScreen = () => (
-  <ScrollView>
-    <View style={styles.box}>
-      <View style={styles.iconbutton}>
-        {/* <IconButton
-          icon="chevron-left"
-          iconColor="#1A212F"
-          size={36}
-           onPress={() => navigation.goBack(null)}/> */}
-      </View>
+const DeleteFoodScreen = ({ navigation }) => {
 
-      {/* <Text style={styles.text_header}>อาหารกลางวัน</Text>
-      <Text style={styles.text_detail}>120 Kcal</Text> */}
-      <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
+  const [visible, setVisible] = React.useState(false);
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="แคลอรี่ (kcal)"
-          left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
+  const showDialog = () => setVisible(true);
+
+  const hideDialog = () => setVisible(false);
+
+
+  return (
+    <Provider>
+      <ScrollView>
+        {/* <Text style={styles.text_header}>ข้าวกระเพราะไก่</Text> */}
+        {/* <Text style={styles.text_detail}>120 Kcal</Text> */}
+        <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
+
+        {/* Information */}
+        <ListNutrition
+          kcal={20}
+          protein={20}
+          carbo={20}
+          fat={20}
+          sugar={20}
         />
-      </View>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="โปรตีน (g)"
-          left={(props) => <Avatar.Icon {...props} icon="egg" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
+        <View>
+          <View style={{ paddingTop: 90 }}>
+            <View style={styles.button}>
+              <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={showDialog}>
+                ลบเมนูอาหาร
+              </Button>
+            </View>
+          </View>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="คาร์โบไฮเดรต (g)"
-          left={(props) => <Avatar.Icon {...props} icon="hamburger" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
+          {/* Show Model */}
+          <Portal>
+            <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white', borderRadius: 10 }} >
+              <Dialog.Icon color='#EF4444' icon="alert-circle" size={30} />
+              <Dialog.Title style={{ fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>คุณต้องการลบ "ข้าวกระเพราไก่" ?</Dialog.Title>
+              <Dialog.Actions>
+                <Button
+                  textColor="#FD9A86"
+                  onPress={hideDialog}>              ยกเลิก              </Button>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="ไขมันทั้งหมด (g)"
-          left={(props) => <Avatar.Icon {...props} icon="water" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
-
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="น้ำตาล (g)"
-          left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
-
-      <View style={{ paddingTop: 90 }}>
-        <View style={styles.button}>
-          <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => console.log('Pressed')}>
-            ลบเมนูอาหาร
-          </Button>
+                <Button textColor="white" buttonColor='#FD9A86' onPress={() => console.log('Ok')}>              ยืนยัน              </Button>
+              </Dialog.Actions>
+            </Dialog>
+          </Portal>
         </View>
-      </View>
-    </View>
 
 
-  </ScrollView>
-
-);
+      </ScrollView>
+    </Provider>
+  );
+};
 
 export default DeleteFoodScreen;
 
 const styles = StyleSheet.create({
-  box: {
-    paddingBottom: 13
-  },
-  container: {
-    paddingTop: 10,
-    paddingLeft: 18,
-    paddingRight: 18,
-  },
   text_header: {
     color: '#1A212F',
     fontWeight: 'bold',
@@ -105,10 +75,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 116,
     textAlign: 'center',
-  },
-  text_details: {
-    paddingRight: 10,
-    fontSize: 14
   },
   text_Regular: {
     color: '#1A212F',

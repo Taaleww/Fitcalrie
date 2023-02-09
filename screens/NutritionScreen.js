@@ -18,9 +18,6 @@ const NutritionScreen = ({ navigation }) => (
       <Text style={styles.text_detail}>120 Kcal</Text> */}
       <Text style={styles.text_Regular}>เมนูอาหาร</Text>
 
-
-
-
       <TouchableOpacity activeOpacity={0.5} onPress={() =>
         navigation.navigate('DeleteFood')
       } >
@@ -48,8 +45,11 @@ const NutritionScreen = ({ navigation }) => (
             เพิ่มมื้ออาหาร
           </Button>
         </View>
-
       </View>
+
+      
+
+
     </View>
 
 

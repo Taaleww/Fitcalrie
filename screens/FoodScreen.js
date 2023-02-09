@@ -1,14 +1,15 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Card, IconButton, Text, ProgressBar } from 'react-native-paper';
+import ListFood from '../components/ListFood';
 
-const FoodScreen = ({navigation}) => {
+const FoodScreen = ({ navigation }) => {
 
   const [currentDate, setCurrentDate] = useState('');
 
   useEffect(() => {
-    var monthNames = [ 'Jan', 'Feb', 'Mar', 'Apr', 'May','Jun',
-    'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
     var date = new Date().getDate(); //Current Date
     var month = monthNames[new Date().getMonth()]; //Current Month
     var year = new Date().getFullYear(); //Current Year
@@ -18,86 +19,36 @@ const FoodScreen = ({navigation}) => {
   }, []);
   return (
     <ScrollView>
-    <View style={styles.box}>
-      <View style={styles.iconbutton}>
-        <IconButton
-          icon="calendar-month"
-          iconColor="white"
-          mode='contained-tonal'
-          containerColor='#FD9A86'
-          size={20}
-          onPress={() => console.log('Pressed')}
-        />
-      </View>
-      <Text style={styles.text_header}>วันนี้คุณรับประทานไปทั้งหมด 500 Kcal</Text>
+      <View style={styles.box}>
+        <View style={styles.iconbutton}>
+          <IconButton
+            icon="calendar-month"
+            iconColor="white"
+            mode='contained-tonal'
+            containerColor='#FD9A86'
+            size={20}
+            onPress={() => console.log('Pressed')}
+          />
+        </View>
+        <Text style={styles.text_header}>วันนี้คุณรับประทานไปทั้งหมด 500 Kcal</Text>
 
 
-      <Text style={styles.text_Regular}>{currentDate}</Text>
+        <Text style={styles.text_Regular}>{currentDate}</Text>
 
-      {/* Information */}
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="แคลอรี่ (kcal)"
-          left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-        <ProgressBar progress={0.5} color='#E2D784' style={styles.progress} />
-      </View>
+        {/* Information */}
+        <ListFood
+         kcal={20}
+         protein={20}
+         carbo={20}
+         fat={20}
+         sugar={20}
+       />
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="โปรตีน (g)"
-          left={(props) => <Avatar.Icon {...props} icon="egg" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-        <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
-
-      </View>
-
-      <View style={styles.container}>
-
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="คาร์โบไฮเดรต (g)"
-          left={(props) => <Avatar.Icon {...props} icon="hamburger" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-        <ProgressBar progress={0.5} color="#50BFC3" style={styles.progress} />
-
-      </View>
-
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="ไขมันทั้งหมด (g) "
-          left={(props) => <Avatar.Icon {...props} icon="water" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-        <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
-      </View>
-
-      <View style={styles.container}>
-        <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
-          title="น้ำตาล (g) "
-          left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
-        />
-        <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
-      </View>
-      
-      {/* Add Food */}
-      <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
-      <TouchableOpacity activeOpacity={0.5} onPress={() =>
-                navigation.navigate('Nutrition')
-                }>
+        {/* Add Food */}
+        <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
+        <TouchableOpacity activeOpacity={0.5} onPress={() =>
+          navigation.navigate('Nutrition')
+        }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -110,9 +61,9 @@ const FoodScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}onPress={() =>
-                navigation.navigate('NutritionLunch')
-                }>
+        <TouchableOpacity activeOpacity={0.5} onPress={() =>
+          navigation.navigate('NutritionLunch')
+        }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -125,9 +76,9 @@ const FoodScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
 
-        <TouchableOpacity activeOpacity={0.5}onPress={() =>
-                navigation.navigate('NutritionNight')
-                }>
+        <TouchableOpacity activeOpacity={0.5} onPress={() =>
+          navigation.navigate('NutritionNight')
+        }>
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
@@ -140,9 +91,9 @@ const FoodScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
 
-    </View>
+      </View>
 
-  </ScrollView>
+    </ScrollView>
   );
 };
 

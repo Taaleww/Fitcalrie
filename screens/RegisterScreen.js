@@ -165,7 +165,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   errorTxt: {
-    color: 'red',
+    color: '#FD9A86',
     paddingTop: 8
 
   }

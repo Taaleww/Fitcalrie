@@ -1,58 +1,80 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView } from 'react-native';
-import { Button, Text} from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView,Text } from 'react-native';
+import { Button } from 'react-native-paper';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
+
+const EditNameSchema = Yup.object().shape({
+    name: Yup.string()
+        .min(6, 'ชื่อผู้ใช้อย่างน้อย 6 ตัวอักษร')
+        .required('กรุณากรอกชื่อผู้ใช้')
+});
 
 const EditFormWeight = () => {
     const [text, onChangeText] = React.useState('');
 
     return (
         <ScrollView>
-            <View style={styles.box}>
+            <Formik initialValues={{
+                name: ''
+            }}
+                validationSchema={EditNameSchema}
+                onSubmit={values => Alert.alert(JSON.stringify(values))}
+            >
 
-        {/* <Text style={styles.text_header}>ชื่อ</Text>  */}
-                <View style={styles.container}>
-                    <Image
-                        style={{ width: 300, height: 300 }}
-                        source={require('./personalname.png')}
-                    />
+                {({ values,
+                    errors,
+                    isValid,
+                    touched,
+                    handleChange,
+                    setFieldTouched,
+                    handleSubmit
+                }) => (
+                    <View style={styles.box}>
+                        <View style={styles.container}>
+                            <Image
+                                style={{ width: 300, height: 300 }}
+                                source={require('./personalname.png')}
+                            />
+                            <SafeAreaView >
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.name}
+                                    onChangeText={handleChange('name')}
+                                    onBlur={() => setFieldTouched('name')}
+                                    placeholder="ชื่อ"
+                                />
+                                {touched.name && errors.name && (
+                                    <Text style={styles.errorTxt}>{errors.name}</Text>
+                                )}
+                               
+                            </SafeAreaView>
+                            
+                        </View>
 
-                    <SafeAreaView >
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeText}
-                            value={text}
-                            placeholder="ชื่อ"
-                        />
-                    </SafeAreaView>
-                </View>
-
-                <View style={{ paddingTop: 140 }}>
-                    <View style={styles.button}>
-                        <Button
-                            style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
-                            textColor="white"
-                            mode="contained"
-                        >
-                            บันทึก
-                        </Button>
+                        <View style={{ paddingTop: 130 }}>
+                            <View style={styles.button}>
+                                <Button
+                                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                                    textColor="white"
+                                    mode="contained"
+                                    disabled={!isValid}
+                                    onPress={handleSubmit}
+                                >
+                                    บันทึก
+                                </Button>
+                            </View>
+                        </View>
                     </View>
-                </View>
-
-
-
-
-
-            </View>
+                )}
+            </Formik>
 
         </ScrollView>
-
     );
 };
 
 const styles = StyleSheet.create({
     box: {
-        paddingBottom: 13
     },
     container: {
         paddingTop: 40,
@@ -86,6 +108,11 @@ const styles = StyleSheet.create({
         paddingRight: 18,
         paddingBottom: 10
     },
+    errorTxt: {
+      color: '#FD9A86',
+      paddingLeft: 16,
+  
+    }
 });
 
 export default EditFormWeight;

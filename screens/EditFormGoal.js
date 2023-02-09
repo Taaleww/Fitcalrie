@@ -1,60 +1,75 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-const EditFormWeight = () => {
-    const [number, onChangeNumber] = React.useState('');
+const EditWeightSchema = Yup.object().shape({
+    goal: Yup.number()
+        .min(20, 'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
+        .max(299,'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
+        .required('กรุณากรอกน้ำหนัก')
+});
+
+const EditFormGoal = () => {
+    // const [number, onChangeNumber] = React.useState('');
 
     return (
         <ScrollView>
-            <View style={styles.box}>
-                {/* <View style={styles.iconbutton}>
-          <IconButton
-            icon="chevron-left"
-            iconColor="#1A212F"
-            size={36}
-            onPress={() => console.log('Pressed')}
-          />
-        </View>
+            <Formik initialValues={{
+                goal: ''
+            }}
+                validationSchema={EditWeightSchema}
+                onSubmit={values => Alert.alert(JSON.stringify(values))}
+            >
 
-        <Text style={styles.text_header}>น้ำหนัก (กิโลกรัม)</Text> */}
-                <View style={styles.container}>
-                    <Image
-                        style={{ width: 300, height: 300 }}
-                        source={require('./personalgoal.png')}
-                    />
+                {({ values,
+                    errors,
+                    isValid,
+                    touched,
+                    handleChange,
+                    setFieldTouched,
+                    handleSubmit
+                }) => (
+                    <View style={styles.box}>
+                        <View style={styles.container}>
+                            <Image
+                                style={{ width: 300, height: 300 }}
+                                source={require('./personalgoal.png')}
+                            />
 
-                    <SafeAreaView >
-                        <TextInput
-                            style={styles.input}
-                            onChangeText={onChangeNumber}
-                            value={number}
-                            placeholder="เป้าหมายน้ำหนัก"
-                            keyboardType="numeric"
-                        />
-                    </SafeAreaView>
-                </View>
+                            <SafeAreaView >
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.weight}
+                                    onChangeText={handleChange('goal')}
+                                    onBlur={() => setFieldTouched('goal')}
+                                    placeholder="เป้าหมายน้ำหนัก"
+                                    keyboardType="numeric"
+                                />
+                                 {touched.goal && errors.goal && (
+                                    <Text style={styles.errorTxt}>{errors.goal}</Text>
+                                )}
+                            </SafeAreaView>
+                        </View>
 
-                <View style={{ paddingTop: 140 }}>
-                    <View style={styles.button}>
-                        <Button
-                            style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
-                            textColor="white"
-                            mode="contained"
-                        >
-                            บันทึก
-                        </Button>
+                        <View style={{ paddingTop: 130 }}>
+                            <View style={styles.button}>
+                                <Button
+                                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                                    textColor="white"
+                                    mode="contained"
+                                    disabled={!isValid}
+                                    onPress={handleSubmit}
+                                >
+                                    บันทึก
+                                </Button>
+                            </View>
+                        </View>
+
                     </View>
-
-                </View>
-
-
-
-
-
-            </View>
-
+                )}
+            </Formik>
         </ScrollView>
 
     );
@@ -96,6 +111,11 @@ const styles = StyleSheet.create({
         paddingRight: 18,
         paddingBottom: 10
     },
+    errorTxt: {
+      color: '#FD9A86',
+      paddingLeft: 16,
+  
+    }
 });
 
-export default EditFormWeight;
+export default EditFormGoal;

@@ -1,69 +1,70 @@
 import * as React from 'react';
 import { View, StyleSheet, ScrollView, SafeAreaView, TextInput } from 'react-native';
-import { Avatar, Card, Text, Button } from 'react-native-paper';
+import { Text, Button, Dialog, Portal, Provider } from 'react-native-paper';
 
 const CalculationExercise = () => {
     const [number, onChangeNumber] = React.useState('');
+    const [visible, setVisible] = React.useState(false);
+    const showDialog = () => setVisible(true);
+    const hideDialog = () => setVisible(false);
 
     return (
-        <ScrollView>
-            <View style={styles.box}>
-                <Text style={{textAlign: 'center', paddingTop: 50, fontWeight:"bold", fontSize: 60, color: '#FD9A86' }}>300</Text>
-                <Text style={{ textAlign: 'center'}}>Kcal</Text>
-                {/* <Text style={styles.text_Regular}>กรุณาระบุระยะเวลาและระยะทาง</Text> */}
-                {/* 
-            <View style={styles.container}>
-                <Card.Title
-                    style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ color: "#1A212F" }}
-                    title="เผาผลาญ (kcal)"
-                    left={(props) => <Avatar.Icon {...props} icon="fire" color='#1A212F' backgroundColor='#E9EFF2' />}
-                    right={(props) => <Text style={styles.text_details}>120</Text>}
-                />
-            </View> */}
-
-            </View>
-
-            <View style={{ paddingTop: 100, alignItems: 'center' }}>
-                <SafeAreaView >
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={onChangeNumber}
-                        value={number}
-                        placeholder="นาที"
-                        keyboardType="numeric"
-                    />
-                </SafeAreaView>
-
-                <SafeAreaView >
-                    <TextInput
-                        style={styles.input}
-                        onChangeText={onChangeNumber}
-                        value={number}
-                        placeholder="กิโลเมตร"
-                        keyboardType="numeric"
-                    />
-                </SafeAreaView>
-
-
-            </View>
-
-
-            <View style={{ paddingTop: 130 }}>
-                <View style={styles.button}>
-                    <Button style={{ backgroundColor: 'white', borderRadius: 10 }} textColor="#FD9A86" mode="contained" onPress={() => console.log('Pressed')}>
-                        คำนวณการเผาผลาญจากการวิ่ง
-                    </Button>
+        <Provider>
+            <ScrollView>
+                <View style={styles.box}>
+                    <Text style={{ textAlign: 'center', paddingTop: 50, fontWeight: "bold", fontSize: 60, color: '#FD9A86' }}>300</Text>
+                    <Text style={{ textAlign: 'center' }}>Kcal</Text>
                 </View>
-                <View style={styles.button}>
-                    <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => console.log('Pressed')}>
-                        บันทึก
-                    </Button>
+
+                <View style={{ paddingTop: 100, alignItems: 'center' }}>
+                    <SafeAreaView >
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={onChangeNumber}
+                            value={number}
+                            placeholder="นาที"
+                            keyboardType="numeric"
+                        />
+                    </SafeAreaView>
+
+                    <SafeAreaView >
+                        <TextInput
+                            style={styles.input}
+                            onChangeText={onChangeNumber}
+                            value={number}
+                            placeholder="กิโลเมตร"
+                            keyboardType="numeric"
+                        />
+                    </SafeAreaView>
+
+
                 </View>
-            </View>
+
+                <View style={{ paddingTop: 130 }}>
+                    <View style={styles.button}>
+                        <Button style={{ backgroundColor: 'white', borderRadius: 10 }} textColor="#FD9A86" mode="contained" onPress={() => console.log('Pressed')}>
+                            คำนวณการเผาผลาญจากการวิ่ง
+                        </Button>
+                    </View>
+                    <View style={styles.button}>
+                        <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={showDialog}>
+                            บันทึก
+                        </Button>
+                    </View>
+                </View>
+                <Portal>
+                    <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white', borderRadius: 10 }} >
+                        <Dialog.Icon color='#42DCAE' icon="check-circle" size={30} />
+                        <Dialog.Title style={{ fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>เพิ่มรายการใหม่สำเร็จ</Dialog.Title>
+                        <Dialog.Actions>
+                            <Button textColor="white" buttonColor='#FD9A86' onPress={hideDialog}>                                   ยืนยัน                                       </Button>
+                        </Dialog.Actions>
+                    </Dialog>
+                </Portal>
 
 
-        </ScrollView>
+            </ScrollView>
+        </Provider>
 
     );
 };

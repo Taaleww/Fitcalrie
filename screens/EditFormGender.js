@@ -31,7 +31,7 @@ const FormGender = () => {
 
 
 
-        <View style={{ paddingTop: 80 }}>
+        <View style={{ paddingTop: 75 }}>
           <View style={styles.button}>
             <Button
               style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
