@@ -1,54 +1,48 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Avatar, Card, IconButton, Text, ProgressBar } from 'react-native-paper';
+import { View, StyleSheet, ScrollView, Image } from 'react-native';
+import { Button, RadioButton } from 'react-native-paper';
 
 
 
-const FormGender = () => {
+const FormGender = ({ navigation }) => {
   const [number, onChangeNumber] = React.useState('');
+  const [value, setValue] = React.useState('male');
 
   return (
     <ScrollView>
       <View style={styles.box}>
-        <View style={styles.iconbutton}>
-          <IconButton
-            icon="chevron-left"
-            iconColor="#1A212F"
-            size={36}
-            onPress={() => console.log('Pressed')}
+
+        <View style={styles.container}>
+          <Image
+            style={{ width: 300, height: 300 }}
+            source={require('./personalname.png')}
           />
         </View>
 
-        <Text style={styles.text_header}>เพศ</Text>
+        <RadioButton.Group  onValueChange={value => setValue(value)} value={value}>
+          <RadioButton.Item 
+          style={{backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18, marginVertical: 10, Display: 'display'}} 
+          label="ชาย" value="male" 
+          
+          />
+          <RadioButton.Item style={{backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18}} label="หญิง" value="female" />
+        </RadioButton.Group>
 
 
-          <View style={styles.MainContainer}>
-            <View style={styles.Image}>
-              <Image 
-                style={{ width: 160, height: 160 }}
-                source={require('./male.png')}
-              />
-            </View>
+
+
+        <View style={{ paddingTop: 75 }}>
+          <View style={styles.button}>
+            <Button
+              style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
+              textColor="white"
+              mode="contained"
+              onPress={() => navigation.navigate('FormWeight')}
+            >
+              ถัดไป
+            </Button>
           </View>
-
-
-
-
-
-        <View style={styles.button_next} >
-          <IconButton
-            icon="chevron-right"
-            iconColor="white"
-            backgroundColor='#FD9A86'
-            size={20}
-            onPress={() => console.log('Pressed')}
-          />
         </View>
-
-     
-
-
-
 
       </View>
 
@@ -59,21 +53,24 @@ const FormGender = () => {
 
 const styles = StyleSheet.create({
   MainContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 100,
     backgroundColor: 'white',
     borderRadius: 10,
-    paddingRight: 50,
+    paddingRight: 100,
     paddingTop: 20
+
+  },
+  container: {
+    paddingTop: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
 
   },
   box: {
     paddingBottom: 13
   },
   Image: {
-    height: 200,
-    width: 100
+    height: 80,
+    width: 60
 
   },
   text_header: {
@@ -96,13 +93,12 @@ const styles = StyleSheet.create({
     borderRadius: 10
 
   },
-  button_next: {
-    paddingHorizontal: 352,
-    paddingTop: 16
-  },
-  text_details: {
-    paddingRight: 10,
-    fontSize: 14
+  button: {
+    flex: 1,
+    justifyContent: "center",
+    paddingLeft: 18,
+    paddingRight: 18,
+    paddingBottom: 10
   },
 });
 

@@ -1,24 +1,13 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Avatar, Card, IconButton, Text, ProgressBar } from 'react-native-paper';
+import { Avatar, Card, IconButton, Text, ProgressBar,Button } from 'react-native-paper';
 
-const FormFrqExercise = () => {
+const FormFrqExercise = ({navigation}) => {
   const [number, onChangeNumber] = React.useState('');
 
   return (
     <ScrollView>
       <View style={styles.box}>
-        <View style={styles.iconbutton}>
-          <IconButton
-            icon="chevron-left"
-            iconColor="#1A212F"
-            size={36}
-            onPress={() => console.log('Pressed')}
-          />
-        </View>
-
-        <Text style={styles.text_header}>คุณออกกำลังกายบ่อยครั้งแค่ไหน ?</Text>
-
         <TouchableOpacity activeOpacity={0.5}>
           <View style={styles.container}>
             <Card.Title
@@ -84,14 +73,17 @@ const FormFrqExercise = () => {
           </View>
         </TouchableOpacity>
 
-        <View style={styles.button_next} >
-          <IconButton
-            icon="chevron-right"
-            iconColor="white"
-            backgroundColor='#FD9A86'
-            size={20}
-            onPress={() => console.log('Pressed')}
-          />
+        <View style={{ paddingTop: 70 }}>
+          <View style={styles.button}>
+            <Button
+              style={{ borderRadius: 10, backgroundColor: '#FD9A86' }}
+              mode="contained"
+             
+              onPress={() => navigation.navigate('FormGoal')}
+            >
+              ถัดไป
+            </Button>
+          </View>
         </View>
 
 
@@ -106,7 +98,7 @@ const FormFrqExercise = () => {
 
 const styles = StyleSheet.create({
   box: {
-    paddingBottom: 13
+    paddingTop: 60
   },
   container: {
     justifyContent: 'center',
@@ -143,6 +135,13 @@ const styles = StyleSheet.create({
   text_details: {
     paddingRight: 10,
     fontSize: 14
+  },
+  button: {
+      flex: 1,
+      justifyContent: "center",
+      paddingLeft: 18,
+      paddingRight: 18,
+      paddingBottom: 10
   },
 });
 

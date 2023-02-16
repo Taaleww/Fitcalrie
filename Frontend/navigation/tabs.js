@@ -57,7 +57,7 @@ const HomeStack = () => {
       <Stack.Screen
         name="EditCurrentWeight"
         component={EditCurrentWeightScreen}
-        options={{ title: 'น้ำหนักปัจจุบัน', headerTransparent: 'true' }}
+        options={{ title: 'น้ำหนักปัจจุบัน' }}
       />
     </Stack.Navigator>
   );
@@ -129,7 +129,7 @@ const ExerciseStack = () => {
 
 const ProfileStack = () => {
   return (
-    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center', headerTransparent: 'true' }}>
+    <Stack.Navigator screenOptions={{ headerTitleAlign: 'center'}}>
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
@@ -145,27 +145,27 @@ const ProfileStack = () => {
       <Stack.Screen
         name="EditFormGender"
         component={EditFormGenderScreen}
-        options={{ title: 'เพศ', headerTitleAlign: 'center' }}
+        options={{ title: 'เพศ' }}
       />
       <Stack.Screen
         name="EditFormBirth"
         component={EditFormBirthScreen}
-        options={{ title: 'วันเกิด', headerTitleAlign: 'center' }}
+        options={{ title: 'วันเกิด'}}
       />
       <Stack.Screen
         name="EditFormHeight"
         component={EditFormHeightScreen}
-        options={{ title: 'ส่วนสูง', headerTitleAlign: 'center' }}
+        options={{ title: 'ส่วนสูง'}}
       />
       <Stack.Screen
         name="EditFormWeight"
         component={EditFormWeightScreen}
-        options={{ title: 'น้ำหนัก', headerTitleAlign: 'center' }}
+        options={{ title: 'น้ำหนัก'}}
       />
       <Stack.Screen
         name="EditFormGoal"
         component={EditFormGoalScreen}
-        options={{ title: 'เป้าหมายการลดน้ำหนัก', headerTitleAlign: 'center' }}
+        options={{ title: 'เป้าหมายการลดน้ำหนัก'}}
       />
 
     </Stack.Navigator>

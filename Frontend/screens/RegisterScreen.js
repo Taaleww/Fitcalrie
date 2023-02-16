@@ -38,7 +38,7 @@ const Register = ({ navigation }) => {
           confirmpassword: '',
         }}
           validationSchema={SignupSchema}
-          onSubmit={values => Alert.alert(JSON.stringify(values))}
+          onSubmit={() => navigation.navigate('FormGender')}
         >
 
           {({ values,

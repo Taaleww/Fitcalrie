@@ -1,94 +1,122 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView } from 'react-native';
-import { IconButton, Text } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/FontAwesome';
+import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView, Text } from 'react-native';
+import { Button } from 'react-native-paper';
+import { Formik } from 'formik';
+import * as Yup from 'yup';
 
-const FormHeight = () => {
-  const [number, onChangeNumber] = React.useState('');
+const EditHeightSchema = Yup.object().shape({
+    height: Yup.number()
+        .min(1, 'ต้องเป็นตัวเลขระหว่าง 1 ถึง 299')
+        .max(299, 'ต้องเป็นตัวเลขระหว่าง 1 ถึง 299')
+        .required('กรุณากรอกส่วนสูง')
+});
 
-  return (
-    <ScrollView>
-      <View style={styles.box}>
-        <View style={styles.iconbutton}>
-          <IconButton
-            icon="chevron-left"
-            iconColor="#1A212F"
-            size={36}
-            onPress={() => console.log('Pressed')}
-          />
-        </View>
+const FormHeight = ({ navigation }) => {
 
-        <Text style={styles.text_header}>ส่วนสูง (เซนติเมตร)</Text>
-        <View style={styles.container}>
-          <Image
-            style={{ width: 300, height: 300 }}
-            source={require('./personalheight.png')}
-          />
+    return (
+        <ScrollView>
+            <Formik initialValues={{
+                height: ''
+            }}
+                validationSchema={EditHeightSchema}
+                onSubmit={() => navigation.navigate('FormFrqExercise')}
+                
+            >
 
-          <SafeAreaView >
-            <TextInput
-              style={styles.input}
-              onChangeText={onChangeNumber}
-              value={number}
-              placeholder="ส่วนสูง"
-              keyboardType="numeric"
-            />
-          </SafeAreaView>
-        </View>
+                {({ values,
+                    errors,
+                    isValid,
+                    touched,
+                    handleChange,
+                    setFieldTouched,
+                    handleSubmit
+                }) => (
+                    <View style={styles.box}>
+                        <View style={styles.container}>
+                            <Image
+                                style={{ width: 300, height: 300 }}
+                                source={require('./personalheight.png')}
+                            />
 
-        <View style={styles.button_next} >
-          <IconButton
-            icon="chevron-right"
-            iconColor="white"
-            backgroundColor='#FD9A86'
-            size={20}
-            onPress={() => console.log('Pressed')}
-          />
-        </View>
+                            <SafeAreaView >
+                                <TextInput
+                                    style={styles.input}
+                                    value={values.height}
+                                    onChangeText={handleChange('height')}
+                                    onBlur={() => setFieldTouched('height')}
+                                    placeholder="ส่วนสูง"
+                                    keyboardType="numeric"
+                                />
+                                {touched.height && errors.height && (
+                                    <Text style={styles.errorTxt}>{errors.height}</Text>
+                                )}
+                            </SafeAreaView>
+                        </View>
 
+                        <View style={{ paddingTop: 130 }}>
+                            <View style={styles.button}>
+                                <Button
+                                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                                    textColor="white"
+                                    mode="contained"
+                                    disabled={!isValid}
+                                    onPress={handleSubmit}
+                                >
+                                    ถัดไป
+                                </Button>
+                            </View>
 
+                        </View>
 
+                    </View>
+                )}
+            </Formik>
+        </ScrollView>
 
-      </View>
-
-    </ScrollView>
-
-  );
+    );
 };
 
 const styles = StyleSheet.create({
-  box: {
-    paddingBottom: 13
-  },
-  container: {
-    paddingTop: 40,
-    justifyContent: 'center',
-    alignItems: 'center',
+    box: {
+        paddingBottom: 13
+    },
+    container: {
+        paddingTop: 40,
+        justifyContent: 'center',
+        alignItems: 'center',
 
-  },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 150,
-    textAlign: 'center'
-  },
-  iconbutton: {
-    top: 50
-  },
-  input: {
-    width: 360,
-    height: 40,
-    margin: 12,
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 10
+    },
+    text_header: {
+        color: '#1A212F',
+        fontWeight: 'bold',
+        fontSize: 20,
+        paddingHorizontal: 161,
+        textAlign: 'center'
+    },
+    iconbutton: {
+        top: 50
+    },
+    input: {
+        width: 380,
+        height: 40,
+        margin: 12,
+        padding: 10,
+        backgroundColor: 'white',
+        borderRadius: 10
 
-  },
-  button_next: {
-    paddingTop: 20,
-    paddingHorizontal: 345
-  }
+    },
+    button: {
+        flex: 1,
+        justifyContent: "center",
+        paddingLeft: 18,
+        paddingRight: 18,
+        paddingBottom: 10
+    },
+    errorTxt: {
+        color: '#FD9A86',
+        paddingLeft: 16,
+
+    }
 });
 
 export default FormHeight;

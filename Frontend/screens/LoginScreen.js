@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { View, StyleSheet, ScrollView, Image, Text, TouchableOpacity, TextInput } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, Text, TouchableOpacity} from 'react-native';
 import { Button } from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
@@ -95,9 +95,6 @@ const Login = ({ navigation }) => {
               </View>
               <View style={{ paddingTop: 120 }}>
                 <View style={styles.button}>
-                  {/* <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => { login() }}>
-                    เข้าสู่ระบบ
-                  </Button> */}
                   <Button
                     style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
                     textColor="white"
