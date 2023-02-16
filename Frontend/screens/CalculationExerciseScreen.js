@@ -18,9 +18,10 @@ const CalculationExercise = ({ navigation }) => {
     const showDialog = () => setVisible(true);
     const hideDialog = () => setVisible(false);
 
-
+    
     const calculator = (values) => {
         setSpeed(values.distance / (values.period / 60));
+        console.log(values.distance);
         console.log("speed", speed);
         let METs;
 

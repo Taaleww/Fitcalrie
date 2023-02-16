@@ -8,11 +8,11 @@ import { AuthContext } from '../context/AuthContext';
 const EditWeightSchema = Yup.object().shape({
     goal: Yup.number()
         .min(20, 'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
-        .max(299,'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
+        .max(299, 'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
         .required('กรุณากรอกน้ำหนัก')
 });
 
-const EditFormGoal = ({navigation}) => {
+const EditFormGoal = ({ navigation }) => {
     const { login } = useContext(AuthContext);
     return (
         <ScrollView>
@@ -44,16 +44,52 @@ const EditFormGoal = ({navigation}) => {
                                     value={values.weight}
                                     onChangeText={handleChange('goal')}
                                     onBlur={() => setFieldTouched('goal')}
-                                    placeholder="เป้าหมายน้ำหนัก"
+                                    placeholder="เป้าหมายน้ำหนัก                                                               กิโลกรัม"
                                     keyboardType="numeric"
                                 />
-                                 {touched.goal && errors.goal && (
+                                {touched.goal && errors.goal && (
                                     <Text style={styles.errorTxt}>{errors.goal}</Text>
                                 )}
                             </SafeAreaView>
                         </View>
 
-                        <View style={{ paddingTop: 130 }}>
+                        <View style={{ paddingTop: 110 }}>
+                            <View style={{ paddingLeft: 18, paddingBottom: 16, flexDirection: 'row', justifyContent: 'center' }}>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#FD9A86', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                            </View>
                             <View style={styles.button}>
                                 <Button
                                     style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
@@ -112,9 +148,9 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     errorTxt: {
-      color: '#FD9A86',
-      paddingLeft: 16,
-  
+        color: '#FD9A86',
+        paddingLeft: 16,
+
     }
 });
 

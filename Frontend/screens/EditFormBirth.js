@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView } from 're
 import { Button } from 'react-native-paper';
 import DateField from 'react-native-datefield'
 
-const EditFormWeight = () => {
+const EditFormBirth = () => {
     const [date, setDate] = useState(new Date())
     return (
         <ScrollView>
@@ -80,4 +80,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default EditFormWeight;
+export default EditFormBirth;

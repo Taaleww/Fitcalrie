@@ -22,6 +22,8 @@ const MainScreen = ({ navigation }) => {
     );
   }, []);
 
+  
+
   return (
     <Provider>
     <ScrollView>

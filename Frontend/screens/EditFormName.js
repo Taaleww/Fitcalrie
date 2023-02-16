@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView,Text } from 'react-native';
+import { View, StyleSheet, ScrollView, Image, TextInput, SafeAreaView, Text } from 'react-native';
 import { Button } from 'react-native-paper';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -13,6 +13,11 @@ const EditNameSchema = Yup.object().shape({
 const EditFormWeight = () => {
     const [text, onChangeText] = React.useState('');
 
+    const Input = (values) => {
+        console.log(values.name);
+    }
+
+
     return (
         <ScrollView>
             <Formik initialValues={{
@@ -21,7 +26,7 @@ const EditFormWeight = () => {
                 validationSchema={EditNameSchema}
                 onSubmit={values => Alert.alert(JSON.stringify(values))}
             >
-
+                
                 {({ values,
                     errors,
                     isValid,
@@ -37,6 +42,7 @@ const EditFormWeight = () => {
                                 source={require('./personalname.png')}
                             />
                             <SafeAreaView >
+                            {Input(values)}
                                 <TextInput
                                     style={styles.input}
                                     value={values.name}
@@ -47,9 +53,9 @@ const EditFormWeight = () => {
                                 {touched.name && errors.name && (
                                     <Text style={styles.errorTxt}>{errors.name}</Text>
                                 )}
-                               
+
                             </SafeAreaView>
-                            
+
                         </View>
 
                         <View style={{ paddingTop: 130 }}>
@@ -109,9 +115,9 @@ const styles = StyleSheet.create({
         paddingBottom: 10
     },
     errorTxt: {
-      color: '#FD9A86',
-      paddingLeft: 16,
-  
+        color: '#FD9A86',
+        paddingLeft: 16,
+
     }
 });
 

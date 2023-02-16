@@ -1,13 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, ScrollView, Image } from 'react-native';
-import { Button, RadioButton } from 'react-native-paper';
-
-
+import { Button, RadioButton, Text } from 'react-native-paper';
 
 const FormGender = ({ navigation }) => {
   const [number, onChangeNumber] = React.useState('');
   const [value, setValue] = React.useState('male');
-
+  console.log(value);
   return (
     <ScrollView>
       <View style={styles.box}>
@@ -19,33 +17,69 @@ const FormGender = ({ navigation }) => {
           />
         </View>
 
-        <RadioButton.Group  onValueChange={value => setValue(value)} value={value}>
-          <RadioButton.Item 
-          style={{backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18, marginVertical: 10, Display: 'display'}} 
-          label="ชาย" value="male" 
-          
+        <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+          <RadioButton.Item
+            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18, marginVertical: 10, Display: 'display' }}
+            label="ชาย"
+            value="male"
+
           />
-          <RadioButton.Item style={{backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18}} label="หญิง" value="female" />
+          <RadioButton.Item
+            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18 }}
+            label="หญิง"
+            value="female" />
         </RadioButton.Group>
 
-
-
-
-        <View style={{ paddingTop: 75 }}>
+        <View style={{ paddingTop: 50 }}>
+          <View style={{ paddingLeft: 18, paddingBottom: 16, flexDirection: 'row', justifyContent: 'center' }}>
+            <View style={{ paddingRight: 10 }}>
+              <View style={{ backgroundColor: '#FD9A86', borderRadius: 10, width: 12, height: 12 }}>
+                <Text></Text>
+              </View>
+            </View>
+            <View style={{ paddingRight: 10 }}>
+              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                <Text></Text>
+                <Text></Text>
+              </View>
+            </View>
+            <View style={{ paddingRight: 10 }}>
+              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                <Text></Text>
+                <Text></Text>
+              </View>
+            </View>
+            <View style={{ paddingRight: 10 }}>
+              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                <Text></Text>
+                <Text></Text>
+              </View>
+            </View>
+            <View style={{ paddingRight: 10 }}>
+              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                <Text></Text>
+                <Text></Text>
+              </View>
+            </View>
+            <View style={{ paddingRight: 10 }}>
+              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                <Text></Text>
+                <Text></Text>
+              </View>
+            </View>
+          </View>
           <View style={styles.button}>
             <Button
               style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
               textColor="white"
               mode="contained"
-              onPress={() => navigation.navigate('FormWeight')}
+              onPress={() => navigation.navigate('FormฺBirth', { value })}
             >
               ถัดไป
             </Button>
           </View>
         </View>
-
       </View>
-
     </ScrollView>
 
   );

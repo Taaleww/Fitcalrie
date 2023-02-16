@@ -12,7 +12,6 @@ const EditHeightSchema = Yup.object().shape({
 });
 
 const FormHeight = ({ navigation }) => {
-
     return (
         <ScrollView>
             <Formik initialValues={{
@@ -20,7 +19,7 @@ const FormHeight = ({ navigation }) => {
             }}
                 validationSchema={EditHeightSchema}
                 onSubmit={() => navigation.navigate('FormFrqExercise')}
-                
+
             >
 
                 {({ values,
@@ -44,7 +43,7 @@ const FormHeight = ({ navigation }) => {
                                     value={values.height}
                                     onChangeText={handleChange('height')}
                                     onBlur={() => setFieldTouched('height')}
-                                    placeholder="ส่วนสูง"
+                                    placeholder="ส่วนสูง                                                                           เซนติเมตร"
                                     keyboardType="numeric"
                                 />
                                 {touched.height && errors.height && (
@@ -53,7 +52,43 @@ const FormHeight = ({ navigation }) => {
                             </SafeAreaView>
                         </View>
 
-                        <View style={{ paddingTop: 130 }}>
+                        <View style={{ paddingTop: 110 }}>
+                            <View style={{ paddingLeft: 18, paddingBottom: 16, flexDirection: 'row', justifyContent: 'center' }}>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#FD9A86', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                                <View style={{ paddingRight: 10 }}>
+                                    <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+                                        <Text></Text>
+                                        <Text></Text>
+                                    </View>
+                                </View>
+                            </View>
                             <View style={styles.button}>
                                 <Button
                                     style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}

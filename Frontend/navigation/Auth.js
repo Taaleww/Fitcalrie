@@ -5,6 +5,7 @@ import OnboardingScreen from '../screens/OnboardingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
 import FormGenderScreen from '../screens/FormGender';
+import FormBirthScreen from '../screens/FormBirth';
 import FormWeighScreen from '../screens/FormWeight';
 import FormHeightScreen from '../screens/FormHeight';
 import FormFrqExerciseScreen from '../screens/FormFrqExercise';
@@ -36,6 +37,11 @@ const AuthStack = () => {
         options={{ title: 'เพศ'}}
       />
       <Stack.Screen
+        name="FormฺBirth"
+        component={FormBirthScreen}
+        options={{ title: 'วันเกิด'}}
+      />
+      <Stack.Screen
         name="FormWeight"
         component={FormWeighScreen}
         options={{ title: 'น้ำหนัก' }}
@@ -48,7 +54,7 @@ const AuthStack = () => {
       <Stack.Screen
         name="FormFrqExercise"
         component={FormFrqExerciseScreen}
-        options={{ title: 'คุณออกกำลังกายบ่อยครั้งแค่ไหน ?' }}
+        options={{ title: 'คุณออกกำลังกายบ่อยครั้งแค่ไหน' }}
       />
       <Stack.Screen
         name="FormGoal"

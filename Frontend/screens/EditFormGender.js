@@ -7,7 +7,7 @@ import { Button, RadioButton } from 'react-native-paper';
 const FormGender = () => {
   const [number, onChangeNumber] = React.useState('');
   const [value, setValue] = React.useState('male');
-
+  console.log(value);
   return (
     <ScrollView>
       <View style={styles.box}>
@@ -19,17 +19,17 @@ const FormGender = () => {
           />
         </View>
 
-        <RadioButton.Group  onValueChange={value => setValue(value)} value={value}>
-          <RadioButton.Item 
-          style={{backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18, marginVertical: 10, Display: 'display'}} 
-          label="ชาย" value="male" 
-          
+        <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+          <RadioButton.Item
+            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18, marginVertical: 10, Display: 'display' }}
+            label="ชาย"
+            value="male"
           />
-          <RadioButton.Item style={{backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18}} label="หญิง" value="female" />
+          <RadioButton.Item
+            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18 }}
+            label="หญิง"
+            value="female" />
         </RadioButton.Group>
-
-
-
 
         <View style={{ paddingTop: 75 }}>
           <View style={styles.button}>
