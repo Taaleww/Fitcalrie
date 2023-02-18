@@ -1,6 +1,13 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Avatar, Card, IconButton, Text, ProgressBar, Button } from 'react-native-paper';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {
+  Avatar,
+  Card,
+  IconButton,
+  Text,
+  ProgressBar,
+  Button,
+} from 'react-native-paper';
 
 const AddFoodScreen = () => (
   <ScrollView>
@@ -20,74 +27,112 @@ const AddFoodScreen = () => (
 
       <View style={styles.container}>
         <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
+          style={{backgroundColor: 'white', borderRadius: 10}}
+          titleStyle={{color: '#1A212F'}}
           title="แคลอรี่ (kcal)"
-          left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
+          left={props => (
+            <Avatar.Icon
+              {...props}
+              icon="food"
+              color="#1A212F"
+              backgroundColor="#E9EFF2"
+            />
+          )}
+          right={props => <Text style={styles.text_details}>500</Text>}
         />
       </View>
 
       <View style={styles.container}>
         <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
+          style={{backgroundColor: 'white', borderRadius: 10}}
+          titleStyle={{color: '#1A212F'}}
           title="โปรตีน (g)"
-          left={(props) => <Avatar.Icon {...props} icon="egg" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
+          left={props => (
+            <Avatar.Icon
+              {...props}
+              icon="egg"
+              color="#1A212F"
+              backgroundColor="#E9EFF2"
+            />
+          )}
+          right={props => <Text style={styles.text_details}>500</Text>}
         />
       </View>
 
       <View style={styles.container}>
         <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
+          style={{backgroundColor: 'white', borderRadius: 10}}
+          titleStyle={{color: '#1A212F'}}
           title="คาร์โบไฮเดรต (g)"
-          left={(props) => <Avatar.Icon {...props} icon="hamburger" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
+          left={props => (
+            <Avatar.Icon
+              {...props}
+              icon="hamburger"
+              color="#1A212F"
+              backgroundColor="#E9EFF2"
+            />
+          )}
+          right={props => <Text style={styles.text_details}>500</Text>}
         />
       </View>
 
       <View style={styles.container}>
         <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
+          style={{backgroundColor: 'white', borderRadius: 10}}
+          titleStyle={{color: '#1A212F'}}
           title="ไขมันทั้งหมด (g)"
-          left={(props) => <Avatar.Icon {...props} icon="water" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
+          left={props => (
+            <Avatar.Icon
+              {...props}
+              icon="water"
+              color="#1A212F"
+              backgroundColor="#E9EFF2"
+            />
+          )}
+          right={props => <Text style={styles.text_details}>500</Text>}
         />
       </View>
 
       <View style={styles.container}>
         <Card.Title
-          style={{ backgroundColor: 'white', borderRadius: 10 }}
-          titleStyle={{ color: "#1A212F" }}
+          style={{backgroundColor: 'white', borderRadius: 10}}
+          titleStyle={{color: '#1A212F'}}
           title="น้ำตาล (g)"
-          left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
-          right={(props) => <Text style={styles.text_details}>500</Text>}
+          left={props => (
+            <Avatar.Icon
+              {...props}
+              icon="spoon-sugar"
+              color="#1A212F"
+              backgroundColor="#E9EFF2"
+            />
+          )}
+          right={props => <Text style={styles.text_details}>500</Text>}
         />
       </View>
 
-      <View style={{ paddingTop: 120 }}>
+      <View style={{paddingTop: 120}}>
         <View style={styles.button}>
-          <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => console.log('Pressed')}>
+          <Button
+            style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
+            textColor="white"
+            mode="contained"
+            onPress={() => console.log('Pressed')}>
             บันทึกเมนูอาหาร
           </Button>
         </View>
-
       </View>
     </View>
-
-
   </ScrollView>
-
 );
 
 export default AddFoodScreen;
 
 const styles = StyleSheet.create({
   box: {
-    paddingBottom: 13
+    paddingBottom: 13,
   },
   container: {
     paddingTop: 10,
@@ -99,7 +144,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 116,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'NotoSansThai-Regular',
   },
   text_detail: {
     color: '#FD9A86',
@@ -107,26 +153,29 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 116,
     textAlign: 'center',
+    fontFamily: 'NotoSansThai-Regular',
   },
   text_details: {
     paddingRight: 10,
-    fontSize: 14
+    fontSize: 14,
+    fontFamily: 'NotoSansThai-Regular',
   },
   text_Regular: {
     color: '#1A212F',
     fontSize: 14,
     paddingLeft: 18,
-    paddingTop: 24
+    paddingTop: 24,
+    fontFamily: 'NotoSansThai-Regular',
   },
   button: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   iconbutton: {
     paddingLeft: 3,
-    top: 50
-  }
+    top: 50,
+  },
 });

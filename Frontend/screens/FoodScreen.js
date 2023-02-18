@@ -52,8 +52,9 @@ const FoodScreen = ({ navigation }) => {
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
-              titleStyle={{ color: "#1A212F" }}
+              titleStyle={{  fontFamily: 'NotoSansThai-Regular' }}
               title="มื้อเช้า "
+              subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
               subtitle="120 kcal"
               left={(props) => <Avatar.Icon {...props} icon="weather-sunset" color='#1A212F' backgroundColor='#E9EFF2' />}
               right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
@@ -67,8 +68,9 @@ const FoodScreen = ({ navigation }) => {
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
-              titleStyle={{ color: "#1A212F" }}
+              titleStyle={{ fontFamily: 'NotoSansThai-Regular'  }}
               title="มื้อกลางวัน "
+              subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
               subtitle="120 kcal"
               left={(props) => <Avatar.Icon {...props} icon="white-balance-sunny" color='#1A212F' backgroundColor='#E9EFF2' />}
               right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
@@ -82,8 +84,9 @@ const FoodScreen = ({ navigation }) => {
           <View style={{ paddingTop: 10 }} >
             <Card.Title
               style={{ backgroundColor: 'white', borderRadius: 10 }}
-              titleStyle={{ color: "#1A212F" }}
+              titleStyle={{ fontFamily: 'NotoSansThai-Regular' }}
               title="มื้อเย็น "
+              subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
               subtitle="120 kcal"
               left={(props) => <Avatar.Icon {...props} icon="weather-night" color='#1A212F' backgroundColor='#E9EFF2' />}
               right={(props) => <IconButton {...props} icon="plus" iconColor='#1A212F' onPress={() => { }} />}
@@ -110,21 +113,16 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 100,
     textAlign: 'center',
-    paddingTop: 20
+    paddingTop: 20,
+    fontFamily: 'NotoSansThai-SemiBold'
   },
   text_Regular: {
-    color: '#1A212F',
     fontSize: 14,
-    paddingTop: 24
-  },
-  text_details: {
-    paddingRight: 10,
-    fontSize: 14
+    paddingTop: 24,
+    fontFamily: 'NotoSansThai-Regular'
   },
   progress: {
     height: 8,

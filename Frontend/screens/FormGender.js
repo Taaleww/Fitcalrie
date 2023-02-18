@@ -24,6 +24,9 @@ const FormGender = ({nextStep, onUpdateState, state}) => {
               marginVertical: 10,
               Display: 'display',
             }}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
             label="ชาย"
             value="male"
           />
@@ -32,6 +35,9 @@ const FormGender = ({nextStep, onUpdateState, state}) => {
               backgroundColor: 'white',
               borderRadius: 10,
               marginHorizontal: 18,
+            }}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
             }}
             label="หญิง"
             value="female"
@@ -121,6 +127,9 @@ const FormGender = ({nextStep, onUpdateState, state}) => {
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+              labelStyle={{
+                fontFamily: 'NotoSansThai-Regular',
+              }}
               textColor="white"
               mode="contained"
               onPress={nextStep}>

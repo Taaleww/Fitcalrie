@@ -36,11 +36,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     textAlign: 'center',
-    paddingBottom: 10
+    paddingBottom: 10,
+    fontFamily: 'NotoSansThai-Regular',
   },
   text_details: {
     paddingHorizontal: 100,
     textAlign: 'center',
-    fontSize: 14
+    fontSize: 14,
+    fontFamily: 'NotoSansThai-Regular',
   },
 });

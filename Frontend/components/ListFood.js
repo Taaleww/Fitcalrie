@@ -16,7 +16,7 @@ export default function ListFood({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ color: "#1A212F" }}
+                    titleStyle={{ color: "#1A212F" ,fontFamily: 'NotoSansThai-Regular' }}
                     title="แคลอรี่ (kcal)"
                     left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{kcal}</Text>}
@@ -27,7 +27,7 @@ export default function ListFood({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ color: "#1A212F" }}
+                    titleStyle={{ color: "#1A212F",fontFamily: 'NotoSansThai-Regular'  }}
                     title="โปรตีน (g)"
                     left={(props) => <Avatar.Icon {...props} icon="egg" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{protein}</Text>}
@@ -40,7 +40,7 @@ export default function ListFood({
 
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ color: "#1A212F" }}
+                    titleStyle={{ color: "#1A212F",fontFamily: 'NotoSansThai-Regular'  }}
                     title="คาร์โบไฮเดรต (g)"
                     left={(props) => <Avatar.Icon {...props} icon="hamburger" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{carbo}</Text>}
@@ -52,7 +52,7 @@ export default function ListFood({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ color: "#1A212F" }}
+                    titleStyle={{ color: "#1A212F" ,fontFamily: 'NotoSansThai-Regular' }}
                     title="ไขมันทั้งหมด (g) "
                     left={(props) => <Avatar.Icon {...props} icon="water" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{fat}</Text>}
@@ -63,7 +63,7 @@ export default function ListFood({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ color: "#1A212F" }}
+                    titleStyle={{ color: "#1A212F" ,fontFamily: 'NotoSansThai-Regular' }}
                     title="น้ำตาล (g) "
                     left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{sugar}</Text>}
@@ -80,7 +80,8 @@ const styles = StyleSheet.create({
     },
     text_details: {
       paddingRight: 10,
-      fontSize: 14
+      fontSize: 14,
+      fontFamily: 'NotoSansThai-Regular' 
     },
     progress: {
       height: 8,

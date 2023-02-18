@@ -16,7 +16,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 1 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{color: '#1A212F'}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
               title="ไม่เคย "
               left={props => (
                 <Avatar.Icon
@@ -43,7 +43,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 2 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{color: '#1A212F'}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
               title="น้อย"
               left={props => (
                 <Avatar.Icon
@@ -70,7 +70,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 3 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{color: '#1A212F'}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
               title="ปานกลาง "
               left={props => (
                 <Avatar.Icon
@@ -97,7 +97,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 4 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{color: '#1A212F'}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
               title="บ่อยครั้ง"
               left={props => (
                 <Avatar.Icon
@@ -124,7 +124,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 5 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{color: '#1A212F'}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
               title="เป็นประจำ"
               left={props => (
                 <Avatar.Icon
@@ -223,6 +223,9 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
           <View style={styles.button}>
             <Button
               style={{borderRadius: 10, backgroundColor: '#FD9A86'}}
+              labelStyle={{
+                fontFamily: 'NotoSansThai-Regular',
+              }}
               mode="contained"
               disabled={state.frq_excercise === ''}
               onPress={nextStep}>
@@ -247,7 +250,6 @@ const styles = StyleSheet.create({
     paddingRight: 18,
   },
   text_header: {
-    color: '#1A212F',
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 110,
@@ -268,6 +270,7 @@ const styles = StyleSheet.create({
   text_details: {
     paddingRight: 10,
     fontSize: 14,
+    fontFamily: 'NotoSansThai-Regular',
   },
   button: {
     flex: 1,

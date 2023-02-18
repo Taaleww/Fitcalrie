@@ -21,7 +21,9 @@ const FormBirth = ({nextStep, onUpdateState, state}) => {
               borderColor: '#cacaca',
               backgroundColor: 'white',
               marginHorizontal: 10,
+              fontFamily: 'NotoSansThai-Regular',
             }}
+            
             disabled
             labelDate="วัน"
             labelMonth="เดือน"
@@ -116,6 +118,9 @@ const FormBirth = ({nextStep, onUpdateState, state}) => {
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+              labelStyle={{
+                fontFamily: 'NotoSansThai-Regular',
+              }}
               textColor="white"
               mode="contained"
               disabled={state.dateOfbirth === null}

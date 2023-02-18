@@ -57,6 +57,9 @@ const EditFormHeight = () => {
                             <View style={styles.button}>
                                 <Button
                                     style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                                    labelStyle={{
+                                        fontFamily: 'NotoSansThai-Regular',
+                                      }}
                                     textColor="white"
                                     mode="contained"
                                     disabled={!isValid}
@@ -102,7 +105,8 @@ const styles = StyleSheet.create({
         margin: 12,
         padding: 10,
         backgroundColor: 'white',
-        borderRadius: 10
+        borderRadius: 10,
+        fontFamily: 'NotoSansThai-Regular',
 
     },
     button: {
@@ -115,6 +119,7 @@ const styles = StyleSheet.create({
     errorTxt: {
         color: '#FD9A86',
         paddingLeft: 16,
+        fontFamily: 'NotoSansThai-Regular',
 
     }
 });

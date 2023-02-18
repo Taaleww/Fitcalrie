@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
-import { Avatar, Card, IconButton, Text, ProgressBar, Button } from 'react-native-paper';
+import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {Avatar, Card, IconButton, Text, Button} from 'react-native-paper';
 
-const NutritionNightScreen = ({navigation}) => (
-  <ScrollView name="NutritionScreen">
+const NutrtionNightScreen = ({navigation}) => (
+  <ScrollView>
     <View style={styles.box}>
       {/* <View style={styles.iconbutton}>
         <IconButton
@@ -18,47 +18,59 @@ const NutritionNightScreen = ({navigation}) => (
       <Text style={styles.text_detail}>120 Kcal</Text> */}
       <Text style={styles.text_Regular}>เมนูอาหาร</Text>
 
-      <TouchableOpacity activeOpacity={0.5} onPress={() =>
-        navigation.navigate('DeleteFood')
-      } >
+      <TouchableOpacity
+        activeOpacity={0.5}
+        onPress={() => navigation.navigate('DeleteFood')}>
         <View style={styles.container}>
           <Card.Title
-            style={{ backgroundColor: 'white', borderRadius: 10 }}
-            titleStyle={{ color: "#1A212F" }}
+            style={{backgroundColor: 'white', borderRadius: 10}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
             title="ข้าวกระเพราไก่"
+            subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
             subtitle="120 kcal"
-            left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
-            right={(props) => <IconButton {...props} icon="chevron-right" iconColor='#1A212F' onPress={() => { }} />}
+            left={props => (
+              <Avatar.Icon
+                {...props}
+                icon="food"
+                color="#1A212F"
+                backgroundColor="#E9EFF2"
+              />
+            )}
+            right={props => (
+              <IconButton
+                {...props}
+                icon="chevron-right"
+                iconColor="#1A212F"
+                onPress={() => {}}
+              />
+            )}
           />
         </View>
       </TouchableOpacity>
 
-      <View style={{ paddingTop: 410 }}>
+      <View style={{paddingTop: 410}}>
         <View style={styles.button}>
           <Button
-            style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
+            style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
             textColor="white"
             mode="contained"
-            onPress={() =>
-              navigation.navigate('SearchFood')
-            } >
+            onPress={() => navigation.navigate('SearchFood')}>
             เพิ่มมื้ออาหาร
           </Button>
         </View>
-
       </View>
     </View>
-
-
   </ScrollView>
-
 );
 
-export default NutritionNightScreen;
+export default NutrtionNightScreen;
 
 const styles = StyleSheet.create({
   box: {
-    paddingBottom: 13
+    paddingBottom: 13,
   },
   container: {
     paddingTop: 10,
@@ -70,7 +82,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 116,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'NotoSansThai-Regular',
   },
   text_detail: {
     color: '#FD9A86',
@@ -78,23 +91,24 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 116,
     textAlign: 'center',
+    fontFamily: 'NotoSansThai-Regular',
   },
   text_Regular: {
     color: '#1A212F',
-    fontWeight: 'bold',
     fontSize: 20,
     paddingLeft: 18,
-    paddingTop: 24
+    paddingTop: 24,
+    fontFamily: 'NotoSansThai-SemiBold',
   },
   button: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   iconbutton: {
     paddingLeft: 3,
-    top: 50
-  }
+    top: 50,
+  },
 });

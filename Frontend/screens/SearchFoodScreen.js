@@ -26,6 +26,7 @@ const SearchFoodScreen = () => {
             style={{ borderRadius: 10, height: 48, width: 380, backgroundColor:'white' }}
             placeholder="ค้นหาเมนูอาหาร"
             onChangeText={onChangeSearch}
+            placeholderTextColor='#E0E0E0'
             value={searchQuery}
           />
         </View>
@@ -42,11 +43,6 @@ const styles = StyleSheet.create({
   box: {
     paddingBottom: 13
   },
-  container: {
-    paddingTop: 10,
-    paddingLeft: 18,
-    paddingRight: 18,
-  },
   text_header: {
     color: '#1A212F',
     fontWeight: 'bold',
@@ -60,13 +56,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 116,
     textAlign: 'center',
-  },
-  text_Regular: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingLeft: 18,
-    paddingTop: 24
   },
   button: {
     flex: 1,

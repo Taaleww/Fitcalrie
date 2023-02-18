@@ -15,7 +15,7 @@ const App = () => {
   return (
     <ApolloProvider client={client}>
       <AuthProvider>
-        <AppNav />
+        <AppNav style={{fontFamily: 'NotoSansThai-Regular'}} />
       </AuthProvider>
     </ApolloProvider>
   );

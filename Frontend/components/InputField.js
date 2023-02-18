@@ -18,31 +18,35 @@ export default function InputField({
         flexDirection: 'row',
         borderBottomColor: '#ccc',
         borderBottomWidth: 1,
-        paddingBottom: 8,
+        paddingBottom: 8
       }}>
       {icon}
       {inputType == 'password' ? (
         <TextInput
+        labelStyle={{
+          fontFamily: 'NotoSansThai-Regular',
+        }}
           placeholder={label}
           value={value}
           onChangeText={onChangeText}
           onBlur={onBlur}
           keyboardType={keyboardType}
-          style={{flex: 1, paddingVertical: 0}}
+          style={{flex: 1, paddingVertical: 0,fontFamily: 'NotoSansThai-Regular'}}
           secureTextEntry={true}
         />
       ) : (
         <TextInput
+          
           placeholder={label}
           value={value}
           onChangeText={onChangeText}
           onBlur={onBlur}
           keyboardType={keyboardType}
-          style={{flex: 1, paddingVertical: 0}}
+          style={{flex: 1, paddingVertical: 0,fontFamily: 'NotoSansThai-Regular'}}
         />
       )}
       <TouchableOpacity onPress={fieldButtonFunction}>
-        <Text style={{color: '#AD40AF', fontWeight: '700'}}>{fieldButtonLabel}</Text>
+        <Text style={{color: '#AD40AF', fontWeight: '700',fontFamily: 'NotoSansThai-Regular'}}>{fieldButtonLabel}</Text>
       </TouchableOpacity>
     </View>
   );

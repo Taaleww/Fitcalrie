@@ -26,6 +26,7 @@ const SearchExerciseScreen = () => {
             style={{ borderRadius: 10, height: 48, width: 380, backgroundColor:'white' }}
             placeholder="ค้นหาจากชื่อ"
             onChangeText={onChangeSearch}
+            placeholderTextColor='#E0E0E0'
             value={searchQuery}
           />
         </View>

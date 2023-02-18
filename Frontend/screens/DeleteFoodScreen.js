@@ -1,16 +1,14 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Text, Button, Dialog, Portal, Provider } from 'react-native-paper';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {Text, Button, Dialog, Portal, Provider} from 'react-native-paper';
 import ListNutrition from '../components/ListNutrition';
 
-const DeleteFoodScreen = ({ navigation }) => {
-
+const DeleteFoodScreen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
 
   const showDialog = () => setVisible(true);
 
   const hideDialog = () => setVisible(false);
-
 
   return (
     <Provider>
@@ -20,18 +18,19 @@ const DeleteFoodScreen = ({ navigation }) => {
         <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
         {/* Information */}
-        <ListNutrition
-          kcal={20}
-          protein={20}
-          carbo={20}
-          fat={20}
-          sugar={20}
-        />
+        <ListNutrition kcal={20} protein={20} carbo={20} fat={20} sugar={20} />
 
         <View>
-          <View style={{ paddingTop: 90 }}>
+          <View style={{paddingTop: 90}}>
             <View style={styles.button}>
-              <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={showDialog}>
+              <Button
+                style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+                labelStyle={{
+                  fontFamily: 'NotoSansThai-Regular',
+                }}
+                textColor="white"
+                mode="contained"
+                onPress={showDialog}>
                 ลบเมนูอาหาร
               </Button>
             </View>
@@ -39,21 +38,40 @@ const DeleteFoodScreen = ({ navigation }) => {
 
           {/* Show Model */}
           <Portal>
-            <Dialog visible={visible} onDismiss={hideDialog} style={{ backgroundColor: 'white', borderRadius: 10 }} >
-              <Dialog.Icon color='#EF4444' icon="alert-circle" size={30} />
-              <Dialog.Title style={{ fontSize: 16, textAlign: 'center', fontWeight: 'bold' }}>คุณต้องการลบ "ข้าวกระเพราไก่" ?</Dialog.Title>
+            <Dialog
+              visible={visible}
+              onDismiss={hideDialog}
+              style={{backgroundColor: 'white', borderRadius: 10}}>
+              <Dialog.Icon color="#EF4444" icon="alert-circle" size={30} />
+              <Dialog.Title
+                style={{fontSize: 16, textAlign: 'center', fontFamily: 'NotoSansThai-SemiBold'}}>
+                คุณต้องการลบ "ข้าวกระเพราไก่" ?
+              </Dialog.Title>
               <Dialog.Actions>
-                <Button
-                  textColor="#FD9A86"
-                  onPress={hideDialog}>              ยกเลิก              </Button>
+              <Button
+                textColor="#FD9A86"
+                labelStyle={{
+                  fontFamily: 'NotoSansThai-Regular',
+                }}
+                onPress={hideDialog}>
+                {'            '}
+                ยกเลิก{'            '}
+              </Button>
 
-                <Button textColor="white" buttonColor='#FD9A86' onPress={() => console.log('Ok')}>              ยืนยัน              </Button>
+              <Button
+                textColor="white"
+                labelStyle={{
+                  fontFamily: 'NotoSansThai-Regular',
+                }}
+                buttonColor="#FD9A86"
+                onPress={() => console.log('Ok')}>
+                {'            '}
+                ยืนยัน{'            '}
+              </Button>
               </Dialog.Actions>
             </Dialog>
           </Portal>
         </View>
-
-
       </ScrollView>
     </Provider>
   );
@@ -67,7 +85,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 116,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   text_detail: {
     color: '#FD9A86',
@@ -80,17 +98,18 @@ const styles = StyleSheet.create({
     color: '#1A212F',
     fontSize: 14,
     paddingLeft: 18,
-    paddingTop: 24
+    paddingTop: 24,
+    fontFamily: 'NotoSansThai-Regular'
   },
   button: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   iconbutton: {
     paddingLeft: 3,
-    top: 50
-  }
+    top: 50,
+  },
 });

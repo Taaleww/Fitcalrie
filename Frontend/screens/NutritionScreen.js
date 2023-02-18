@@ -24,8 +24,9 @@ const NutritionScreen = ({ navigation }) => (
         <View style={styles.container}>
           <Card.Title
             style={{ backgroundColor: 'white', borderRadius: 10 }}
-            titleStyle={{ color: "#1A212F" }}
+            titleStyle={{ fontFamily: 'NotoSansThai-Regular', }}
             title="ข้าวกระเพราไก่"
+            subtitleStyle={{ fontFamily: 'NotoSansThai-Regular'}}
             subtitle="120 kcal"
             left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
             right={(props) => <IconButton {...props} icon="chevron-right" iconColor='#1A212F' onPress={() => { }} />}
@@ -37,6 +38,9 @@ const NutritionScreen = ({ navigation }) => (
         <View style={styles.button}>
           <Button
             style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
             textColor="white"
             mode="contained"
             onPress={() =>
@@ -73,7 +77,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 116,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'NotoSansThai-Regular'
   },
   text_detail: {
     color: '#FD9A86',
@@ -81,13 +86,14 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 116,
     textAlign: 'center',
+    fontFamily: 'NotoSansThai-Regular'
   },
   text_Regular: {
     color: '#1A212F',
-    fontWeight: 'bold',
     fontSize: 20,
     paddingLeft: 18,
-    paddingTop: 24
+    paddingTop: 24,
+    fontFamily: 'NotoSansThai-SemiBold'
   },
   button: {
     flex: 1,

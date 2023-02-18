@@ -1,19 +1,26 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image} from 'react-native';
-import { Button } from 'react-native-paper';
+import {View, StyleSheet, ScrollView, Image} from 'react-native';
+import {Button} from 'react-native-paper';
 
-const MainScreen = ({ navigation }) => {
+const MainScreen = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image
-            style={{ width: 160, height: 160 }}
+            style={{width: 160, height: 160}}
             source={require('./Logo_FITCLRIE.png')}
           />
         </View>
         <View style={{paddingTop: 220}}>
-          <Button style={{ backgroundColor: '#FD9A86', borderRadius: 10 }} textColor="white" mode="contained" onPress={() => navigation.navigate('Login')}>
+          <Button
+            style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
+            textColor="white"
+            mode="contained"
+            onPress={() => navigation.navigate('Login')}>
             เริ่มต้นใช้งาน
           </Button>
         </View>
@@ -25,15 +32,13 @@ const MainScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
   box: {
     paddingBottom: 13,
-    padding: 18
-
+    padding: 18,
   },
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 200
-  }
-
+    paddingTop: 200,
+  },
 });
 
 export default MainScreen;

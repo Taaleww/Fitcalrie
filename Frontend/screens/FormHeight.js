@@ -53,7 +53,7 @@ const FormHeight = ({nextStep, onUpdateState, state}) => {
                     onUpdateState({height: Number(val)});
                   }}
                   onBlur={() => setFieldTouched('height')}
-                  placeholder="ส่วนสูง                                                                           เซนติเมตร"
+                  placeholder="ส่วนสูง                                                                    เซนติเมตร"
                   keyboardType="numeric"
                   defaultValue={String(state.height)}
                 />
@@ -148,6 +148,9 @@ const FormHeight = ({nextStep, onUpdateState, state}) => {
                     borderRadius: 10,
                     backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
                   }}
+                  labelStyle={{
+                    fontFamily: 'NotoSansThai-Regular',
+                  }}
                   textColor="white"
                   mode="contained"
                   disabled={!isValid}
@@ -186,6 +189,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
+    fontFamily: 'NotoSansThai-Regular',
   },
   button: {
     flex: 1,
@@ -197,6 +201,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: '#FD9A86',
     paddingLeft: 16,
+    fontFamily: 'NotoSansThai-Regular',
   },
 });
 

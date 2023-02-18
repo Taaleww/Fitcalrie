@@ -1,8 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, TouchableOpacity, Image } from 'react-native';
-import { Button, RadioButton } from 'react-native-paper';
-
-
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  TouchableOpacity,
+  Image,
+} from 'react-native';
+import {Button, RadioButton} from 'react-native-paper';
 
 const FormGender = () => {
   const [number, onChangeNumber] = React.useState('');
@@ -11,42 +15,59 @@ const FormGender = () => {
   return (
     <ScrollView>
       <View style={styles.box}>
-
         <View style={styles.container}>
           <Image
-            style={{ width: 300, height: 300 }}
+            style={{width: 300, height: 300}}
             source={require('./personalname.png')}
           />
         </View>
 
-        <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+        <RadioButton.Group
+          onValueChange={value => setValue(value)}
+          value={value}>
           <RadioButton.Item
-            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18, marginVertical: 10, Display: 'display' }}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 10,
+              marginHorizontal: 18,
+              marginVertical: 10,
+              Display: 'display',
+            }}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
             label="ชาย"
             value="male"
           />
           <RadioButton.Item
-            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18 }}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 10,
+              marginHorizontal: 18,
+            }}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
             label="หญิง"
-            value="female" />
+            value="female"
+          />
         </RadioButton.Group>
 
-        <View style={{ paddingTop: 75 }}>
+        <View style={{paddingTop: 75}}>
           <View style={styles.button}>
             <Button
-              style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
+              style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+              labelStyle={{
+                fontFamily: 'NotoSansThai-Regular',
+              }}
               textColor="white"
-              mode="contained"
-            >
+              mode="contained">
               บันทึก
             </Button>
           </View>
         </View>
-
       </View>
-
     </ScrollView>
-
   );
 };
 
@@ -55,22 +76,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     paddingRight: 100,
-    paddingTop: 20
-
+    paddingTop: 20,
   },
   container: {
     paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   box: {
-    paddingBottom: 13
+    paddingBottom: 13,
   },
   Image: {
     height: 80,
-    width: 60
-
+    width: 60,
   },
   text_header: {
     color: '#1A212F',
@@ -78,10 +96,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 110,
     textAlign: 'center',
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   iconbutton: {
-    top: 50
+    top: 50,
   },
   input: {
     width: 360,
@@ -89,15 +107,15 @@ const styles = StyleSheet.create({
     margin: 12,
     padding: 10,
     backgroundColor: 'white',
-    borderRadius: 10
-
+    borderRadius: 10,
+    fontFamily: 'NotoSansThai-Regular',
   },
   button: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
 });
 

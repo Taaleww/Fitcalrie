@@ -53,7 +53,7 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
                     onUpdateState({weight: Number(val)});
                   }}
                   onBlur={() => setFieldTouched('weight')}
-                  placeholder="น้ำหนัก                                                                              กิโลกรัม"
+                  placeholder="น้ำหนัก                                                                        กิโลกรัม"
                   keyboardType="numeric"
                   defaultValue={String(state.weight)}
                 />
@@ -150,6 +150,9 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
                     borderRadius: 10,
                     backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
                   }}
+                  labelStyle={{
+                    fontFamily: 'NotoSansThai-Regular',
+                  }}
                   textColor="white"
                   mode="contained"
                   disabled={!isValid}
@@ -188,6 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
+    fontFamily: 'NotoSansThai-Regular',
   },
   button: {
     flex: 1,
@@ -199,6 +203,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: '#FD9A86',
     paddingLeft: 16,
+    fontFamily: 'NotoSansThai-Regular',
   },
 });
 

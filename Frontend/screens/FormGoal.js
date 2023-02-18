@@ -55,7 +55,7 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
                     onUpdateState({goal: Number(val)});
                   }}
                   onBlur={() => setFieldTouched('goal')}
-                  placeholder="เป้าหมายน้ำหนัก                                                               กิโลกรัม"
+                  placeholder="เป้าหมายน้ำหนัก                                                           กิโลกรัม"
                   defaultValue={String(state.goal)}
                   keyboardType="numeric"
                 />
@@ -150,6 +150,9 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
                     borderRadius: 10,
                     backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
                   }}
+                  labelStyle={{
+                    fontFamily: 'NotoSansThai-Regular',
+                  }}
                   textColor="white"
                   mode="contained"
                   disabled={!isValid}
@@ -188,6 +191,7 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
+    fontFamily: 'NotoSansThai-Regular',
   },
   button: {
     flex: 1,
@@ -199,6 +203,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: '#FD9A86',
     paddingLeft: 16,
+    fontFamily: 'NotoSansThai-Regular',
   },
 });
 

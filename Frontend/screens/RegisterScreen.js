@@ -126,6 +126,9 @@ const Register = ({navigation, nextStep, onUpdateState, state}) => {
                       borderRadius: 10,
                       backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
                     }}
+                    labelStyle={{
+                      fontFamily: 'NotoSansThai-Regular',
+                    }}
                     textColor="white"
                     mode="contained"
                     onPress={handleSubmit}
@@ -143,9 +146,9 @@ const Register = ({navigation, nextStep, onUpdateState, state}) => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Text>เคยสมัครแล้ว ?</Text>
+          <Text style={{fontFamily: 'NotoSansThai-Regular',}}>เคยสมัครแล้ว ?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={{color: '#FD9A86', fontWeight: '700'}}>
+            <Text style={{color: '#FD9A86',fontFamily: 'NotoSansThai-SemiBold',}}>
               {' '}
               เข้าสู่ระบบ
             </Text>

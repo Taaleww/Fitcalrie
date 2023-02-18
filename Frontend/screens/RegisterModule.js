@@ -108,9 +108,9 @@ const RegisterModule = ({navigation}) => {
             />
             <Text
               style={{
-                fontWeight: 'bold',
                 color: 'black',
                 fontSize: 20,
+                fontFamily: 'NotoSansThai-SemiBold',
               }}>
               {getTabName(step)}
             </Text>

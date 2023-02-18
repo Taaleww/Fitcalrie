@@ -1,12 +1,22 @@
-import React, { useContext } from 'react';
-import { View, StyleSheet, ScrollView, Image, Text, TouchableOpacity} from 'react-native';
-import { Button } from 'react-native-paper';
+import React, {useContext, useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import {Button} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import InputField from '../components/InputField';
-import { AuthContext } from '../context/AuthContext';
-import { Formik } from 'formik';
+import {AuthContext} from '../context/AuthContext';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
+
+import {useMutation} from '@apollo/client';
+import {LOGIN} from '../graphql/mutation';
 
 const SigninSchema = Yup.object().shape({
   username: Yup.string()
@@ -14,43 +24,49 @@ const SigninSchema = Yup.object().shape({
     .required('กรุณากรอกชื่อผู้ใช้'),
   password: Yup.string()
     .min(8, 'รหัสผ่านอย่างน้อย 8 ตัวอักษร')
-    .required('กรุณากรอกรหัสผ่าน')
+    .required('กรุณากรอกรหัสผ่าน'),
 });
 
-const Login = ({ navigation }) => {
+const Login = ({navigation}) => {
+  const {login} = useContext(AuthContext);
 
-  const { login } = useContext(AuthContext);
+  // Pass mutation to useMutation
+  const [signin] = useMutation(LOGIN, {
+    onCompleted(data) {
+      login();
+    },
+    onError(error) {
+      console.error('Login Failed : ', error);
+    },
+  });
 
   return (
-
     <ScrollView>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image
-            style={{ width: 160, height: 160 }}
+            style={{width: 160, height: 160}}
             source={require('./Logo_FITCLRIE.png')}
           />
         </View>
-        <Formik initialValues={{
-          username: '',
-          password: '',
-          confirmpassword: '',
-        }}
+        <Formik
+          initialValues={{
+            username: '',
+            password: '',
+          }}
           validationSchema={SigninSchema}
-          onSubmit={values => Alert.alert(JSON.stringify(values))}
-        >
-
-          {({ values,
+          onSubmit={values => Alert.alert(JSON.stringify(values))}>
+          {({
+            values,
             errors,
             isValid,
             touched,
             handleChange,
             setFieldTouched,
-            handleSubmit
+            handleSubmit,
           }) => (
-
-            <View style={{ paddingTop: 40 }}>
-              <View style={{ paddingBottom: 25 }}>
+            <View style={{paddingTop: 40}}>
+              <View style={{paddingBottom: 25}}>
                 <InputField
                   label={'ชื่อผู้ใช้'}
                   value={values.username}
@@ -61,7 +77,7 @@ const Login = ({ navigation }) => {
                       name="person-outline"
                       size={20}
                       color="#666"
-                      style={{ marginRight: 5 }}
+                      style={{marginRight: 5}}
                     />
                   }
                 />
@@ -70,8 +86,7 @@ const Login = ({ navigation }) => {
                 )}
               </View>
 
-
-              <View style={{ paddingBottom: 25 }}>
+              <View style={{paddingBottom: 25}}>
                 <InputField
                   label={'รหัสผ่าน'}
                   value={values.password}
@@ -82,77 +97,80 @@ const Login = ({ navigation }) => {
                       name="ios-lock-closed-outline"
                       size={20}
                       color="#666"
-                      style={{ marginRight: 5 }}
+                      style={{marginRight: 5}}
                     />
                   }
                   inputType="password"
-                  fieldButtonFunction={() => { }}
+                  fieldButtonFunction={() => {}}
                 />
-                 {touched.password && errors.password && (
+                {touched.password && errors.password && (
                   <Text style={styles.errorTxt}>{errors.password}</Text>
                 )}
-
               </View>
-              <View style={{ paddingTop: 120 }}>
+              <View style={{paddingTop: 120}}>
                 <View style={styles.button}>
                   <Button
-                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                    style={{
+                      borderRadius: 10,
+                      backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
+                    }}
+                    labelStyle={{
+                      fontFamily: 'NotoSansThai-Regular',
+                    }}
                     textColor="white"
                     mode="contained"
-                    onPress={() => { login() }}
-                    disabled={!isValid} >
+                    onPress={() => {
+                      // login(values);
+                      console.log(values);
+                      signin({variables: {loginInput: values}});
+                    }}
+                    disabled={!isValid}>
                     เข้าสู่ระบบ
                   </Button>
                 </View>
               </View>
-
             </View>
           )}
         </Formik>
 
-
-
         <View
           style={{
             flexDirection: 'row',
-            justifyContent: 'center'
+            justifyContent: 'center',
           }}>
-          <Text>ยังไม่มีบัญชี ?</Text>
+          <Text style={{fontFamily: 'NotoSansThai-Regular'}}>ยังไม่มีบัญชี ?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={{ color: '#FD9A86', fontWeight: '700' }}> สมัครสมาชิก</Text>
+            <Text style={{color: '#FD9A86',fontFamily: 'NotoSansThai-SemiBold'}}>
+              {' '}
+              สมัครสมาชิก
+            </Text>
           </TouchableOpacity>
         </View>
-
-
       </View>
-
     </ScrollView>
-
   );
 };
 
 const styles = StyleSheet.create({
   box: {
     paddingBottom: 13,
-    padding: 18
-
+    padding: 18,
   },
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 110
+    paddingTop: 110,
   },
   button: {
     flex: 1,
-    justifyContent: "center",
-    paddingBottom: 10
+    justifyContent: 'center',
+    paddingBottom: 10,
   },
   errorTxt: {
     color: '#FD9A86',
-    paddingTop: 8
-
-  }
+    paddingTop: 8,
+    fontFamily: 'NotoSansThai-Regular'
+  },
 });
 
 export default Login;
-
