@@ -1,10 +1,17 @@
-import React from 'react';
-import { View, StyleSheet, ScrollView, Image, Text, TouchableOpacity, Alert } from 'react-native';
-import { Button } from 'react-native-paper';
+import React, {useState} from 'react';
+import {
+  View,
+  StyleSheet,
+  ScrollView,
+  Image,
+  Text,
+  TouchableOpacity,
+} from 'react-native';
+import {Button} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import InputField from '../components/InputField';
-import { Formik } from 'formik';
+import {Formik} from 'formik';
 import * as Yup from 'yup';
 
 const SignupSchema = Yup.object().shape({
@@ -18,39 +25,40 @@ const SignupSchema = Yup.object().shape({
     .min(8, 'ยืนยันรหัสผ่านอย่างน้อย 8 ตัวอักษร')
     .oneOf([Yup.ref('password')], 'รหัสผ่านไม่ตรงกัน')
     .required('กรุณายีนยันรหัสผ่าน'),
-
 });
 
-const Register = ({ navigation }) => {
-
+const Register = ({navigation, nextStep, onUpdateState, state}) => {
   return (
     <ScrollView>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image
-            style={{ width: 160, height: 160 }}
+            style={{width: 160, height: 160}}
             source={require('./Logo_FITCLRIE.png')}
           />
         </View>
-        <Formik initialValues={{
-          username: '',
-          password: '',
-          confirmpassword: '',
-        }}
+        <Formik
+          initialValues={{
+            username: state.username,
+            password: state.password,
+            confirmpassword: state.confirmpassword,
+          }}
           validationSchema={SignupSchema}
-          onSubmit={() => navigation.navigate('FormGender')}
-        >
-
-          {({ values,
+          onSubmit={values => {
+            onUpdateState(values);
+            nextStep();
+          }}>
+          {({
+            values,
             errors,
             isValid,
             touched,
             handleChange,
             setFieldTouched,
-            handleSubmit
+            handleSubmit,
           }) => (
-            <View style={{ paddingTop: 40 }}>
-              <View style={{ paddingBottom: 25 }}>
+            <View style={{paddingTop: 40}}>
+              <View style={{paddingBottom: 25}}>
                 <InputField
                   label={'ชื่อผู้ใช้'}
                   value={values.username}
@@ -61,17 +69,15 @@ const Register = ({ navigation }) => {
                       name="person-outline"
                       size={20}
                       color="#666"
-                      style={{ marginRight: 5 }}
+                      style={{marginRight: 5}}
                     />
                   }
-
                 />
                 {touched.username && errors.username && (
                   <Text style={styles.errorTxt}>{errors.username}</Text>
                 )}
-
               </View>
-              <View style={{ paddingBottom: 25 }}>
+              <View style={{paddingBottom: 25}}>
                 <InputField
                   label={'รหัสผ่าน'}
                   value={values.password}
@@ -82,19 +88,18 @@ const Register = ({ navigation }) => {
                       name="ios-lock-closed-outline"
                       size={20}
                       color="#666"
-                      style={{ marginRight: 5 }}
+                      style={{marginRight: 5}}
                     />
                   }
                   inputType="password"
-                  fieldButtonFunction={() => { }}
+                  fieldButtonFunction={() => {}}
                 />
                 {touched.password && errors.password && (
                   <Text style={styles.errorTxt}>{errors.password}</Text>
                 )}
               </View>
 
-
-              <View style={{ paddingBottom: 25 }}>
+              <View style={{paddingBottom: 25}}>
                 <InputField
                   label={'ยืนยันรหัสผ่าน'}
                   value={values.confirmpassword}
@@ -105,7 +110,7 @@ const Register = ({ navigation }) => {
                       name="ios-lock-closed-outline"
                       size={20}
                       color="#666"
-                      style={{ marginRight: 5 }}
+                      style={{marginRight: 5}}
                     />
                   }
                   inputType="password"
@@ -113,23 +118,23 @@ const Register = ({ navigation }) => {
                 {touched.confirmpassword && errors.confirmpassword && (
                   <Text style={styles.errorTxt}>{errors.confirmpassword}</Text>
                 )}
-
               </View>
-              <View style={{ paddingTop: 55 }}>
+              <View style={{paddingTop: 55}}>
                 <View style={styles.button}>
                   <Button
-                    style={{ borderRadius: 10, backgroundColor: isValid ? '#FD9A86' : '#F2B5AA' }}
+                    style={{
+                      borderRadius: 10,
+                      backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
+                    }}
                     textColor="white"
                     mode="contained"
                     onPress={handleSubmit}
-                    disabled={!isValid} >
+                    disabled={!isValid}>
                     สมัครสมาชิก
                   </Button>
                 </View>
               </View>
-
             </View>
-
           )}
         </Formik>
 
@@ -140,10 +145,12 @@ const Register = ({ navigation }) => {
           }}>
           <Text>เคยสมัครแล้ว ?</Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={{ color: '#FD9A86', fontWeight: '700' }}> เข้าสู่ระบบ</Text>
+            <Text style={{color: '#FD9A86', fontWeight: '700'}}>
+              {' '}
+              เข้าสู่ระบบ
+            </Text>
           </TouchableOpacity>
         </View>
-
       </View>
     </ScrollView>
   );
@@ -151,25 +158,22 @@ const Register = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   box: {
-    padding: 18
-
+    padding: 18,
   },
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 110
+    paddingTop: 110,
   },
   button: {
     flex: 1,
-    justifyContent: "center",
-    paddingBottom: 10
+    justifyContent: 'center',
+    paddingBottom: 10,
   },
   errorTxt: {
     color: '#FD9A86',
-    paddingTop: 8
-
-  }
+    paddingTop: 8,
+  },
 });
 
 export default Register;
-

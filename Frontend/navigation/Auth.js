@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import OnboardingScreen from '../screens/OnboardingScreen';
 import LoginScreen from '../screens/LoginScreen';
 import RegisterScreen from '../screens/RegisterScreen';
+import RegisterModule from '../screens/RegisterModule';
 import FormGenderScreen from '../screens/FormGender';
 import FormBirthScreen from '../screens/FormBirth';
 import FormWeighScreen from '../screens/FormWeight';
@@ -28,7 +29,7 @@ const AuthStack = () => {
       />
       <Stack.Screen
         name="Register"
-        component={RegisterScreen}
+        component={RegisterModule}
         options={{ headerShown: false }}
       />
       <Stack.Screen

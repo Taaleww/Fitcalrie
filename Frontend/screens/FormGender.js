@@ -1,68 +1,118 @@
 import React from 'react';
-import { View, StyleSheet, ScrollView, Image } from 'react-native';
-import { Button, RadioButton, Text } from 'react-native-paper';
+import {View, StyleSheet, ScrollView, Image} from 'react-native';
+import {Button, RadioButton, Text} from 'react-native-paper';
 
-const FormGender = ({ navigation }) => {
-  const [number, onChangeNumber] = React.useState('');
-  const [value, setValue] = React.useState('male');
-  console.log(value);
+const FormGender = ({nextStep, onUpdateState, state}) => {
   return (
     <ScrollView>
-      <View style={styles.box}>
-
+      <View>
         <View style={styles.container}>
           <Image
-            style={{ width: 300, height: 300 }}
+            style={{width: 300, height: 300}}
             source={require('./personalname.png')}
           />
         </View>
 
-        <RadioButton.Group onValueChange={value => setValue(value)} value={value}>
+        <RadioButton.Group
+          onValueChange={value => onUpdateState({gender: value})}
+          value={state.gender}>
           <RadioButton.Item
-            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18, marginVertical: 10, Display: 'display' }}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 10,
+              marginHorizontal: 18,
+              marginVertical: 10,
+              Display: 'display',
+            }}
             label="ชาย"
             value="male"
-
           />
           <RadioButton.Item
-            style={{ backgroundColor: 'white', borderRadius: 10, marginHorizontal: 18 }}
+            style={{
+              backgroundColor: 'white',
+              borderRadius: 10,
+              marginHorizontal: 18,
+            }}
             label="หญิง"
-            value="female" />
+            value="female"
+          />
         </RadioButton.Group>
 
-        <View style={{ paddingTop: 50 }}>
-          <View style={{ paddingLeft: 18, paddingBottom: 16, flexDirection: 'row', justifyContent: 'center' }}>
-            <View style={{ paddingRight: 10 }}>
-              <View style={{ backgroundColor: '#FD9A86', borderRadius: 10, width: 12, height: 12 }}>
+        <View style={{paddingTop: 50}}>
+          <View
+            style={{
+              paddingLeft: 18,
+              paddingBottom: 16,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            <View style={{paddingRight: 10}}>
+              <View
+                style={{
+                  backgroundColor: '#FD9A86',
+                  borderRadius: 10,
+                  width: 12,
+                  height: 12,
+                }}>
                 <Text></Text>
               </View>
             </View>
-            <View style={{ paddingRight: 10 }}>
-              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+            <View style={{paddingRight: 10}}>
+              <View
+                style={{
+                  backgroundColor: '#D9D9D9',
+                  borderRadius: 10,
+                  width: 12,
+                  height: 12,
+                }}>
                 <Text></Text>
                 <Text></Text>
               </View>
             </View>
-            <View style={{ paddingRight: 10 }}>
-              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+            <View style={{paddingRight: 10}}>
+              <View
+                style={{
+                  backgroundColor: '#D9D9D9',
+                  borderRadius: 10,
+                  width: 12,
+                  height: 12,
+                }}>
                 <Text></Text>
                 <Text></Text>
               </View>
             </View>
-            <View style={{ paddingRight: 10 }}>
-              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+            <View style={{paddingRight: 10}}>
+              <View
+                style={{
+                  backgroundColor: '#D9D9D9',
+                  borderRadius: 10,
+                  width: 12,
+                  height: 12,
+                }}>
                 <Text></Text>
                 <Text></Text>
               </View>
             </View>
-            <View style={{ paddingRight: 10 }}>
-              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+            <View style={{paddingRight: 10}}>
+              <View
+                style={{
+                  backgroundColor: '#D9D9D9',
+                  borderRadius: 10,
+                  width: 12,
+                  height: 12,
+                }}>
                 <Text></Text>
                 <Text></Text>
               </View>
             </View>
-            <View style={{ paddingRight: 10 }}>
-              <View style={{ backgroundColor: '#D9D9D9', borderRadius: 10, width: 12, height: 12 }}>
+            <View style={{paddingRight: 10}}>
+              <View
+                style={{
+                  backgroundColor: '#D9D9D9',
+                  borderRadius: 10,
+                  width: 12,
+                  height: 12,
+                }}>
                 <Text></Text>
                 <Text></Text>
               </View>
@@ -70,18 +120,16 @@ const FormGender = ({ navigation }) => {
           </View>
           <View style={styles.button}>
             <Button
-              style={{ backgroundColor: '#FD9A86', borderRadius: 10 }}
+              style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               textColor="white"
               mode="contained"
-              onPress={() => navigation.navigate('FormฺBirth', { value })}
-            >
+              onPress={nextStep}>
               ถัดไป
             </Button>
           </View>
         </View>
       </View>
     </ScrollView>
-
   );
 };
 
@@ -90,22 +138,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     borderRadius: 10,
     paddingRight: 100,
-    paddingTop: 20
-
+    paddingTop: 20,
   },
   container: {
     paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-
   },
   box: {
-    paddingBottom: 13
+    paddingBottom: 13,
   },
   Image: {
     height: 80,
-    width: 60
-
+    width: 60,
   },
   text_header: {
     color: '#1A212F',
@@ -113,10 +158,10 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 110,
     textAlign: 'center',
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   iconbutton: {
-    top: 50
+    top: 50,
   },
   input: {
     width: 360,
@@ -124,15 +169,14 @@ const styles = StyleSheet.create({
     margin: 12,
     padding: 10,
     backgroundColor: 'white',
-    borderRadius: 10
-
+    borderRadius: 10,
   },
   button: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
 });
 
