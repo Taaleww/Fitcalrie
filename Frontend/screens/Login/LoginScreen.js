@@ -10,13 +10,14 @@ import {
 import {Button} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import InputField from '../components/InputField';
-import {AuthContext} from '../context/AuthContext';
+import InputField from '../../components/InputField';
+import {AuthContext} from '../../context/AuthContext';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import CustomModal from '../../components/ModalFail';
 
 import {useMutation} from '@apollo/client';
-import {LOGIN} from '../graphql/mutation';
+import {LOGIN} from '../../graphql/mutation';
 
 const SigninSchema = Yup.object().shape({
   username: Yup.string()
@@ -29,14 +30,18 @@ const SigninSchema = Yup.object().shape({
 
 const Login = ({navigation}) => {
   const {login} = useContext(AuthContext);
-
+  const [isModalVisible, setModalVisible] = useState(false);
   // Pass mutation to useMutation
   const [signin] = useMutation(LOGIN, {
     onCompleted(data) {
       login();
     },
     onError(error) {
-      console.error('Login Failed : ', error);
+      setModalVisible(true);
+      setTimeout(() => {
+        setModalVisible(false);
+      }, 2000);
+      // console.error('Login Failed : ', error);
     },
   });
 
@@ -145,7 +150,9 @@ const Login = ({navigation}) => {
               สมัครสมาชิก
             </Text>
           </TouchableOpacity>
+          <CustomModal title= 'ข้อมูลไม่ถูกต้อง' isVisible={isModalVisible}/>
         </View>
+        
       </View>
     </ScrollView>
   );

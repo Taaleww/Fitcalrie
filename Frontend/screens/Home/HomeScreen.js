@@ -80,7 +80,7 @@ const MainScreen = ({navigation}) => {
                           textAlign: 'center',
                           fontFamily: 'NotoSansThai-SemiBold',
                         }}>
-                        'เหลืออีก 1190 kcal'
+                        เหลืออีก 1190 kcal
                       </Text>
                     </ProgressCircle>
                   </View>
@@ -319,7 +319,7 @@ const MainScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   box: {
     paddingLeft: 18,
-    paddingRight: 18,
+    paddingRight: 18
   },
   container_header: {
     flexDirection: 'row',

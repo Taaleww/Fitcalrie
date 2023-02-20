@@ -1,9 +1,9 @@
 import * as React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text, Button, Dialog, Portal, Provider} from 'react-native-paper';
-import ListNutrition from '../components/ListNutrition';
+import ListNutrition from '../../components/ListNutrition';
 
-const SuggestionNight = ({navigation}) => {
+const SuggestionMorning = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -71,7 +71,7 @@ const SuggestionNight = ({navigation}) => {
   );
 };
 
-export default SuggestionNight;
+export default SuggestionMorning;
 
 const styles = StyleSheet.create({
   text_header: {

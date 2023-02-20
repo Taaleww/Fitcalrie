@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {Text, Button, Dialog, Portal, Provider} from 'react-native-paper';
-import ListNutrition from '../components/ListNutrition';
+import ListNutrition from '../../components/ListNutrition';
 
 const SuggestionLunch = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);

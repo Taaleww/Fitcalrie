@@ -10,7 +10,7 @@ import {
 import {Button} from 'react-native-paper';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Ionicons from 'react-native-vector-icons/Ionicons';
-import InputField from '../components/InputField';
+import InputField from '../../components/InputField';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -176,6 +176,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: '#FD9A86',
     paddingTop: 8,
+    fontFamily: 'NotoSansThai-Regular'
   },
 });
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Avatar, Card, IconButton, Text} from 'react-native-paper';
-import ListFood from '../components/ListFood';
+import ListFood from '../../components/ListFood';
 
 const FoodScreen = ({ navigation }) => {
 

@@ -11,7 +11,7 @@ import {
 import {Button} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
-import {AuthContext} from '../context/AuthContext';
+import {AuthContext} from '../../context/AuthContext';
 
 const EditWeightSchema = Yup.object().shape({
   goal: Yup.number()

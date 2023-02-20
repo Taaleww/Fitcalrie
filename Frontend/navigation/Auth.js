@@ -1,16 +1,16 @@
 import React from 'react';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 
-import OnboardingScreen from '../screens/OnboardingScreen';
-import LoginScreen from '../screens/LoginScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import RegisterModule from '../screens/RegisterModule';
-import FormGenderScreen from '../screens/FormGender';
-import FormBirthScreen from '../screens/FormBirth';
-import FormWeighScreen from '../screens/FormWeight';
-import FormHeightScreen from '../screens/FormHeight';
-import FormFrqExerciseScreen from '../screens/FormFrqExercise';
-import FormGoalScreen from '../screens/FormGoal';
+import OnboardingScreen from '../screens/Login/OnboardingScreen';
+import LoginScreen from '../screens/Login/LoginScreen';
+import RegisterScreen from '../screens/Register/RegisterScreen';
+import RegisterModule from '../screens/Register/RegisterModule';
+import FormGenderScreen from '../screens/Register/FormGender';
+import FormBirthScreen from '../screens/Register/FormBirth';
+import FormWeighScreen from '../screens/Register/FormWeight';
+import FormHeightScreen from '../screens/Register/FormHeight';
+import FormFrqExerciseScreen from '../screens/Register/FormFrqExercise';
+import FormGoalScreen from '../screens/Register/FormGoal';
 
 const Stack = createNativeStackNavigator();
 

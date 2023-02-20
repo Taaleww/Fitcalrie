@@ -9,19 +9,31 @@ import FormWeight from './FormWeight';
 import FormFrq from './FormFrqExercise';
 import FormGoal from './FormGoal';
 import {useMutation} from '@apollo/client';
-import {CREATE_USER} from '../graphql/mutation';
+import {CREATE_USER} from '../../graphql/mutation';
+import CustomModal from '../../components/ModalSuccess';
+import CustomModalError from '../../components/ModalFail';
 
 const RegisterModule = ({navigation}) => {
+  const [isModalVisible, setModalVisible] = useState(false);
+  const [isModalVisibleError, setModalVisibleError] = useState(false);
   // Pass mutation to useMutation
   const [createUser] = useMutation(CREATE_USER, {
-    onCompleted(data) {
+    async onCompleted(data) {
       // Todo: call login automatically
       // for now use only navigate to login page
       console.log('COMPLETE DATA: ', data);
-      navigation.navigate('Login');
+      setModalVisible(true);
+      await setTimeout(() => {
+        setModalVisible(false);
+        navigation.navigate('Login');
+      }, 2000);
     },
     onError(error) {
-      console.error('Can not create user : ', error);
+      setModalVisibleError(true);
+      setTimeout(() => {
+        setModalVisibleError(false);
+      }, 2000);
+      // console.error('Can not create user : ', error);
     },
   });
 
@@ -71,17 +83,17 @@ const RegisterModule = ({navigation}) => {
   const onSubmitRegister = async () => {
     // create user
     const createUserInput = {
-        username: state.username,
-        password: state.password,
-        gender: state.gender,
-        dateOfbirth: state.dateOfbirth.toISOString(),
-        height: state.height,
-        weight: state.weight,
-        BMI: state.BMI,
-        frq_excercise: state.frq_excercise,
-        goal: state.goal,
+      username: state.username,
+      password: state.password,
+      gender: state.gender,
+      dateOfbirth: state.dateOfbirth.toISOString(),
+      height: state.height,
+      weight: state.weight,
+      BMI: state.BMI,
+      frq_excercise: state.frq_excercise,
+      goal: state.goal,
     };
-    console.log(" KP KP ", createUserInput);
+    console.log(' KP KP ', createUserInput);
     await createUser({variables: {createUserInput}});
   };
 
@@ -192,6 +204,8 @@ const RegisterModule = ({navigation}) => {
               break;
           }
         })()}
+        <CustomModal title="สมัครสำเร็จ" isVisible={isModalVisible} />
+        <CustomModalError title="สมัครไม่สำเร็จ" isVisible={isModalVisibleError} />
       </View>
     </ScrollView>
   );
