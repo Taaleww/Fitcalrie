@@ -7,7 +7,7 @@ import { AuthContext } from '../context/AuthContext';
 
 const AppNav = () => {
 
-    const { isloading, userToken } = useContext(AuthContext);
+    const { isloading, userToken, checkExpired } = useContext(AuthContext);
     if (isloading) {
         return (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -18,12 +18,9 @@ const AppNav = () => {
     }
 
     return (
-
         <NavigationContainer>
-            {userToken !== null ? <Tabs /> : <AuthStack />}
+            {userToken !== null && !checkExpired() ? <Tabs /> : <AuthStack />}
         </NavigationContainer>
-
-
     );
 }
 export default AppNav;

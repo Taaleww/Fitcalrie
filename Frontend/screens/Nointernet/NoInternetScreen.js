@@ -8,7 +8,7 @@ const NoInternetScreen = () => (
     <View style={styles.container}>
       <Image
         style={{ width: 300, height: 300 }}
-        source={require('./nointernet.png')}
+        source={require('../../assets/images/nointernet.png')}
       />
     </View>
 

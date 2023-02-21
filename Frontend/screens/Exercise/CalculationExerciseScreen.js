@@ -7,7 +7,7 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import {Text, Button, Dialog, Portal, Provider} from 'react-native-paper';
+import {Text, Button, Dialog, Portal, Provider, IconButton} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -69,6 +69,35 @@ const CalculationExercise = ({navigation}) => {
             handleSubmit,
           }) => (
             <View>
+              <View
+              style={{
+                width: '100%',
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                paddingTop: 8,
+              }}>
+              <IconButton
+                style={{width: 32}}
+                icon="chevron-left"
+                iconColor="#1A212F"
+                size={32}
+                onPress={() => navigation.goBack()}
+              />
+              <Text
+                style={{
+                  color: 'black',
+                  fontSize: 20,
+                  fontFamily: 'NotoSansThai-SemiBold',
+                }}>
+                คำนวณการเผาผลาญ
+              </Text>
+              <Text
+                style={{
+                  width: 32,
+                }}></Text>
+            </View>
               <Text
                 style={{
                   textAlign: 'center',
@@ -125,7 +154,7 @@ const CalculationExercise = ({navigation}) => {
                 </SafeAreaView>
               </View>
 
-              <View style={{paddingTop: 220}}>
+              <View style={{paddingTop: 200}}>
                 <View style={styles.button}>
                   <Button
                     style={{

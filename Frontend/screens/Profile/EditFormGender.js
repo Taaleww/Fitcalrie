@@ -1,24 +1,47 @@
 import React from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
-import {Button, RadioButton} from 'react-native-paper';
+import {View, StyleSheet, ScrollView, Text, Image} from 'react-native';
+import {Button, RadioButton, IconButton} from 'react-native-paper';
 
-const FormGender = () => {
+const FormGender = ({navigation}) => {
   const [number, onChangeNumber] = React.useState('');
   const [value, setValue] = React.useState('male');
   console.log(value);
   return (
     <ScrollView>
+      <View
+        style={{
+          width: '100%',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingTop: 8,
+        }}>
+        <IconButton
+          style={{width: 32}}
+          icon="chevron-left"
+          iconColor="#1A212F"
+          size={32}
+          onPress={() => navigation.goBack()}
+        />
+        <Text
+          style={{
+            color: 'black',
+            fontSize: 20,
+            fontFamily: 'NotoSansThai-SemiBold',
+          }}>
+          เพศ
+        </Text>
+        <Text
+          style={{
+            width: 32,
+          }}></Text>
+      </View>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image
             style={{width: 300, height: 300}}
-            source={require('./personalname.png')}
+            source={require('../../assets/images/personalname.png')}
           />
         </View>
 

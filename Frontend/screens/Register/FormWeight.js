@@ -41,7 +41,7 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
             <View style={styles.container}>
               <Image
                 style={{width: 300, height: 300}}
-                source={require('./personalweight.png')}
+                source={require('../../assets/images/personalweight.png')}
               />
 
               <SafeAreaView>

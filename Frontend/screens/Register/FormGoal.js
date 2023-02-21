@@ -43,7 +43,7 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
             <View style={styles.container}>
               <Image
                 style={{width: 300, height: 300}}
-                source={require('./personalgoal.png')}
+                source={require('../../assets/images/personalgoal.png')}
               />
 
               <SafeAreaView>

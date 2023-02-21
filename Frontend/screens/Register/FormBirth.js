@@ -11,7 +11,7 @@ const FormBirth = ({nextStep, onUpdateState, state}) => {
         <View style={styles.container}>
           <Image
             style={{width: 300, height: 300}}
-            source={require('./personalname.png')}
+            source={require('../../assets/images/personalname.png')}
           />
           <DateField
             styleInput={{

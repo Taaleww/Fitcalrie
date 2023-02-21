@@ -17,17 +17,21 @@ export const CREATE_USER = gql`
 `;
 
 export const LOGIN = gql`
-  mutation login($loginInput: LoginInput!) {
-    login(loginInput: $loginInput) {
-      username
-      password
-      gender
-      dateOfbirth
-      height
-      weight
-      BMI
-      frq_excercise
-      goal
+  mutation login($loginUserInput: LoginUserInput!) {
+    login(loginUserInput: $loginUserInput) {
+      access_token
+      user {
+        _id
+        username
+        password
+        gender
+        dateOfbirth
+        height
+        weight
+        BMI
+        frq_excercise
+        goal
+      }
     }
   }
 `;

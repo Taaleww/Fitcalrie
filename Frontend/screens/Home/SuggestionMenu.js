@@ -1,9 +1,16 @@
 import * as React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {Text, Button, Dialog, Portal, Provider} from 'react-native-paper';
+import {
+  Text,
+  Button,
+  Dialog,
+  Portal,
+  Provider,
+  IconButton,
+} from 'react-native-paper';
 import ListNutrition from '../../components/ListNutrition';
 
-const SuggestionMorning = ({navigation}) => {
+const SuggestionMenu = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -11,8 +18,35 @@ const SuggestionMorning = ({navigation}) => {
     <Provider>
       <ScrollView>
         <View>
-          {/* <Text style={styles.text_header}>ข้าวกระเพราไก่</Text>
-      <Text style={styles.text_detail}>120 Kcal</Text> */}
+          <View
+            style={{
+              width: '100%',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingTop: 8,
+            }}>
+            <IconButton
+              style={{width: 32}}
+              icon="chevron-left"
+              iconColor="#1A212F"
+              size={32}
+              onPress={() => navigation.goBack()}
+            />
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 20,
+                fontFamily: 'NotoSansThai-SemiBold',
+              }}>
+              กระเพราไก่
+            </Text>
+            <Text
+              style={{
+                width: 32,
+              }}></Text>
+          </View>
           <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
           <ListNutrition
@@ -23,7 +57,7 @@ const SuggestionMorning = ({navigation}) => {
             sugar={20}
           />
 
-          <View style={{paddingTop: 90}}>
+          <View style={{paddingTop: 36}}>
             <View style={styles.button}>
               <Button
                 style={{backgroundColor: '#FD9A86', borderRadius: 10}}
@@ -71,7 +105,7 @@ const SuggestionMorning = ({navigation}) => {
   );
 };
 
-export default SuggestionMorning;
+export default SuggestionMenu;
 
 const styles = StyleSheet.create({
   text_header: {
@@ -94,7 +128,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 18,
     paddingTop: 24,
-    fontFamily: 'NotoSansThai-Regular',
+    fontFamily: 'NotoSansThai-SemiBold',
   },
   button: {
     flex: 1,

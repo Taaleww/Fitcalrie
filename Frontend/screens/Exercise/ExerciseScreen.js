@@ -36,19 +36,29 @@ const FoodScreen = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.box}>
-        <View style={styles.iconbutton}>
-          <IconButton
-            icon="calendar-month"
-            iconColor="white"
-            mode="contained-tonal"
-            containerColor="#FD9A86"
-            size={20}
-            onPress={() => console.log('Pressed')}
-          />
+      <View
+          style={{
+            paddingTop: 50,
+            flexDirection:'row',
+            justifyContent:'space-between'
+          }}>
+          <View style={{width: 48}}></View>
+          <Text style={styles.text_header}>
+            วันนี้คุณเผาผลาญไปทั้งหมด
+            <Text style={styles.innerText}> 500</Text> Kcal
+          </Text>
+
+          <View style={styles.iconbutton}>
+            <IconButton
+              icon="calendar-month"
+              iconColor="white"
+              mode="contained-tonal"
+              containerColor="#FD9A86"
+              size={20}
+              onPress={() => navigation.navigate('HistoryExercise')}
+            />
+          </View>
         </View>
-        <Text style={styles.text_header}>
-          วันนี้คุณเผาผลาญไปทั้งหมด 220 Kcal
-        </Text>
         <Text style={styles.text_Regular}>{currentDate}</Text>
 
         {/* Information */}
@@ -136,15 +146,15 @@ const styles = StyleSheet.create({
   },
   text_header: {
     fontSize: 20,
-    paddingHorizontal: 100,
+    paddingHorizontal: 10,
     textAlign: 'center',
-    paddingTop: 20,
     fontFamily: 'NotoSansThai-SemiBold',
+    width:200,
   },
   text_Regular: {
     fontSize: 14,
     paddingTop: 24,
-    fontFamily: 'NotoSansThai-Regular',
+    fontFamily: 'NotoSansThai-SemiBold',
   },
   text_details: {
     paddingRight: 10,
@@ -156,12 +166,15 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   iconbutton: {
-    paddingHorizontal: 332,
-    top: 50,
+    
   },
   button: {
     flex: 1,
     justifyContent: 'center',
     paddingTop: 10,
+  },
+  innerText: {
+    color: '#FD9A86',
+    fontFamily: 'NotoSansThai-SemiBold',
   },
 });

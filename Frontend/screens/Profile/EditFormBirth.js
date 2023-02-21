@@ -4,21 +4,50 @@ import {
   StyleSheet,
   ScrollView,
   Image,
-  TextInput,
+  Text,
   SafeAreaView,
 } from 'react-native';
-import {Button} from 'react-native-paper';
+import {Button, IconButton} from 'react-native-paper';
 import DateField from 'react-native-datefield';
 
-const EditFormBirth = () => {
+const EditFormBirth = ({navigation}) => {
   const [date, setDate] = useState(new Date());
   return (
     <ScrollView>
+      <View
+        style={{
+          width: '100%',
+          flexDirection: 'row',
+          flexWrap: 'wrap',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          paddingTop: 8,
+        }}>
+        <IconButton
+          style={{width: 32}}
+          icon="chevron-left"
+          iconColor="#1A212F"
+          size={32}
+          onPress={() => navigation.goBack()}
+        />
+        <Text
+          style={{
+            color: 'black',
+            fontSize: 20,
+            fontFamily: 'NotoSansThai-SemiBold',
+          }}>
+          วันเกิด
+        </Text>
+        <Text
+          style={{
+            width: 32,
+          }}></Text>
+      </View>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image
             style={{width: 300, height: 300}}
-            source={require('./personalname.png')}
+            source={require('../../assets/images/personalname.png')}
           />
           <DateField
             styleInput={{

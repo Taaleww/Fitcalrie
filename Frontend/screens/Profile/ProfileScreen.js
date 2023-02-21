@@ -205,7 +205,7 @@ const styles = StyleSheet.create({
   text_Regular: {
     fontSize: 14,
     paddingTop: 24,
-    fontFamily: 'NotoSansThai-Regular',
+    fontFamily: 'NotoSansThai-SemiBold',
   },
   button: {
     flex: 1,

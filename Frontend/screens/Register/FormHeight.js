@@ -41,7 +41,7 @@ const FormHeight = ({nextStep, onUpdateState, state}) => {
             <View style={styles.container}>
               <Image
                 style={{width: 300, height: 300}}
-                source={require('./personalheight.png')}
+                source={require('../../assets/images/personalheight.png')}
               />
 
               <SafeAreaView>

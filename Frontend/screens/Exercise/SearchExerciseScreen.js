@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { View, StyleSheet, ScrollView } from 'react-native';
-import { Searchbar, Text, IconButton } from 'react-native-paper';
+import {View, StyleSheet, ScrollView} from 'react-native';
+import {Searchbar, Text, IconButton} from 'react-native-paper';
 
-const SearchExerciseScreen = () => {
+const SearchExerciseScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = React.useState('');
 
   const onChangeSearch = query => setSearchQuery(query);
@@ -10,30 +10,51 @@ const SearchExerciseScreen = () => {
   return (
     <ScrollView>
       <View style={styles.box}>
-
-        {/* <View style={styles.iconbutton}>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingTop: 8,
+          }}>
           <IconButton
+            style={{width: 32}}
             icon="chevron-left"
             iconColor="#1A212F"
-            size={36}
-            onPress={() => console.log('Pressed')}
+            size={32}
+            onPress={() => navigation.goBack()}
           />
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontFamily: 'NotoSansThai-SemiBold',
+            }}>
+            ออกกำลังกาย
+          </Text>
+          <Text
+            style={{
+              width: 32,
+            }}></Text>
         </View>
-
-        <Text style={styles.text_header}>อาหาร</Text> */}
-        <View style={{ paddingLeft: 18, paddingRight: 18, paddingTop: 24 }}>
+        <View style={{paddingLeft: 18, paddingRight: 18, paddingTop: 24}}>
           <Searchbar
-            style={{ borderRadius: 10, height: 48, width: 380, backgroundColor:'white' }}
+            style={{
+              borderRadius: 10,
+              height: 48,
+              width: 380,
+              backgroundColor: 'white',
+            }}
             placeholder="ค้นหาจากชื่อ"
             onChangeText={onChangeSearch}
-            placeholderTextColor='#E0E0E0'
+            placeholderTextColor="#E0E0E0"
             value={searchQuery}
           />
         </View>
       </View>
-
     </ScrollView>
-
   );
 };
 
@@ -41,7 +62,7 @@ export default SearchExerciseScreen;
 
 const styles = StyleSheet.create({
   box: {
-    paddingBottom: 13
+    paddingBottom: 13,
   },
   container: {
     paddingTop: 10,
@@ -53,7 +74,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingHorizontal: 116,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   text_detail: {
     color: '#FD9A86',
@@ -67,17 +88,17 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 20,
     paddingLeft: 18,
-    paddingTop: 24
+    paddingTop: 24,
   },
   button: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   iconbutton: {
     paddingLeft: 3,
-    top: 50
-  }
+    top: 50,
+  },
 });

@@ -11,7 +11,7 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import FoodScreen from '../screens/Food/FoodScreen';
 import ExerciseScreen from '../screens/Exercise/ExerciseScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
-import SuggestionMorningScreen from '../screens/Home/SuggestionMorning';
+import SuggestionMenu from '../screens/Home/SuggestionMenu';
 import SuggestionLunchScreen from '../screens/Home/SuggestionLunch';
 import SuggestionNightScreen from '../screens/Home/SuggestionNight';
 import NutritionScreen from '../screens/Food/NutritionScreen';
@@ -29,7 +29,11 @@ import SearchExerciseScreen from '../screens/Exercise/SearchExerciseScreen';
 import DeleteExerciseScreen from '../screens/Exercise/DeleteExerciseScreen';
 import CalculationExerciseScreen from '../screens/Exercise/CalculationExerciseScreen';
 import EditCurrentWeightScreen from '../screens/Home/EditCurrentWeight';
+import HistoryFoodScreen from '../screens/Food/HistoryFoodScreen';
+import HistoryExerciseScreen from '../screens/Exercise/HistoryExercise';
+import RoutinePlannerScreen from '../screens/Home/RoutinePlanner';
 
+import { transparent } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -42,25 +46,22 @@ const HomeStack = () => {
         options={{headerShown: false}}
       />
       <Stack.Screen
-        name="SuggestionMorning"
-        component={SuggestionMorningScreen}
-        options={{title: 'แซนวิช'}}
-      />
-      <Stack.Screen
-        name="SuggestionLunch"
-        component={SuggestionLunchScreen}
-        options={{title: 'แซนวิช'}}
-      />
-      <Stack.Screen
-        name="SuggestionNight"
-        component={SuggestionNightScreen}
-        options={{title: 'แซนวิช'}}
+        name="SuggestionMenu"
+        component={SuggestionMenu}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="EditCurrentWeight"
         component={EditCurrentWeightScreen}
-        options={{title: 'น้ำหนักปัจจุบัน'}}
+        options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="RoutinePlanner"
+        component={RoutinePlannerScreen}
+        options={{title: 'สรุปผล'}}
+      />
+
+    
     </Stack.Navigator>
   );
 };
@@ -91,12 +92,17 @@ const FoodStack = () => {
       <Stack.Screen
         name="DeleteFood"
         component={DeleteFoodScreen}
-        options={{title: 'ข้าวกระเพราไก่'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="SearchFood"
         component={SearchFoodScreen}
-        options={{title: 'อาหาร'}}
+        options={{headerShown: false}}
+      />
+       <Stack.Screen
+        name="HistoryFood"
+        component={HistoryFoodScreen}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -112,18 +118,24 @@ const ExerciseStack = () => {
       <Stack.Screen
         name="SearchExercise"
         component={SearchExerciseScreen}
-        options={{title: 'ออกกำลังกาย'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="DeleteExercise"
         component={DeleteExerciseScreen}
-        options={{title: 'วิ่ง'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="CalculationExercise"
         component={CalculationExerciseScreen}
-        options={{title: 'วิ่ง'}}
+        options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="HistoryExercise"
+        component={HistoryExerciseScreen}
+        options={{title: 'ออกกำลังกาย'}}
+      />
+
     </Stack.Navigator>
   );
 };
@@ -139,32 +151,32 @@ const ProfileStack = () => {
       <Stack.Screen
         name="EditFormName"
         component={EditFormNameScreen}
-        options={{title: 'ชื่อ'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="EditFormGender"
         component={EditFormGenderScreen}
-        options={{title: 'เพศ'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="EditFormBirth"
         component={EditFormBirthScreen}
-        options={{title: 'วันเกิด'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="EditFormHeight"
         component={EditFormHeightScreen}
-        options={{title: 'ส่วนสูง'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="EditFormWeight"
         component={EditFormWeightScreen}
-        options={{title: 'น้ำหนัก'}}
+        options={{headerShown: false}}
       />
       <Stack.Screen
         name="EditFormGoal"
         component={EditFormGoalScreen}
-        options={{title: 'เป้าหมายการลดน้ำหนัก'}}
+        options={{headerShown: false}}
       />
     </Stack.Navigator>
   );
@@ -179,7 +191,7 @@ const Tabs = () => {
         tabBarActiveTintColor: '#FD9A86',
       }}
       tabBarOptions={{
-        labelStyle: {textTransform: 'none', fontFamily: 'NotoSansThai-Regular'}
+        labelStyle: {textTransform: 'none', fontFamily: 'NotoSansThai-Regular'},
       }}>
       <Tab.Screen
         name="หน้าหลัก"
@@ -202,6 +214,9 @@ const Tabs = () => {
               return {display: 'none'};
             }
             if (routeName === 'EditCurrentWeight') {
+              return {display: 'none'};
+            }
+            if (routeName === 'RoutinePlanner') {
               return {display: 'none'};
             }
             return;
@@ -234,6 +249,9 @@ const Tabs = () => {
             if (routeName === 'SearchFood') {
               return {display: 'none'};
             }
+            if (routeName === 'HistoryFood') {
+              return {display: 'none'};
+            }
             return;
           })(route),
         })}
@@ -256,6 +274,9 @@ const Tabs = () => {
               return {display: 'none'};
             }
             if (routeName === 'CalculationExercise') {
+              return {display: 'none'};
+            }
+            if (routeName === 'HistoryExercise') {
               return {display: 'none'};
             }
             return;

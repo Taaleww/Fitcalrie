@@ -33,15 +33,16 @@ const Login = ({navigation}) => {
   const [isModalVisible, setModalVisible] = useState(false);
   // Pass mutation to useMutation
   const [signin] = useMutation(LOGIN, {
-    onCompleted(data) {
-      login();
+    async onCompleted(data) {
+      console.log('COMPLETE DATA: ', data);
+      login(data.login.access_token);
     },
     onError(error) {
       setModalVisible(true);
+      console.error(error);
       setTimeout(() => {
         setModalVisible(false);
       }, 2000);
-      // console.error('Login Failed : ', error);
     },
   });
 
@@ -51,7 +52,7 @@ const Login = ({navigation}) => {
         <View style={styles.container}>
           <Image
             style={{width: 160, height: 160}}
-            source={require('./Logo_FITCLRIE.png')}
+            source={require('../../assets/images/Logo_FITCLRIE.png')}
           />
         </View>
         <Formik
@@ -127,7 +128,7 @@ const Login = ({navigation}) => {
                     onPress={() => {
                       // login(values);
                       console.log(values);
-                      signin({variables: {loginInput: values}});
+                      signin({variables: {loginUserInput: values}});
                     }}
                     disabled={!isValid}>
                     เข้าสู่ระบบ
@@ -143,16 +144,18 @@ const Login = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Text style={{fontFamily: 'NotoSansThai-Regular'}}>ยังไม่มีบัญชี ?</Text>
+          <Text style={{fontFamily: 'NotoSansThai-Regular'}}>
+            ยังไม่มีบัญชี ?
+          </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
-            <Text style={{color: '#FD9A86',fontFamily: 'NotoSansThai-SemiBold'}}>
+            <Text
+              style={{color: '#FD9A86', fontFamily: 'NotoSansThai-SemiBold'}}>
               {' '}
               สมัครสมาชิก
             </Text>
           </TouchableOpacity>
-          <CustomModal title= 'ข้อมูลไม่ถูกต้อง' isVisible={isModalVisible}/>
+          <CustomModal title="ข้อมูลไม่ถูกต้อง" isVisible={isModalVisible} />
         </View>
-        
       </View>
     </ScrollView>
   );
@@ -176,7 +179,7 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: '#FD9A86',
     paddingTop: 8,
-    fontFamily: 'NotoSansThai-Regular'
+    fontFamily: 'NotoSansThai-Regular',
   },
 });
 

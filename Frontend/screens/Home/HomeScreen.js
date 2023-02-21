@@ -17,6 +17,40 @@ const MainScreen = ({navigation}) => {
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
   const [currentDate, setCurrentDate] = useState('');
+  const [BMI, SetBMI] = useState(18.5);
+
+  const CalculatorBMI = () => {
+    SetBMI
+    if (BMI <= 18.5) {
+      console.log("ผอมเกินไป");
+    } else if (BMI >= 18.6 && BMI < 22.9) {
+      console.log("นํ้าหนักปกติ เหมาะสม");
+    } else if (BMI >= 23 && BMI < 24.9) {
+      console.log("นํ้าหนักเกินตัว");
+    } else if (BMI >= 25 && BMI < 29.9) {
+      console.log("อ้วน");
+    } else if (BMI > 30) {
+      console.log("อ้วนมาก");
+    }
+    
+    return ;
+  };
+
+  // const BMI = values => {
+  //   if (values.BMI <= 18.5) {
+  //     console.log("ผอมเกินไป");
+  //   } else if (values.BMI >= 18.6 && values.BMI < 22.9) {
+  //     console.log("นํ้าหนักปกติ เหมาะสม");
+  //   } else if (values.BMI >= 23 && values.BMI < 24.9) {
+  //     console.log("นํ้าหนักเกินตัว");
+  //   } else if (values.BMI >= 25 && values.BMI < 29.9) {
+  //     console.log("อ้วน");
+  //   } else if (values.BMI > 30) {
+  //     console.log("อ้วนมาก");
+  //   }
+    
+  //   return ;
+  // };
 
   useEffect(() => {
     var monthNames = [
@@ -50,11 +84,14 @@ const MainScreen = ({navigation}) => {
               mode="contained-tonal"
               containerColor="#FD9A86"
               size={20}
-              onPress={() => console.log('Pressed')}
+              onPress={() => navigation.navigate('RoutinePlanner')}
             />
           </View>
           <View style={styles.container_header}>
-            <Avatar.Image size={42} source={require('./avatar.png')} />
+            <Avatar.Image
+              size={42}
+              source={require('../../assets/images/avatar.png')}
+            />
             <Text style={styles.text_Regular}>สวัสดี, ตะหลิว</Text>
           </View>
 
@@ -96,7 +133,12 @@ const MainScreen = ({navigation}) => {
             </Card>
           </View>
 
-          <Text style={{paddingTop: 16, fontFamily: 'NotoSansThai-Regular'}}>
+          <Text
+            style={{
+              paddingTop: 16,
+              fontFamily: 'NotoSansThai-SemiBold',
+              fontSize: 14,
+            }}>
             {' '}
             {currentDate}
           </Text>
@@ -108,7 +150,7 @@ const MainScreen = ({navigation}) => {
                 titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
                 title="รับประทาน"
                 subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-                subtitle="500 (kcal)"
+                subtitle="0 (kcal)"
                 left={props => (
                   <Avatar.Icon
                     {...props}
@@ -126,7 +168,7 @@ const MainScreen = ({navigation}) => {
                 titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
                 title="เผาผลาญ "
                 subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-                subtitle="500 (kcal)"
+                subtitle="0 (kcal)"
                 left={props => (
                   <Avatar.Icon
                     {...props}
@@ -160,11 +202,106 @@ const MainScreen = ({navigation}) => {
             />
           </View>
 
-          <Text style={{paddingTop: 16, fontFamily: 'NotoSansThai-Regular'}}>
+          <Text
+            style={{
+              paddingTop: 16,
+              fontFamily: 'NotoSansThai-SemiBold',
+              fontSize: 14,
+            }}>
             เมนูแนะนำสำหรับคุณ
           </Text>
 
           <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('SuggestionMenu')}>
+            <View style={styles.container}>
+              <Card.Title
+                style={{backgroundColor: 'white', borderRadius: 10}}
+                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                title="ข้าวกระเพราไก่"
+                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                subtitle="120 kcal"
+                left={props => (
+                  <Avatar.Icon
+                    {...props}
+                    icon="food"
+                    color="#1A212F"
+                    backgroundColor="#E9EFF2"
+                  />
+                )}
+                right={props => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    iconColor="#1A212F"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('SuggestionMenu')}>
+            <View style={styles.container}>
+              <Card.Title
+                style={{backgroundColor: 'white', borderRadius: 10}}
+                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                title="ข้าวกระเพราไก่"
+                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                subtitle="120 kcal"
+                left={props => (
+                  <Avatar.Icon
+                    {...props}
+                    icon="food"
+                    color="#1A212F"
+                    backgroundColor="#E9EFF2"
+                  />
+                )}
+                right={props => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    iconColor="#1A212F"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+            </View>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            activeOpacity={0.5}
+            onPress={() => navigation.navigate('SuggestionMenu')}>
+            <View style={styles.container}>
+              <Card.Title
+                style={{backgroundColor: 'white', borderRadius: 10}}
+                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                title="ข้าวกระเพราไก่"
+                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                subtitle="120 kcal"
+                left={props => (
+                  <Avatar.Icon
+                    {...props}
+                    icon="food"
+                    color="#1A212F"
+                    backgroundColor="#E9EFF2"
+                  />
+                )}
+                right={props => (
+                  <IconButton
+                    {...props}
+                    icon="chevron-right"
+                    iconColor="#1A212F"
+                    onPress={() => {}}
+                  />
+                )}
+              />
+            </View>
+          </TouchableOpacity>
+
+          {/* <TouchableOpacity
             activeOpacity={0.5}
             onPress={() => navigation.navigate('SuggestionMorning')}>
             <View style={{paddingTop: 10}}>
@@ -268,7 +405,7 @@ const MainScreen = ({navigation}) => {
                 )}
               />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
 
           <View style={styles.button}>
             <Button
@@ -319,10 +456,13 @@ const MainScreen = ({navigation}) => {
 const styles = StyleSheet.create({
   box: {
     paddingLeft: 18,
-    paddingRight: 18
+    paddingRight: 18,
   },
   container_header: {
     flexDirection: 'row',
+  },
+  container: {
+    paddingTop: 10,
   },
   iconbutton: {
     paddingHorizontal: 332,

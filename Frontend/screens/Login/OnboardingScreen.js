@@ -9,7 +9,7 @@ const MainScreen = ({navigation}) => {
         <View style={styles.container}>
           <Image
             style={{width: 160, height: 160}}
-            source={require('./Logo_FITCLRIE.png')}
+            source={require('../../assets/images/Logo_FITCLRIE.png')}
           />
         </View>
         <View style={{paddingTop: 220}}>

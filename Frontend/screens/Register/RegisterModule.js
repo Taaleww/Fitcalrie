@@ -33,7 +33,7 @@ const RegisterModule = ({navigation}) => {
       setTimeout(() => {
         setModalVisibleError(false);
       }, 2000);
-      // console.error('Can not create user : ', error);
+      console.error('Can not create user : ', error);
     },
   });
 
@@ -46,7 +46,6 @@ const RegisterModule = ({navigation}) => {
     dateOfbirth: '',
     height: '',
     weight: '',
-    BMI: 1,
     frq_excercise: '',
     goal: '',
   });
@@ -89,7 +88,6 @@ const RegisterModule = ({navigation}) => {
       dateOfbirth: state.dateOfbirth.toISOString(),
       height: state.height,
       weight: state.weight,
-      BMI: state.BMI,
       frq_excercise: state.frq_excercise,
       goal: state.goal,
     };
