@@ -35,3 +35,17 @@ export const LOGIN = gql`
     }
   }
 `;
+
+export const UPDATE_USER = gql`
+  mutation updateUser($updateUserInput: UpdateUserInput!) {
+    updateUser(updateUserInput: $updateUserInput) {
+      username
+      gender
+      dateOfbirth
+      height
+      weight
+      BMI
+      goal
+    }
+  }
+`;

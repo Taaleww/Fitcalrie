@@ -34,8 +34,8 @@ const Login = ({navigation}) => {
   // Pass mutation to useMutation
   const [signin] = useMutation(LOGIN, {
     async onCompleted(data) {
-      console.log('COMPLETE DATA: ', data);
-      login(data.login.access_token);
+      console.log('COMPLETE DATA: ', data.login);
+      login(data.login);
     },
     onError(error) {
       setModalVisible(true);

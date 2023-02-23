@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {
   IconButton,
@@ -11,46 +11,41 @@ import {
   Provider,
 } from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle';
+import {AuthContext} from '../../context/AuthContext';
+import {useQuery} from '@apollo/client';
+import {FINDUSER} from '../../graphql/query';
 
 const MainScreen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
   const [currentDate, setCurrentDate] = useState('');
-  const [BMI, SetBMI] = useState(18.5);
+  const context = useContext(AuthContext);
+  const username = context.username;
 
-  const CalculatorBMI = () => {
-    SetBMI
-    if (BMI <= 18.5) {
-      console.log("ผอมเกินไป");
-    } else if (BMI >= 18.6 && BMI < 22.9) {
-      console.log("นํ้าหนักปกติ เหมาะสม");
-    } else if (BMI >= 23 && BMI < 24.9) {
-      console.log("นํ้าหนักเกินตัว");
-    } else if (BMI >= 25 && BMI < 29.9) {
-      console.log("อ้วน");
-    } else if (BMI > 30) {
-      console.log("อ้วนมาก");
-    }
-    
-    return ;
+  const onUpdateUser = payload => {
+    context?.setUser({
+      ...context?.user,
+      ...payload,
+    });
   };
 
-  // const BMI = values => {
-  //   if (values.BMI <= 18.5) {
-  //     console.log("ผอมเกินไป");
-  //   } else if (values.BMI >= 18.6 && values.BMI < 22.9) {
-  //     console.log("นํ้าหนักปกติ เหมาะสม");
-  //   } else if (values.BMI >= 23 && values.BMI < 24.9) {
-  //     console.log("นํ้าหนักเกินตัว");
-  //   } else if (values.BMI >= 25 && values.BMI < 29.9) {
-  //     console.log("อ้วน");
-  //   } else if (values.BMI > 30) {
-  //     console.log("อ้วนมาก");
-  //   }
-    
-  //   return ;
-  // };
+  const CalculatorBMI = BMI => {
+    let result = '';
+    if (BMI <= 18.5) {
+      result = ' ผอมเกินไป';
+    } else if (BMI >= 18.6 && BMI < 22.9) {
+      result = ' นํ้าหนักปกติ เหมาะสม';
+    } else if (BMI >= 23 && BMI < 24.9) {
+      result = ' นํ้าหนักเกินตัว';
+    } else if (BMI >= 25 && BMI < 29.9) {
+      result = ' อ้วน';
+    } else if (BMI > 30) {
+      result = ' อ้วนมาก';
+    }
+
+    return result;
+  };
 
   useEffect(() => {
     var monthNames = [
@@ -92,7 +87,7 @@ const MainScreen = ({navigation}) => {
               size={42}
               source={require('../../assets/images/avatar.png')}
             />
-            <Text style={styles.text_Regular}>สวัสดี, ตะหลิว</Text>
+            <Text style={styles.text_Regular}>สวัสดี, {context?.user?.username} </Text>
           </View>
 
           <View style={styles.container_card}>
@@ -127,7 +122,7 @@ const MainScreen = ({navigation}) => {
                     fontFamily: 'NotoSansThai-Regular',
                   }}
                   variant="bodyMedium">
-                  BMI 18.1 ผอมเกินไป
+                  BMI : {(context?.user?.BMI || 0).toFixed(2) + CalculatorBMI(context?.user.BMI)}
                 </Text>
               </Card.Content>
             </Card>
@@ -187,7 +182,7 @@ const MainScreen = ({navigation}) => {
               titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
               title="น้ำหนักปัจจุบัน (kg) "
               subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-              subtitle="44 /40"
+              subtitle={context?.user?.weight + ' / ' + context?.user?.goal}
               right={props => (
                 <Button
                   mode="text"
@@ -195,7 +190,13 @@ const MainScreen = ({navigation}) => {
                   labelStyle={{
                     fontFamily: 'NotoSansThai-Regular',
                   }}
-                  onPress={() => navigation.navigate('EditCurrentWeight')}>
+                  onPress={() =>
+                    navigation.navigate({
+                      name: 'EditCurrentWeight',
+                      params: {username, weight: context?.user.weight, onUpdateUser},
+                      merge: true,
+                    })
+                  }>
                   บันทึกน้ำหนัก
                 </Button>
               )}

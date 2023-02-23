@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -32,36 +32,37 @@ import EditCurrentWeightScreen from '../screens/Home/EditCurrentWeight';
 import HistoryFoodScreen from '../screens/Food/HistoryFoodScreen';
 import HistoryExerciseScreen from '../screens/Exercise/HistoryExercise';
 import RoutinePlannerScreen from '../screens/Home/RoutinePlanner';
-
-import { transparent } from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import {AuthContext} from '../context/AuthContext';
+import {useQuery} from '@apollo/client';
+import {FINDUSER} from '../graphql/query';
+import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const HomeStack = () => {
+  const context = useContext(AuthContext);
+  const {data} = useQuery(FINDUSER, {
+    variables: {username: context?.username},
+  });
+
+  useEffect(() => {
+    // Handle user data when data was fetch
+    if (data) {
+      // - Set User
+      const newUser = JSON.parse(JSON.stringify(data.findUser));
+      context?.setUser(newUser);
+    }
+  }, [data]);
   return (
-    <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
-      <Stack.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="SuggestionMenu"
-        component={SuggestionMenu}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator
+      screenOptions={{headerTitleAlign: 'center', headerShown: false}}>
+      <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="SuggestionMenu" component={SuggestionMenu} />
       <Stack.Screen
         name="EditCurrentWeight"
         component={EditCurrentWeightScreen}
-        options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="RoutinePlanner"
-        component={RoutinePlannerScreen}
-        options={{title: 'สรุปผล'}}
-      />
-
-    
+      <Stack.Screen name="RoutinePlanner" component={RoutinePlannerScreen} />
     </Stack.Navigator>
   );
 };
@@ -99,7 +100,7 @@ const FoodStack = () => {
         component={SearchFoodScreen}
         options={{headerShown: false}}
       />
-       <Stack.Screen
+      <Stack.Screen
         name="HistoryFood"
         component={HistoryFoodScreen}
         options={{headerShown: false}}
@@ -109,75 +110,35 @@ const FoodStack = () => {
 };
 const ExerciseStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
-      <Stack.Screen
-        name="Exercise"
-        component={ExerciseScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="SearchExercise"
-        component={SearchExerciseScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="DeleteExercise"
-        component={DeleteExerciseScreen}
-        options={{headerShown: false}}
-      />
+    <Stack.Navigator
+      screenOptions={{headerTitleAlign: 'center', headerShown: false}}>
+      <Stack.Screen name="Exercise" component={ExerciseScreen} />
+      <Stack.Screen name="SearchExercise" component={SearchExerciseScreen} />
+      <Stack.Screen name="DeleteExercise" component={DeleteExerciseScreen} />
       <Stack.Screen
         name="CalculationExercise"
         component={CalculationExerciseScreen}
-        options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="HistoryExercise"
-        component={HistoryExerciseScreen}
-        options={{title: 'ออกกำลังกาย'}}
-      />
-
+      <Stack.Screen name="HistoryExercise" component={HistoryExerciseScreen} />
     </Stack.Navigator>
   );
 };
 
 const ProfileStack = () => {
   return (
-    <Stack.Navigator screenOptions={{headerTitleAlign: 'center'}}>
+    <Stack.Navigator
+      screenOptions={{headerTitleAlign: 'center', headerShown: false}}>
       <Stack.Screen
         name="Profile"
         component={ProfileScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="EditFormName"
-        component={EditFormNameScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="EditFormGender"
-        component={EditFormGenderScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="EditFormBirth"
-        component={EditFormBirthScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="EditFormHeight"
-        component={EditFormHeightScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="EditFormWeight"
-        component={EditFormWeightScreen}
-        options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="EditFormGoal"
-        component={EditFormGoalScreen}
-        options={{headerShown: false}}
-      />
+      <Stack.Screen name="EditFormName" component={EditFormNameScreen} />
+      <Stack.Screen name="EditFormGender" component={EditFormGenderScreen} />
+      <Stack.Screen name="EditFormBirth" component={EditFormBirthScreen} />
+      <Stack.Screen name="EditFormHeight" component={EditFormHeightScreen} />
+      <Stack.Screen name="EditFormWeight" component={EditFormWeightScreen} />
+      <Stack.Screen name="EditFormGoal" component={EditFormGoalScreen} />
     </Stack.Navigator>
   );
 };

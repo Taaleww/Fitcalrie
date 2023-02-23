@@ -1,17 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
   ScrollView,
   Image,
   Text,
-  SafeAreaView,
 } from 'react-native';
 import {Button, IconButton} from 'react-native-paper';
 import DateField from 'react-native-datefield';
+import {useMutation} from '@apollo/client';
+import {UPDATE_USER} from '../../graphql/mutation';
 
-const EditFormBirth = ({navigation}) => {
+const EditFormBirth = ({navigation, route}) => {
   const [date, setDate] = useState(new Date());
+
+  useEffect(() => {
+    setDate(route.params?.dateOfbirth)
+  }, [route.params?.dateOfbirth]);
+
+  const [editDateOfBirth] = useMutation(UPDATE_USER, {
+    onCompleted(data) {
+      route.params?.onUpdateUser({dateOfbirth: data.updateUser.dateOfbirth});
+      navigation.navigate('Profile');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
+
   return (
     <ScrollView>
       <View
@@ -63,8 +79,8 @@ const EditFormBirth = ({navigation}) => {
             labelDate="วัน"
             labelMonth="เดือน"
             labelYear="ปี"
-            defaultValue={new Date()}
-            onSubmit={value => console.log(value)}
+            defaultValue={new Date(route.params.dateOfbirth)}
+            onSubmit={value => setDate(value)}
           />
         </View>
 
@@ -76,7 +92,17 @@ const EditFormBirth = ({navigation}) => {
                 fontFamily: 'NotoSansThai-Regular',
               }}
               textColor="white"
-              mode="contained">
+              mode="contained"
+              onPress={() => {
+                editDateOfBirth({
+                  variables: {
+                    updateUserInput: {
+                      dateOfbirth: date.toISOString(),
+                      username: route.params.username,
+                    },
+                  },
+                });
+              }}>
               บันทึก
             </Button>
           </View>

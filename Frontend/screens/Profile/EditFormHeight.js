@@ -11,6 +11,8 @@ import {
 import {Button,IconButton} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {useMutation} from '@apollo/client';
+import {UPDATE_USER} from '../../graphql/mutation';
 
 const EditHeightSchema = Yup.object().shape({
   height: Yup.number()
@@ -19,12 +21,21 @@ const EditHeightSchema = Yup.object().shape({
     .required('กรุณากรอกส่วนสูง'),
 });
 
-const EditFormHeight = ({navigation}) => {
+const EditFormHeight = ({navigation,route}) => {
+  const [editHeight] = useMutation(UPDATE_USER, {
+    onCompleted(data) {
+      route.params?.onUpdateUser({height: data.updateUser.height, BMI: data.updateUser.BMI});
+      navigation.navigate('Profile');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
   return (
     <ScrollView>
       <Formik
         initialValues={{
-          height: '',
+          height: String(route.params?.height),
         }}
         validationSchema={EditHeightSchema}
         onSubmit={values => Alert.alert(JSON.stringify(values))}>
@@ -101,7 +112,16 @@ const EditFormHeight = ({navigation}) => {
                   textColor="white"
                   mode="contained"
                   disabled={!isValid}
-                  onPress={handleSubmit}>
+                  onPress={() => {
+                    editHeight({
+                      variables: {
+                        updateUserInput: {
+                          height: Number(values.height),
+                          username: route.params.username,
+                        },
+                      },
+                    });
+                  }}>
                   บันทึก
                 </Button>
               </View>

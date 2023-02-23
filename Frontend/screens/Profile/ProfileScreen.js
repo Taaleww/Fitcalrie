@@ -1,45 +1,93 @@
-import React, {useContext} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
-import {Text, Button, List} from 'react-native-paper';
+import {Text, Button, List, Avatar} from 'react-native-paper';
 import {AuthContext} from '../../context/AuthContext';
+import {useQuery} from '@apollo/client';
+import {FINDUSER} from '../../graphql/query';
 
 const ProfileScreen = ({navigation}) => {
-  const {logout} = useContext(AuthContext);
+  const context = useContext(AuthContext);
+  const [user, setUser] = useState(null);
+  const [date, setDate] = useState('');
+
+  const username = context.username;
+  const userinfo = context.user;
+  console.log('userinf0',userinfo);
+
+  const {data} = useQuery(FINDUSER, {
+    variables: {username: username},
+  });
+
+  const onUpdateUser = payload => {
+    context?.setUser({
+      ...context?.user,
+      ...payload,
+    });
+  };
+
+  useEffect(() => {
+    // Handle user data when data was fetch
+    if (data) {
+      // - Set User
+      const newUser = JSON.parse(JSON.stringify(data.findUser));
+      context?.setUser(newUser);
+    }
+  }, [data]);
+  
+  useEffect(() => {
+
+      // - Set date
+      const months = [
+        'Jan',
+        'Feb',
+        'Mar',
+        'Apr',
+        'May',
+        'Jun',
+        'Jul',
+        'Aug',
+        'Sep',
+        'Oct',
+        'Nov',
+        'Dec',
+      ];
+      const newDate = new Date(context?.user?.dateOfbirth);
+      const date = new Date(newDate).getDate(); //Current Date
+      const month = months[new Date(newDate).getMonth()]; //Current Month
+      const year = new Date(newDate).getFullYear(); //Current Year
+      setDate(date + ' ' + month + ' ' + year);
+    
+  }, [user?.dateOfbirth]);
 
   return (
     <ScrollView>
       <View style={styles.box}>
         <Text style={styles.text_header}>โปรไฟล์ของฉัน</Text>
+        <Avatar.Image
+          style={{alignSelf: 'center'}}
+          size={90}
+          source={require('../../assets/images/avatar.png')}
+        />
+        <Text
+          style={{
+            fontSize: 14,
+            paddingTop: 10,
+            fontFamily: 'NotoSansThai-SemiBold',
+            textAlign: 'center',
+          }}>
+          {user?.username}
+        </Text>
         <Text style={styles.text_Regular}>ข้อมูลส่วนตัว</Text>
-
         <TouchableOpacity
+          //  TODO: To discuss with boss how to handle it
           activeOpacity={0.7}
-          onPress={() => navigation.navigate('EditFormName')}>
-          <View style={{paddingTop: 10}}>
-            <List.Item
-              style={{backgroundColor: 'white', borderRadius: 10}}
-              title="ชื่อผู้ใช้งาน"
-              titleStyle={{
-                fontSize: 14,
-                fontFamily: 'NotoSansThai-Regular',
-              }}
-              right={props => (
-                <Text
-                  style={{
-                    paddingRight: 16,
-                    fontSize: 14,
-                    fontFamily: 'NotoSansThai-Regular',
-                  }}>
-                  มายด์
-                </Text>
-              )}
-            />
-          </View>
-        </TouchableOpacity>
-
-        <TouchableOpacity
-          activeOpacity={0.7}
-          onPress={() => navigation.navigate('EditFormGender')}>
+          onPress={() =>
+            navigation.navigate({
+              name: 'EditFormGender',
+              params: {username, gender: context?.user.gender, onUpdateUser},
+              merge: true,
+            })
+          }>
           <View style={{paddingTop: 10}}>
             <List.Item
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -55,7 +103,7 @@ const ProfileScreen = ({navigation}) => {
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
-                  ผู้หญิง
+                  {{male: 'ชาย', female: 'หญิง'}[context?.user?.gender]}
                 </Text>
               )}
             />
@@ -64,7 +112,13 @@ const ProfileScreen = ({navigation}) => {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.navigate('EditFormBirth')}>
+          onPress={() =>
+            navigation.navigate({
+              name: 'EditFormBirth',
+              params: {username, dateOfbirth: context?.user?.dateOfbirth, onUpdateUser},
+              merge: true,
+            })
+          }>
           <View style={{paddingTop: 10}}>
             <List.Item
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -80,7 +134,7 @@ const ProfileScreen = ({navigation}) => {
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
-                  22/06/2001
+                  {date}
                 </Text>
               )}
             />
@@ -89,7 +143,13 @@ const ProfileScreen = ({navigation}) => {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.navigate('EditFormWeight')}>
+          onPress={() =>
+            navigation.navigate({
+              name: 'EditFormWeight',
+              params: {username, weight: context?.user.weight, onUpdateUser},
+              merge: true,
+            })
+          }>
           <View style={{paddingTop: 10}}>
             <List.Item
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -105,7 +165,7 @@ const ProfileScreen = ({navigation}) => {
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
-                  45
+                  {context?.user?.weight}
                 </Text>
               )}
             />
@@ -114,7 +174,13 @@ const ProfileScreen = ({navigation}) => {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.navigate('EditFormHeight')}>
+          onPress={() =>
+            navigation.navigate({
+              name: 'EditFormHeight',
+              params: {username, height: context?.user.height, onUpdateUser},
+              merge: true,
+            })
+          }>
           <View style={{paddingTop: 10}}>
             <List.Item
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -130,7 +196,7 @@ const ProfileScreen = ({navigation}) => {
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
-                  163
+                  {context?.user?.height}
                 </Text>
               )}
             />
@@ -141,7 +207,13 @@ const ProfileScreen = ({navigation}) => {
 
         <TouchableOpacity
           activeOpacity={0.7}
-          onPress={() => navigation.navigate('EditFormGoal')}>
+          onPress={() =>
+            navigation.navigate({
+              name: 'EditFormGoal',
+              params: {username, goal: context?.user.goal, onUpdateUser},
+              merge: true,
+            })
+          }>
           <View style={{paddingTop: 10}}>
             <List.Item
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -157,7 +229,7 @@ const ProfileScreen = ({navigation}) => {
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
-                  40
+                  {context?.user?.goal}
                 </Text>
               )}
             />
@@ -174,7 +246,7 @@ const ProfileScreen = ({navigation}) => {
               textColor="white"
               mode="contained"
               onPress={() => {
-                logout();
+                context.logout();
               }}>
               ออกจากระบบ
             </Button>
@@ -201,6 +273,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 116,
     textAlign: 'center',
     paddingTop: 60,
+    paddingBottom: 10,
   },
   text_Regular: {
     fontSize: 14,

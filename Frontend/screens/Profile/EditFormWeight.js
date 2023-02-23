@@ -11,6 +11,8 @@ import {
 import {Button, IconButton} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {useMutation} from '@apollo/client';
+import {UPDATE_USER} from '../../graphql/mutation';
 
 const EditWeightSchema = Yup.object().shape({
   weight: Yup.number()
@@ -19,14 +21,22 @@ const EditWeightSchema = Yup.object().shape({
     .required('กรุณากรอกน้ำหนัก'),
 });
 
-const EditFormWeight = ({navigation}) => {
-  // const [number, onChangeNumber] = React.useState('');
+const EditFormWeight = ({navigation, route}) => {
+  const [editWeight] = useMutation(UPDATE_USER, {
+    onCompleted(data) {
+      route.params?.onUpdateUser({weight: data.updateUser.weight, BMI: data.updateUser.BMI});
+      navigation.navigate('Profile');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
 
   return (
     <ScrollView>
       <Formik
         initialValues={{
-          weight: '',
+          weight: String(route.params?.weight),
         }}
         validationSchema={EditWeightSchema}
         onSubmit={values => Alert.alert(JSON.stringify(values))}>
@@ -74,7 +84,6 @@ const EditFormWeight = ({navigation}) => {
                 style={{width: 300, height: 300}}
                 source={require('../../assets/images/personalweight.png')}
               />
-
               <SafeAreaView>
                 <TextInput
                   style={styles.input}
@@ -103,7 +112,16 @@ const EditFormWeight = ({navigation}) => {
                   textColor="white"
                   mode="contained"
                   disabled={!isValid}
-                  onPress={handleSubmit}>
+                  onPress={() => {
+                    editWeight({
+                      variables: {
+                        updateUserInput: {
+                          weight: Number(values.weight),
+                          username: route.params.username,
+                        },
+                      },
+                    });
+                  }}>
                   บันทึก
                 </Button>
               </View>

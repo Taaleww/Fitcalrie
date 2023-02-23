@@ -11,24 +11,34 @@ import {
 import {Button, IconButton} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {useMutation} from '@apollo/client';
+import {UPDATE_USER} from '../../graphql/mutation';
 
-const EditWeightSchema = Yup.object().shape({
+const EditGoalSchema = Yup.object().shape({
   goal: Yup.number()
     .min(20, 'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
     .max(299, 'ต้องเป็นตัวเลขระหว่าง 20 ถึง 299')
     .required('กรุณากรอกน้ำหนัก'),
 });
 
-const EditFormGoal = ({navigation}) => {
-  // const [number, onChangeNumber] = React.useState('');
+const EditFormGoal = ({navigation,route}) => {
+  const [editGoal] = useMutation(UPDATE_USER, {
+    onCompleted(data) {
+      route.params?.onUpdateUser({goal: data.updateUser.goal});
+      navigation.navigate('Profile');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
 
   return (
     <ScrollView>
       <Formik
         initialValues={{
-          goal: '',
+          goal: String(route.params?.goal),
         }}
-        validationSchema={EditWeightSchema}
+        validationSchema={EditGoalSchema}
         onSubmit={values => Alert.alert(JSON.stringify(values))}>
         {({
           values,
@@ -78,7 +88,7 @@ const EditFormGoal = ({navigation}) => {
               <SafeAreaView>
                 <TextInput
                   style={styles.input}
-                  value={values.weight}
+                  value={values.goal}
                   onChangeText={handleChange('goal')}
                   onBlur={() => setFieldTouched('goal')}
                   placeholder="เป้าหมายน้ำหนัก"
@@ -103,7 +113,16 @@ const EditFormGoal = ({navigation}) => {
                   textColor="white"
                   mode="contained"
                   disabled={!isValid}
-                  onPress={handleSubmit}>
+                  onPress={() => {
+                    editGoal({
+                      variables: {
+                        updateUserInput: {
+                          goal: Number(values.goal),
+                          username: route.params.username,
+                        },
+                      },
+                    });
+                  }}>
                   บันทึก
                 </Button>
               </View>

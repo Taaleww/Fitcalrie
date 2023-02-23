@@ -1,17 +1,17 @@
-import { gql } from "@apollo/client";
+import {gql} from '@apollo/client';
 
-export const GET_USER_INFO = gql`
-    query user($input: Int!)
-    {
-        user(id: $input){
-            username
-            gender
-            dateOfbirth
-            height
-            weight
-            BMI
-            frq_excercise
-            goal
-        }
+export const FINDUSER = gql`
+  query findUser($username: String!) {
+    findUser(username: $username) {
+      _id
+      username
+      gender
+      dateOfbirth
+      height
+      weight
+      BMI
+      frq_excercise
+      goal
     }
+  }
 `;

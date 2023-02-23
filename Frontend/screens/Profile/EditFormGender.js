@@ -1,11 +1,26 @@
-import React from 'react';
+import React, {useContext, useState, useEffect}from 'react';
 import {View, StyleSheet, ScrollView, Text, Image} from 'react-native';
 import {Button, RadioButton, IconButton} from 'react-native-paper';
+import {useMutation} from '@apollo/client';
+import {UPDATE_USER} from '../../graphql/mutation';
 
-const FormGender = ({navigation}) => {
-  const [number, onChangeNumber] = React.useState('');
-  const [value, setValue] = React.useState('male');
-  console.log(value);
+const FormGender = ({navigation, route}) => {
+  const [gender, setGender] = React.useState('male');
+
+  useEffect(() => {
+    setGender(route.params?.gender);
+  }, [route.params?.gender]);
+
+  const [editGender] = useMutation(UPDATE_USER, {
+    onCompleted(data) {
+      route.params?.onUpdateUser({gender: data.updateUser.gender});
+      navigation.navigate('Profile');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
+
   return (
     <ScrollView>
       <View
@@ -46,8 +61,8 @@ const FormGender = ({navigation}) => {
         </View>
 
         <RadioButton.Group
-          onValueChange={value => setValue(value)}
-          value={value}>
+          onValueChange={value => setGender(value)}
+          value={gender}>
           <RadioButton.Item
             style={{
               backgroundColor: 'white',
@@ -84,7 +99,17 @@ const FormGender = ({navigation}) => {
                 fontFamily: 'NotoSansThai-Regular',
               }}
               textColor="white"
-              mode="contained">
+              mode="contained"
+              onPress={() => {
+                editGender({
+                  variables: {
+                    updateUserInput: {
+                      gender,
+                      username: route.params.username,
+                    },
+                  },
+                });
+              }}>
               บันทึก
             </Button>
           </View>

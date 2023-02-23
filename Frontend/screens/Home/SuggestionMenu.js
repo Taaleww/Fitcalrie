@@ -42,6 +42,7 @@ const SuggestionMenu = ({navigation}) => {
               }}>
               กระเพราไก่
             </Text>
+            
             <Text
               style={{
                 width: 32,
