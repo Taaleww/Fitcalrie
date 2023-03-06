@@ -34,6 +34,7 @@
     "react-native-date-picker": "^4.2.6",
     "react-native-datefield": "^0.3.6",
     "react-native-gesture-handler": "^2.9.0",
+    "react-native-numeric-input": "^1.9.1",
     "react-native-paper": "^5.1.4",
     "react-native-paper-form-builder": "^2.1.2",
     "react-native-profile-picture": "^1.0.0",

@@ -4,7 +4,6 @@ export const CREATE_USER = gql`
   mutation ($createUserInput: CreateUserInput!) {
     createUser(createUserInput: $createUserInput) {
       username
-      password
       gender
       dateOfbirth
       height
@@ -23,7 +22,6 @@ export const LOGIN = gql`
       user {
         _id
         username
-        password
         gender
         dateOfbirth
         height
@@ -47,5 +45,24 @@ export const UPDATE_USER = gql`
       BMI
       goal
     }
+  }
+`;
+
+export const ADD_FOOD = gql`
+  mutation createNutritionOfUser(
+    $createNutritionOfUserInput: CreateNutritionOfUserInput!
+  ) {
+    createNutritionOfUser(
+      createNutritionOfUserInput: $createNutritionOfUserInput
+    ) {
+      total_calorie
+      servingSize
+    }
+  }
+`;
+
+export const DELTE_FOOD = gql`
+  mutation removeNutritionOfUser($delete: String!) {
+    removeNutritionOfUser(delete: $delete)
   }
 `;

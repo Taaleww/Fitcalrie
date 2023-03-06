@@ -1,15 +1,12 @@
 import * as React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {Searchbar, Text, IconButton, Button} from 'react-native-paper';
+import {Text, Provider, IconButton} from 'react-native-paper';
+import ListBMI from '../../components/ListBMI';
 
-const SearchExerciseScreen = ({navigation}) => {
-  const [searchQuery, setSearchQuery] = React.useState('');
-
-  const onChangeSearch = query => setSearchQuery(query);
-
+const InformationBMI = ({navigation}) => {
   return (
-    <ScrollView>
-      <View style={styles.box}>
+    <Provider>
+      <ScrollView>
         <View
           style={{
             width: '100%',
@@ -32,55 +29,38 @@ const SearchExerciseScreen = ({navigation}) => {
               fontSize: 20,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
-            ออกกำลังกาย
+            ดัชนีมวลกาย (BMI)
           </Text>
           <Text
             style={{
               width: 32,
             }}></Text>
         </View>
-        <View style={{paddingLeft: 18, paddingRight: 18, paddingTop: 24}}>
-          <Searchbar
+
+        <Text
             style={{
-              borderRadius: 10,
-              height: 48,
-              width: 380,
-              backgroundColor: 'white',
-            }}
-            placeholder="ค้นหาจากชื่อ"
-            onChangeText={onChangeSearch}
-            placeholderTextColor="#E0E0E0"
-            value={searchQuery}
-          />
-        </View>
-        <View style={styles.button}>
-          <Button
-            style={{backgroundColor: '#FD9A86', borderRadius: 10}}
-            labelStyle={{
+              paddingHorizontal: 20,
+              fontSize: 12,
               fontFamily: 'NotoSansThai-Regular',
-            }}
-            textColor="white"
-            mode="contained"
-            onPress={() => navigation.navigate('AddExercise')}>
-            เพิ่มการเผาผลาญ
-          </Button>
-        </View>
-      </View>
-    </ScrollView>
+              textAlign:'center',
+              paddingHorizontal: 90,
+            }}>
+            ใช้ชี้วัดความสมดุลของน้ำหนักและส่วนสูงซึ่งช่วยระบุได้ว่าตอนนี้รูปร่างอยู่ในเกณฑ์หรือไม่
+          </Text>
+
+       
+        <Text style={styles.text_Regular}>ข้อมูลดัชนีมวลกาย</Text>
+
+        {/* Information */}
+        <ListBMI kcal={"น้อยกว่า 18.5"} protein={"18.6-22.9"} carbo={"23.0-24.9"} fat={"25.0-29.9"} sugar={"30.0 ขึ้นไป"} />
+      </ScrollView>
+    </Provider>
   );
 };
 
-export default SearchExerciseScreen;
+export default InformationBMI;
 
 const styles = StyleSheet.create({
-  box: {
-    paddingBottom: 13,
-  },
-  container: {
-    paddingTop: 10,
-    paddingLeft: 18,
-    paddingRight: 18,
-  },
   text_header: {
     color: '#1A212F',
     fontWeight: 'bold',
@@ -97,17 +77,17 @@ const styles = StyleSheet.create({
   },
   text_Regular: {
     color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
+    fontSize: 14,
     paddingLeft: 18,
     paddingTop: 24,
+    fontFamily: 'NotoSansThai-SemiBold',
   },
   button: {
     flex: 1,
     justifyContent: 'center',
     paddingLeft: 18,
     paddingRight: 18,
-    paddingTop: 10,
+    paddingBottom: 10,
   },
   iconbutton: {
     paddingLeft: 3,

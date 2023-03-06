@@ -7,7 +7,7 @@ export default function ListFood({
     protein,
     carbo,
     fat,
-    sugar
+    vitamin
 
 }) {
     return (
@@ -64,9 +64,9 @@ export default function ListFood({
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
                     titleStyle={{ color: "#1A212F" ,fontFamily: 'NotoSansThai-Regular' }}
-                    title="น้ำตาล (g) "
-                    left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
-                    right={(props) => <Text style={styles.text_details}>{sugar}</Text>}
+                    title="วิตามินซี (mg) "
+                    left={(props) => <Avatar.Icon {...props} icon="pill" color='#1A212F' backgroundColor='#E9EFF2' />}
+                    right={(props) => <Text style={styles.text_details}>{vitamin}</Text>}
                 />
                 <ProgressBar progress={0.5} color="#FD9A86" style={styles.progress} />
             </View>

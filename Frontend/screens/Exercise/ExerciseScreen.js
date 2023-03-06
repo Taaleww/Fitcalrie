@@ -36,11 +36,11 @@ const FoodScreen = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.box}>
-      <View
+        <View
           style={{
             paddingTop: 50,
-            flexDirection:'row',
-            justifyContent:'space-between'
+            flexDirection: 'row',
+            justifyContent: 'space-between',
           }}>
           <View style={{width: 48}}></View>
           <Text style={styles.text_header}>
@@ -65,7 +65,7 @@ const FoodScreen = ({navigation}) => {
         <View style={{paddingTop: 10}}>
           <Card.Title
             style={{backgroundColor: 'white', borderRadius: 10}}
-            titleStyle={{ fontFamily: 'NotoSansThai-Regular'}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
             title="เผาผลาญ (kcal)"
             left={props => (
               <Avatar.Icon
@@ -85,12 +85,12 @@ const FoodScreen = ({navigation}) => {
           activeOpacity={0.5}
           onPress={() => navigation.navigate('DeleteExercise')}>
           <View style={{paddingTop: 10}}>
-            <Card.Title
+          <Card.Title
               style={{backgroundColor: 'white', borderRadius: 10}}
-              titleStyle={{
-                fontFamily: 'NotoSansThai-Regular',
-              }}
-              title="วิ่ง "
+              titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+              title="วิ่ง"
+              subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+              subtitle="120 kcal"
               left={props => (
                 <Avatar.Icon
                   {...props}
@@ -100,13 +100,18 @@ const FoodScreen = ({navigation}) => {
                 />
               )}
               right={props => (
-                <Text style={{paddingRight: 10, fontSize: 14}}>120 kcal</Text>
+                <IconButton
+                  {...props}
+                  icon="chevron-right"
+                  iconColor="#1A212F"
+                  onPress={() => {}}
+                />
               )}
             />
           </View>
         </TouchableOpacity>
 
-        <View style={{paddingTop: 10}}>
+        <View style={{paddingTop:24}} >
           <View style={styles.button}>
             <Button
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -119,6 +124,7 @@ const FoodScreen = ({navigation}) => {
               เพิ่มการเผาผลาญจากการวิ่ง
             </Button>
           </View>
+          <View style={{paddingTop:10}}></View>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
@@ -149,7 +155,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     textAlign: 'center',
     fontFamily: 'NotoSansThai-SemiBold',
-    width:200,
+    width: 200,
   },
   text_Regular: {
     fontSize: 14,
@@ -165,13 +171,10 @@ const styles = StyleSheet.create({
     height: 8,
     borderRadius: 8,
   },
-  iconbutton: {
-    
-  },
+  iconbutton: {},
   button: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 10,
   },
   innerText: {
     color: '#FD9A86',

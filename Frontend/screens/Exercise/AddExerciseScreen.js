@@ -7,7 +7,14 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import {Text, Button, Dialog, Portal, Provider, IconButton} from 'react-native-paper';
+import {
+  Text,
+  Button,
+  Dialog,
+  Portal,
+  Provider,
+  IconButton,
+} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 
@@ -15,10 +22,9 @@ const CalculatorSchema = Yup.object().shape({
   period: Yup.number()
     .min(5, 'กรุณากรอกระยะเวลามากกว่า 5 นาที')
     .required('กรุณากรอกระยะเวลา'),
-  distance: Yup.number().required('กรุณากรอกระยะทาง'),
 });
 
-const CalculationExercise = ({navigation}) => {
+const AddExercise = ({navigation}) => {
   const [speed, setSpeed] = React.useState(0);
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
@@ -70,34 +76,34 @@ const CalculationExercise = ({navigation}) => {
           }) => (
             <View>
               <View
-              style={{
-                width: '100%',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 8,
-              }}>
-              <IconButton
-                style={{width: 32}}
-                icon="chevron-left"
-                iconColor="#1A212F"
-                size={32}
-                onPress={() => navigation.goBack()}
-              />
-              <Text
                 style={{
-                  color: 'black',
-                  fontSize: 20,
-                  fontFamily: 'NotoSansThai-SemiBold',
+                  width: '100%',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 8,
                 }}>
-                คำนวณการเผาผลาญ
-              </Text>
-              <Text
-                style={{
-                  width: 32,
-                }}></Text>
-            </View>
+                <IconButton
+                  style={{width: 32}}
+                  icon="chevron-left"
+                  iconColor="#1A212F"
+                  size={32}
+                  onPress={() => navigation.goBack()}
+                />
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 20,
+                    fontFamily: 'NotoSansThai-SemiBold',
+                  }}>
+                  กวาดบ้าน
+                </Text>
+                <Text
+                  style={{
+                    width: 32,
+                  }}></Text>
+              </View>
               <Text
                 style={{
                   textAlign: 'center',
@@ -105,40 +111,21 @@ const CalculationExercise = ({navigation}) => {
                   fontWeight: 'bold',
                   fontSize: 60,
                   color: '#FD9A86',
-                  fontFamily: 'NotoSansThai-Regular'
+                  fontFamily: 'NotoSansThai-Regular',
                 }}
                 values={values.result}>
                 {calculator(values)}
               </Text>
-              <Text style={{textAlign: 'center',fontFamily: 'NotoSansThai-Regular', size:14}}>kcal</Text>
-              {!isValid ||
-                (speed > 30 && (
-                  <Text style={styles.errorTxtDisabled}>
-                    ความเร็วของคุณสูงเกินไป
-                  </Text>
-                ))}
-              {!isValid ||
-                (speed > 30 && (
-                  <Text style={{color: '#FD9A86', textAlign: 'center',fontFamily: 'NotoSansThai-Regular',}}>
-                    (จำกัดความเร็วไม่เกิน 30 km/h)
-                  </Text>
-                ))}
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontFamily: 'NotoSansThai-Regular',
+                  size: 14,
+                }}>
+                kcal
+              </Text>
 
               <View style={{paddingTop: 80, alignItems: 'center'}}>
-                <SafeAreaView>
-                  <TextInput
-                    style={styles.input}
-                    onChangeText={handleChange('distance')}
-                    onBlur={() => setFieldTouched('distance')}
-                    values={values.distance}
-                    placeholder="ระยะทาง                                                                     กิโลเมตร"
-                    keyboardType="numeric"
-                  />
-                  {touched.distance && errors.distance && (
-                    <Text style={styles.errorTxt}>{errors.distance}</Text>
-                  )}
-                </SafeAreaView>
-
                 <SafeAreaView>
                   <TextInput
                     style={styles.input}
@@ -154,7 +141,7 @@ const CalculationExercise = ({navigation}) => {
                 </SafeAreaView>
               </View>
 
-              <View style={{paddingTop: 200}}>
+              <View style={{paddingTop: 260}}>
                 <View style={styles.button}>
                   <Button
                     style={{
@@ -207,7 +194,7 @@ const CalculationExercise = ({navigation}) => {
     </Provider>
   );
 };
-export default CalculationExercise;
+export default AddExercise;
 
 const styles = StyleSheet.create({
   box: {

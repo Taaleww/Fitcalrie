@@ -103,7 +103,6 @@ const HistoryExercise = ({navigation}) => {
         }}
       />
       <Text style={styles.text_Regular}>Mon 22 Jun</Text>
-
       <View style={{paddingTop: 10, paddingHorizontal: 18}}>
         <Card.Title
           style={{backgroundColor: 'white', borderRadius: 10}}

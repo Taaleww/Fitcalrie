@@ -35,7 +35,11 @@ import RoutinePlannerScreen from '../screens/Home/RoutinePlanner';
 import {AuthContext} from '../context/AuthContext';
 import {useQuery} from '@apollo/client';
 import {FINDUSER} from '../graphql/query';
-import {transparent} from 'react-native-paper/lib/typescript/styles/themes/v2/colors';
+import InformationFoodScreen from '../screens/Food/InformationFood';
+import InformationBMIScreen from '../screens/Home/InformationBMI';
+import AddFoodScreen from '../screens/Food/AddFoodScreen';
+import AddExerciseScreen from '../screens/Exercise/AddExerciseScreen';
+
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -63,6 +67,11 @@ const HomeStack = () => {
         component={EditCurrentWeightScreen}
       />
       <Stack.Screen name="RoutinePlanner" component={RoutinePlannerScreen} />
+      <Stack.Screen
+        name="InformationBMI"
+        component={InformationBMIScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
@@ -105,6 +114,16 @@ const FoodStack = () => {
         component={HistoryFoodScreen}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="InformationFood"
+        component={InformationFoodScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AddFood"
+        component={AddFoodScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
@@ -120,6 +139,7 @@ const ExerciseStack = () => {
         component={CalculationExerciseScreen}
       />
       <Stack.Screen name="HistoryExercise" component={HistoryExerciseScreen} />
+      <Stack.Screen name="AddExercise" component={AddExerciseScreen} />
     </Stack.Navigator>
   );
 };
@@ -180,6 +200,9 @@ const Tabs = () => {
             if (routeName === 'RoutinePlanner') {
               return {display: 'none'};
             }
+            if (routeName === 'InformationBMI') {
+              return {display: 'none'};
+            }
             return;
           })(route),
         })}
@@ -213,6 +236,9 @@ const Tabs = () => {
             if (routeName === 'HistoryFood') {
               return {display: 'none'};
             }
+            if (routeName === 'InformationFood') {
+              return {display: 'none'};
+            }
             return;
           })(route),
         })}
@@ -238,6 +264,9 @@ const Tabs = () => {
               return {display: 'none'};
             }
             if (routeName === 'HistoryExercise') {
+              return {display: 'none'};
+            }
+            if (routeName === 'AddExercise') {
               return {display: 'none'};
             }
             return;

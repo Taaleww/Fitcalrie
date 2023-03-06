@@ -29,21 +29,11 @@ const FoodScreen = ({navigation}) => {
   return (
     <ScrollView>
       <View style={styles.box}>
-        {/* <View style={styles.iconbutton}>
-          <IconButton
-            icon="calendar-month"
-            iconColor="white"
-            mode="contained-tonal"
-            containerColor="#FD9A86"
-            size={20}
-            onPress={() => console.log('Pressed1')}
-          />
-        </View> */}
         <View
           style={{
             paddingTop: 50,
-            flexDirection:'row',
-            justifyContent:'space-between'
+            flexDirection: 'row',
+            justifyContent: 'space-between',
           }}>
           <View style={{width: 48}}></View>
           <Text style={styles.text_header}>
@@ -63,16 +53,36 @@ const FoodScreen = ({navigation}) => {
           </View>
         </View>
 
-        <Text style={styles.text_Regular}>{currentDate}</Text>
+        <View
+          style={{
+            paddingTop: 24,
+            flexDirection: 'row',
+          }}>
+          <Text style={styles.text_Regular}>{currentDate}</Text>
+          <View style={styles.iconbutton}>
+            <IconButton
+              icon="alert-circle-outline"
+              iconColor="#8E8E8E"
+              size={14}
+              onPress={() => navigation.navigate('InformationFood')}
+            />
+          </View>
+        </View>
 
         {/* Information */}
-        <ListFood kcal={20} protein={20} carbo={20} fat={20} sugar={20} />
+        <ListFood kcal={20} protein={20} carbo={20} fat={20} vitamin={20} />
         {/* Add Food */}
-        <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
+        <Text
+          style={{
+            fontSize: 14,
+            paddingTop: 24,
+            fontFamily: 'NotoSansThai-SemiBold',
+          }}>
+          อาหารที่รับประทาน
+        </Text>
         <TouchableOpacity
           activeOpacity={0.5}
-          onPress={() => navigation.navigate('DeleteFood')}
-          >
+          onPress={() => navigation.navigate('DeleteFood')}>
           <View style={styles.container}>
             <Card.Title
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -173,31 +183,29 @@ const styles = StyleSheet.create({
     paddingRight: 18,
   },
   container: {
-    paddingTop: 10
+    paddingTop: 10,
   },
   text_header: {
     fontSize: 20,
     paddingHorizontal: 10,
     textAlign: 'center',
     fontFamily: 'NotoSansThai-SemiBold',
-    width:200,
+    width: 200,
   },
   text_Regular: {
     fontSize: 14,
-    paddingTop: 10,
+    paddingTop: 12,
     fontFamily: 'NotoSansThai-SemiBold',
   },
   progress: {
     height: 8,
     borderRadius: 8,
   },
-  iconbutton: {
-    
-  },
+  iconbutton: {},
   button: {
     flex: 1,
     justifyContent: 'center',
-    paddingTop: 10,
+    paddingTop: 24,
   },
   innerText: {
     color: '#FD9A86',

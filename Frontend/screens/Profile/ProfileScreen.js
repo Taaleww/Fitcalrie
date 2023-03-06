@@ -12,7 +12,6 @@ const ProfileScreen = ({navigation}) => {
 
   const username = context.username;
   const userinfo = context.user;
-  console.log('userinf0',userinfo);
 
   const {data} = useQuery(FINDUSER, {
     variables: {username: username},
@@ -33,41 +32,47 @@ const ProfileScreen = ({navigation}) => {
       context?.setUser(newUser);
     }
   }, [data]);
-  
-  useEffect(() => {
 
-      // - Set date
-      const months = [
-        'Jan',
-        'Feb',
-        'Mar',
-        'Apr',
-        'May',
-        'Jun',
-        'Jul',
-        'Aug',
-        'Sep',
-        'Oct',
-        'Nov',
-        'Dec',
-      ];
-      const newDate = new Date(context?.user?.dateOfbirth);
-      const date = new Date(newDate).getDate(); //Current Date
-      const month = months[new Date(newDate).getMonth()]; //Current Month
-      const year = new Date(newDate).getFullYear(); //Current Year
-      setDate(date + ' ' + month + ' ' + year);
-    
-  }, [user?.dateOfbirth]);
+  useEffect(() => {
+    // - Set date
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const newDate = new Date(context?.user?.dateOfbirth);
+    const date = new Date(newDate).getDate(); //Current Date
+    const month = months[new Date(newDate).getMonth()]; //Current Month
+    const year = new Date(newDate).getFullYear(); //Current Year
+    setDate(date + ' ' + month + ' ' + year);
+  }, [context.user?.dateOfbirth]);
 
   return (
     <ScrollView>
       <View style={styles.box}>
         <Text style={styles.text_header}>โปรไฟล์ของฉัน</Text>
-        <Avatar.Image
-          style={{alignSelf: 'center'}}
-          size={90}
-          source={require('../../assets/images/avatar.png')}
-        />
+        {context.user?.gender === 'male' ? (
+          <Avatar.Image
+            style={{alignSelf: 'center'}}
+            size={90}
+            source={require('../../assets/images/male.png')}
+          />
+        ) : (
+          <Avatar.Image
+            style={{alignSelf: 'center'}}
+            size={90}
+            source={require('../../assets/images/female.png')}
+          />
+        )}
         <Text
           style={{
             fontSize: 14,
@@ -75,11 +80,10 @@ const ProfileScreen = ({navigation}) => {
             fontFamily: 'NotoSansThai-SemiBold',
             textAlign: 'center',
           }}>
-          {user?.username}
+          {context?.user?.username}
         </Text>
         <Text style={styles.text_Regular}>ข้อมูลส่วนตัว</Text>
         <TouchableOpacity
-          //  TODO: To discuss with boss how to handle it
           activeOpacity={0.7}
           onPress={() =>
             navigation.navigate({
@@ -99,7 +103,6 @@ const ProfileScreen = ({navigation}) => {
               right={props => (
                 <Text
                   style={{
-                    paddingRight: 16,
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
@@ -115,7 +118,11 @@ const ProfileScreen = ({navigation}) => {
           onPress={() =>
             navigation.navigate({
               name: 'EditFormBirth',
-              params: {username, dateOfbirth: context?.user?.dateOfbirth, onUpdateUser},
+              params: {
+                username,
+                dateOfbirth: context?.user?.dateOfbirth,
+                onUpdateUser,
+              },
               merge: true,
             })
           }>
@@ -130,7 +137,6 @@ const ProfileScreen = ({navigation}) => {
               right={props => (
                 <Text
                   style={{
-                    paddingRight: 16,
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
@@ -161,7 +167,6 @@ const ProfileScreen = ({navigation}) => {
               right={props => (
                 <Text
                   style={{
-                    paddingRight: 16,
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
@@ -192,7 +197,6 @@ const ProfileScreen = ({navigation}) => {
               right={props => (
                 <Text
                   style={{
-                    paddingRight: 16,
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
@@ -225,7 +229,6 @@ const ProfileScreen = ({navigation}) => {
               right={props => (
                 <Text
                   style={{
-                    paddingRight: 16,
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
@@ -236,7 +239,7 @@ const ProfileScreen = ({navigation}) => {
           </View>
         </TouchableOpacity>
 
-        <View style={{paddingTop: 26}}>
+        <View style={{paddingTop: 24}}>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
@@ -264,15 +267,12 @@ const styles = StyleSheet.create({
     paddingLeft: 18,
     paddingRight: 18,
   },
-  container: {
-    paddingTop: 10,
-  },
   text_header: {
     fontFamily: 'NotoSansThai-SemiBold',
     fontSize: 20,
     paddingHorizontal: 116,
     textAlign: 'center',
-    paddingTop: 60,
+    paddingTop: 50,
     paddingBottom: 10,
   },
   text_Regular: {

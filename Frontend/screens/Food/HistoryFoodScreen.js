@@ -147,6 +147,7 @@ const HistoryFood = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingTop:10
   },
   text_Regular: {
     fontSize: 14,

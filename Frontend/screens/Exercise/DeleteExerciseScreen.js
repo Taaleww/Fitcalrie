@@ -8,7 +8,7 @@ import {
   Dialog,
   Portal,
   Provider,
-  IconButton
+  IconButton,
 } from 'react-native-paper';
 
 const DeleteFoodScreen = ({navigation}) => {
@@ -21,46 +21,63 @@ const DeleteFoodScreen = ({navigation}) => {
   return (
     <Provider>
       <ScrollView>
-      <View
-              style={{
-                width: '100%',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 8,
-              }}>
-              <IconButton
-                style={{width: 32}}
-                icon="chevron-left"
-                iconColor="#1A212F"
-                size={32}
-                onPress={() => navigation.goBack()}
-              />
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 20,
-                  fontFamily: 'NotoSansThai-SemiBold',
-                }}>
-                วิ่ง
-              </Text>
-              <Text
-                style={{
-                  width: 32,
-                }}></Text>
-            </View>
-        <Text style={styles.text_Regular}>ข้อมูลการเผาผลาญ</Text>
-
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingTop: 8,
+          }}>
+          <IconButton
+            style={{width: 32}}
+            icon="chevron-left"
+            iconColor="#1A212F"
+            size={32}
+            onPress={() => navigation.goBack()}
+          />
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontFamily: 'NotoSansThai-SemiBold',
+            }}>
+            วิ่ง
+          </Text>
+          <Text
+            style={{
+              width: 32,
+            }}></Text>
+        </View>
+        <Text
+          style={{
+            textAlign: 'center',
+            paddingTop: 50,
+            fontWeight: 'bold',
+            fontSize: 60,
+            color: '#FD9A86',
+            fontFamily: 'NotoSansThai-Regular',
+          }}>
+          300
+        </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontFamily: 'NotoSansThai-Regular',
+            size: 14,
+          }}>
+          kcal
+        </Text>
         <View style={styles.container}>
           <Card.Title
             style={{backgroundColor: 'white', borderRadius: 10}}
             titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-            title="เผาผลาญ (kcal)"
+            title="ระยะเวลา (นาที)"
             left={props => (
               <Avatar.Icon
                 {...props}
-                icon="fire"
+                icon="history"
                 color="#1A212F"
                 backgroundColor="#E9EFF2"
               />
@@ -69,7 +86,7 @@ const DeleteFoodScreen = ({navigation}) => {
           />
         </View>
 
-        <View style={{paddingTop: 420}}>
+        <View style={{paddingTop: 280}}>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
@@ -90,7 +107,11 @@ const DeleteFoodScreen = ({navigation}) => {
             style={{backgroundColor: 'white', borderRadius: 10}}>
             <Dialog.Icon color="#EF4444" icon="alert-circle" size={30} />
             <Dialog.Title
-              style={{fontSize: 16, textAlign: 'center', fontFamily: 'NotoSansThai-SemiBold',}}>
+              style={{
+                fontSize: 16,
+                textAlign: 'center',
+                fontFamily: 'NotoSansThai-SemiBold',
+              }}>
               คุณต้องการลบรายการ "วิ่ง" ?
             </Dialog.Title>
             <Dialog.Actions>
@@ -126,7 +147,7 @@ export default DeleteFoodScreen;
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
+    paddingTop: 36,
     paddingLeft: 18,
     paddingRight: 18,
   },

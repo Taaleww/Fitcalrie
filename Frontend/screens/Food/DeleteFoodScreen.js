@@ -1,54 +1,82 @@
 import * as React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {Text, Button, Dialog, Portal, Provider,IconButton} from 'react-native-paper';
+import {
+  Text,
+  Button,
+  Dialog,
+  Portal,
+  Provider,
+  IconButton,
+} from 'react-native-paper';
 import ListNutrition from '../../components/ListNutrition';
+import {useQuery} from '@apollo/client';
+import {useMutation} from '@apollo/client';
+import {NUTRITION} from '../../graphql/query';
+import {DELTE_FOOD} from '../../graphql/mutation';
 
 const DeleteFoodScreen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
-
   const showDialog = () => setVisible(true);
-
   const hideDialog = () => setVisible(false);
+
+  const [deleteFood] = useMutation(DELTE_FOOD, {
+    onCompleted(data) {
+      showDialog();
+      console.log('Delete Food success');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
 
   return (
     <Provider>
       <ScrollView>
-      <View
-              style={{
-                width: '100%',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 8,
-              }}>
-              <IconButton
-                style={{width: 32}}
-                icon="chevron-left"
-                iconColor="#1A212F"
-                size={32}
-                onPress={() => navigation.goBack()}
-              />
-              <Text
-                style={{
-                  color: 'black',
-                  fontSize: 20,
-                  fontFamily: 'NotoSansThai-SemiBold',
-                }}>
-                กระเพราไก่
-              </Text>
-              <Text
-                style={{
-                  width: 32,
-                }}></Text>
-            </View>
+        <View
+          style={{
+            width: '100%',
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            paddingTop: 8,
+          }}>
+          <IconButton
+            style={{width: 32}}
+            icon="chevron-left"
+            iconColor="#1A212F"
+            size={32}
+            onPress={() => navigation.goBack()}
+          />
+          <Text
+            style={{
+              color: 'black',
+              fontSize: 20,
+              fontFamily: 'NotoSansThai-SemiBold',
+            }}>
+            กระเพราไก่
+          </Text>
+          <Text
+            style={{
+              width: 32,
+            }}></Text>
+        </View>
+        <Text
+          style={{
+            textAlign: 'center',
+            fontSize: 20,
+            fontFamily: 'NotoSansThai-SemiBold',
+            color: '#FD9A86',
+          }}>
+          145 kcal
+        </Text>
         <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
         {/* Information */}
         <ListNutrition kcal={20} protein={20} carbo={20} fat={20} sugar={20} />
 
         <View>
-          <View style={{paddingTop: 90}}>
+          <View style={{paddingTop: 60}}>
             <View style={styles.button}>
               <Button
                 style={{backgroundColor: '#FD9A86', borderRadius: 10}}
@@ -57,7 +85,14 @@ const DeleteFoodScreen = ({navigation}) => {
                 }}
                 textColor="white"
                 mode="contained"
-                onPress={showDialog}>
+                onPress={() => {
+                  //TODO: Change value of delete 
+                  deleteFood({
+                    variables: {
+                      delete: '6404b363a37ebe72d6812592',
+                    },
+                  });
+                }}>
                 ลบเมนูอาหาร
               </Button>
             </View>
@@ -71,30 +106,34 @@ const DeleteFoodScreen = ({navigation}) => {
               style={{backgroundColor: 'white', borderRadius: 10}}>
               <Dialog.Icon color="#EF4444" icon="alert-circle" size={30} />
               <Dialog.Title
-                style={{fontSize: 16, textAlign: 'center', fontFamily: 'NotoSansThai-SemiBold'}}>
+                style={{
+                  fontSize: 16,
+                  textAlign: 'center',
+                  fontFamily: 'NotoSansThai-SemiBold',
+                }}>
                 คุณต้องการลบ "ข้าวกระเพราไก่" ?
               </Dialog.Title>
               <Dialog.Actions>
-              <Button
-                textColor="#FD9A86"
-                labelStyle={{
-                  fontFamily: 'NotoSansThai-Regular',
-                }}
-                onPress={hideDialog}>
-                {'            '}
-                ยกเลิก{'            '}
-              </Button>
+                <Button
+                  textColor="#FD9A86"
+                  labelStyle={{
+                    fontFamily: 'NotoSansThai-Regular',
+                  }}
+                  onPress={hideDialog}>
+                  {'            '}
+                  ยกเลิก{'            '}
+                </Button>
 
-              <Button
-                textColor="white"
-                labelStyle={{
-                  fontFamily: 'NotoSansThai-Regular',
-                }}
-                buttonColor="#FD9A86"
-                onPress={() => console.log('Ok')}>
-                {'            '}
-                ยืนยัน{'            '}
-              </Button>
+                <Button
+                  textColor="white"
+                  labelStyle={{
+                    fontFamily: 'NotoSansThai-Regular',
+                  }}
+                  buttonColor="#FD9A86"
+                  onPress={() => navigation.navigate('Food')}>
+                  {'            '}
+                  ยืนยัน{'            '}
+                </Button>
               </Dialog.Actions>
             </Dialog>
           </Portal>
@@ -126,7 +165,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     paddingLeft: 18,
     paddingTop: 24,
-    fontFamily: 'NotoSansThai-SemiBold'
+    fontFamily: 'NotoSansThai-SemiBold',
   },
   button: {
     flex: 1,

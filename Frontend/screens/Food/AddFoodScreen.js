@@ -1,144 +1,216 @@
-import * as React from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {
-  Avatar,
-  Card,
-  IconButton,
   Text,
-  ProgressBar,
   Button,
+  Dialog,
+  Portal,
+  Provider,
+  IconButton,
 } from 'react-native-paper';
+import ListNutrition from '../../components/ListNutrition';
+import {AuthContext} from '../../context/AuthContext';
+import {useQuery} from '@apollo/client';
+import {useMutation} from '@apollo/client';
+import {NUTRITION} from '../../graphql/query';
+import {ADD_FOOD} from '../../graphql/mutation';
 
-const AddFoodScreen = () => (
-  <ScrollView>
-    <View style={styles.box}>
-      <View style={styles.iconbutton}>
-        <IconButton
-          icon="chevron-left"
-          iconColor="#1A212F"
-          size={36}
-          onPress={() => console.log('Pressed')}
-        />
-      </View>
+const AddFood = ({navigation}) => {
+  const [visible, setVisible] = React.useState(false);
+  const showDialog = () => setVisible(true);
+  const hideDialog = () => setVisible(false);
+  const [nutrition, setNutrition] = useState('');
+  const context = useContext(AuthContext);
+  const ID = context.user._id;
+  const [count, setCount] = useState(1);
+  //TODO: ID from FoodScreen or username to query
+  const nutrtionId = '63ee57df8197d0eb367b36bb';
+  const {data} = useQuery(NUTRITION, {
+    variables: {id: nutrtionId},
+  });
 
-      <Text style={styles.text_header}>ข้าวกระเพราไก่</Text>
-      <Text style={styles.text_detail}>120 Kcal</Text>
-      <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
+  useEffect(() => {
+    // Handle Nutrtion data when data was fetch
+    if (data) {
+      // - Set Nutrtion
+      const Newnutrition = JSON.parse(JSON.stringify(data.nutrition));
+      setNutrition(Newnutrition);
+    }
+  }, [data]);
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{color: '#1A212F'}}
-          title="แคลอรี่ (kcal)"
-          left={props => (
-            <Avatar.Icon
-              {...props}
-              icon="food"
-              color="#1A212F"
-              backgroundColor="#E9EFF2"
+  const [addFood] = useMutation(ADD_FOOD, {
+    onCompleted(data) {
+      showDialog();
+      console.log('Add Food success');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
+console.log("date",new Date());
+
+  return (
+    <Provider>
+      <ScrollView>
+        <View>
+          <View
+            style={{
+              width: '100%',
+              flexDirection: 'row',
+              flexWrap: 'wrap',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingTop: 8,
+            }}>
+            <IconButton
+              style={{width: 32}}
+              icon="chevron-left"
+              iconColor="#1A212F"
+              size={32}
+              onPress={() => navigation.goBack()}
             />
-          )}
-          right={props => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
+            <Text
+              style={{
+                color: 'black',
+                fontSize: 20,
+                fontFamily: 'NotoSansThai-SemiBold',
+              }}>
+              {nutrition.name}
+            </Text>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{color: '#1A212F'}}
-          title="โปรตีน (g)"
-          left={props => (
-            <Avatar.Icon
-              {...props}
-              icon="egg"
-              color="#1A212F"
-              backgroundColor="#E9EFF2"
-            />
-          )}
-          right={props => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
+            <Text
+              style={{
+                width: 32,
+              }}></Text>
+          </View>
+          <Text
+            style={{
+              textAlign: 'center',
+              fontSize: 20,
+              fontFamily: 'NotoSansThai-SemiBold',
+              color: '#FD9A86',
+            }}>
+            {nutrition.calories * count + ' kcal'}{' '}
+          </Text>
+          <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{color: '#1A212F'}}
-          title="คาร์โบไฮเดรต (g)"
-          left={props => (
-            <Avatar.Icon
-              {...props}
-              icon="hamburger"
-              color="#1A212F"
-              backgroundColor="#E9EFF2"
-            />
-          )}
-          right={props => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
+          <ListNutrition
+            kcal={nutrition.calories * count}
+            protein={(nutrition.protein * count).toFixed(2)}
+            carbo={(nutrition.carbohydrate * count).toFixed(2)}
+            fat={(nutrition.fat * count).toFixed(2)}
+            sugar={(nutrition.vitaminc * count).toFixed(2)}
+          />
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{color: '#1A212F'}}
-          title="ไขมันทั้งหมด (g)"
-          left={props => (
-            <Avatar.Icon
-              {...props}
-              icon="water"
-              color="#1A212F"
-              backgroundColor="#E9EFF2"
-            />
-          )}
-          right={props => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
+          {/* Counter button */}
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              paddingHorizontal: 120,
+              paddingTop: 24,
+            }}>
+            <View style={{}}>
+              <Button
+                style={{backgroundColor: 'white', borderRadius: 10}}
+                labelStyle={{
+                  fontFamily: 'NotoSansThai-SemiBold',
+                  fontSize: 16,
+                }}
+                textColor="#FD9A86"
+                mode="contained"
+                disabled={count == 1}
+                onPress={() => {
+                  setCount(count - 1);
+                }}>
+                -
+              </Button>
+            </View>
+            <View
+              style={{
+                justifyContent: 'center',
+              }}>
+              <Text>{count}</Text>
+            </View>
+            <View style={{}}>
+              <Button
+                style={{backgroundColor: 'white', borderRadius: 10}}
+                labelStyle={{
+                  fontFamily: 'NotoSansThai-SemiBold',
+                  fontSize: 16,
+                }}
+                textColor="#FD9A86"
+                mode="contained"
+                onPress={() => {
+                  setCount(count + 1);
+                }}>
+                +
+              </Button>
+            </View>
+          </View>
 
-      <View style={styles.container}>
-        <Card.Title
-          style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{color: '#1A212F'}}
-          title="น้ำตาล (g)"
-          left={props => (
-            <Avatar.Icon
-              {...props}
-              icon="spoon-sugar"
-              color="#1A212F"
-              backgroundColor="#E9EFF2"
-            />
-          )}
-          right={props => <Text style={styles.text_details}>500</Text>}
-        />
-      </View>
-
-      <View style={{paddingTop: 120}}>
-        <View style={styles.button}>
-          <Button
-            style={{backgroundColor: '#FD9A86', borderRadius: 10}}
-            labelStyle={{
-              fontFamily: 'NotoSansThai-Regular',
-            }}
-            textColor="white"
-            mode="contained"
-            onPress={() => console.log('Pressed')}>
-            บันทึกเมนูอาหาร
-          </Button>
+          <View style={{paddingTop: 10}}>
+            <View style={styles.button}>
+              <Button
+                style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+                labelStyle={{
+                  fontFamily: 'NotoSansThai-Regular',
+                }}
+                textColor="white"
+                mode="contained"
+                onPress={() => {
+                  addFood({
+                    variables: {
+                      createNutritionOfUserInput: {
+                        userId: ID,
+                        nutritionId: nutrtionId,
+                        servingSize: count,
+                        date: new Date()
+                      },
+                    },
+                  });
+                }}>
+                บันทึกเมนูอาหาร
+              </Button>
+            </View>
+            <Portal>
+              <Dialog
+                visible={visible}
+                onDismiss={hideDialog}
+                style={{backgroundColor: 'white', borderRadius: 10}}>
+                <Dialog.Icon color="#42DCAE" icon="check-circle" size={30} />
+                <Dialog.Title
+                  style={{
+                    fontSize: 16,
+                    textAlign: 'center',
+                    fontFamily: 'NotoSansThai-SemiBold',
+                  }}>
+                  เพิ่มรายการใหม่สำเร็จ
+                </Dialog.Title>
+                <Dialog.Actions>
+                  <Button
+                    labelStyle={{
+                      fontFamily: 'NotoSansThai-Regular',
+                    }}
+                    textColor="white"
+                    buttonColor="#FD9A86"
+                    onPress={() => navigation.navigate('Food')}>
+                    {'                                '}ยืนยัน
+                    {'                                   '}
+                  </Button>
+                </Dialog.Actions>
+              </Dialog>
+            </Portal>
+          </View>
         </View>
-      </View>
-    </View>
-  </ScrollView>
-);
+      </ScrollView>
+    </Provider>
+  );
+};
 
-export default AddFoodScreen;
+export default AddFood;
 
 const styles = StyleSheet.create({
-  box: {
-    paddingBottom: 13,
-  },
-  container: {
-    paddingTop: 10,
-    paddingLeft: 18,
-    paddingRight: 18,
-  },
   text_header: {
     color: '#1A212F',
     fontWeight: 'bold',
@@ -153,19 +225,13 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingHorizontal: 116,
     textAlign: 'center',
-    fontFamily: 'NotoSansThai-Regular',
-  },
-  text_details: {
-    paddingRight: 10,
-    fontSize: 14,
-    fontFamily: 'NotoSansThai-Regular',
   },
   text_Regular: {
     color: '#1A212F',
     fontSize: 14,
     paddingLeft: 18,
-    paddingTop: 24,
-    fontFamily: 'NotoSansThai-Regular',
+    paddingTop: 16,
+    fontFamily: 'NotoSansThai-SemiBold',
   },
   button: {
     flex: 1,
@@ -173,9 +239,5 @@ const styles = StyleSheet.create({
     paddingLeft: 18,
     paddingRight: 18,
     paddingBottom: 10,
-  },
-  iconbutton: {
-    paddingLeft: 3,
-    top: 50,
   },
 });

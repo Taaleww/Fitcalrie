@@ -1,6 +1,6 @@
 import * as React from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {Searchbar, Text, IconButton} from 'react-native-paper';
+import {Searchbar, Text, IconButton, Button} from 'react-native-paper';
 
 const SearchFoodScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = React.useState('');
@@ -53,6 +53,20 @@ const SearchFoodScreen = ({navigation}) => {
             value={searchQuery}
           />
         </View>
+
+        <View style={styles.button}>
+          <Button
+            style={{backgroundColor: '#FD9A86', borderRadius: 10}}
+            labelStyle={{
+              fontFamily: 'NotoSansThai-Regular',
+            }}
+            textColor="white"
+            mode="contained"
+            onPress={() => navigation.navigate('AddFood')}>
+            เพิ่มมื้ออาหาร
+          </Button>
+        </View>
+
       </View>
     </ScrollView>
   );
@@ -78,12 +92,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: 116,
     textAlign: 'center',
   },
-  button: {
+   button: {
     flex: 1,
     justifyContent: 'center',
+    paddingTop: 10,
     paddingLeft: 18,
     paddingRight: 18,
-    paddingBottom: 10,
   },
   iconbutton: {
     paddingLeft: 3,

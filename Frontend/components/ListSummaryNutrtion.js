@@ -6,7 +6,7 @@ import ProgressCircle from 'react-native-progress-circle';
 export default function ListSummaryNutrition({kcal, protein, carbo, fat, sugar}) {
   return (
     <View>
-      <View style={{paddingHorizontal: 18}}>
+      <View style={{paddingHorizontal: 18,paddingTop:10}}>
         <View
           style={{
             flexDirection: 'row',

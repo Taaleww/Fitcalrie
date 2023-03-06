@@ -15,3 +15,16 @@ export const FINDUSER = gql`
     }
   }
 `;
+
+export const NUTRITION = gql`
+  query nutrition($id: String!) {
+    nutrition(id: $id) {
+      name
+      calories
+      protein
+      carbohydrate
+      fat
+      vitaminc
+    }
+  }
+`;

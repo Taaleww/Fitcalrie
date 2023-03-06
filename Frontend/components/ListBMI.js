@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, StyleSheet } from 'react-native';
 import { Avatar, Card, Text } from 'react-native-paper';
 
-export default function ListNutrition({
+export default function ListBMI({
     kcal,
     protein,
     carbo,
@@ -15,8 +15,8 @@ export default function ListNutrition({
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
                     titleStyle={{ fontFamily: 'NotoSansThai-Regular'}}
-                    title="แคลอรี่ (kcal)"
-                    left={(props) => <Avatar.Icon {...props} icon="food" color='#1A212F' backgroundColor='#E9EFF2' />}
+                    title="ผอมเกินไป"
+                    left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{kcal}</Text>}
                 />
             </View>
@@ -25,8 +25,8 @@ export default function ListNutrition({
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
                     titleStyle={{ fontFamily: 'NotoSansThai-Regular'}}
-                    title="โปรตีน (g)"
-                    left={(props) => <Avatar.Icon {...props} icon="egg" color='#1A212F' backgroundColor='#E9EFF2' />}
+                    title="น้ำหนักปกติ เหมาะสม"
+                    left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{protein}</Text>}
                 />
             </View>
@@ -35,8 +35,8 @@ export default function ListNutrition({
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
                     titleStyle={{ fontFamily: 'NotoSansThai-Regular' }}
-                    title="คาร์โบไฮเดรต (g)"
-                    left={(props) => <Avatar.Icon {...props} icon="hamburger" color='#1A212F' backgroundColor='#E9EFF2' />}
+                    title="นํ้าหนักเกินตัว"
+                    left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{carbo}</Text>}
                 />
             </View>
@@ -45,8 +45,8 @@ export default function ListNutrition({
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
                     titleStyle={{ fontFamily: 'NotoSansThai-Regular' }}
-                    title="ไขมันทั้งหมด (g)"
-                    left={(props) => <Avatar.Icon {...props} icon="water" color='#1A212F' backgroundColor='#E9EFF2' />}
+                    title="อ้วน"
+                    left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{fat}</Text>}
                 />
             </View>
@@ -55,11 +55,12 @@ export default function ListNutrition({
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
                     titleStyle={{ fontFamily: 'NotoSansThai-Regular' }}
-                    title="วิตามินซี (mg)"
-                    left={(props) => <Avatar.Icon {...props} icon="spoon-sugar" color='#1A212F' backgroundColor='#E9EFF2' />}
+                    title="อ้วนมาก"
+                    left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{sugar}</Text>}
                 />
             </View>
+
         </View>
 
     );
