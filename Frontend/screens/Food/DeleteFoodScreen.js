@@ -89,7 +89,7 @@ const DeleteFoodScreen = ({navigation}) => {
                   //TODO: Change value of delete 
                   deleteFood({
                     variables: {
-                      delete: '6404b363a37ebe72d6812592',
+                      delete: '6404b3b3a37ebe72d6812596',
                     },
                   });
                 }}>

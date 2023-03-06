@@ -10,13 +10,23 @@ import {
   Provider,
   IconButton,
 } from 'react-native-paper';
+import {useMutation} from '@apollo/client';
+import {DELETE_EXERCISE} from '../../graphql/mutation';
 
 const DeleteFoodScreen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
-
   const showDialog = () => setVisible(true);
-
   const hideDialog = () => setVisible(false);
+
+  const [deleteExercise] = useMutation(DELETE_EXERCISE, {
+    onCompleted(data) {
+      showDialog();
+      console.log('Delete Exercise success');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
 
   return (
     <Provider>
@@ -59,7 +69,7 @@ const DeleteFoodScreen = ({navigation}) => {
             color: '#FD9A86',
             fontFamily: 'NotoSansThai-Regular',
           }}>
-          300
+          120
         </Text>
         <Text
           style={{
@@ -95,7 +105,14 @@ const DeleteFoodScreen = ({navigation}) => {
               }}
               textColor="white"
               mode="contained"
-              onPress={showDialog}>
+              onPress={() => {
+                //TODO: Change value of delete 
+                deleteExercise({
+                  variables: {
+                    delete: '64063b684d37ba75bc1710b8',
+                  },
+                });
+              }}>
               ลบรายการการออกกำลังกาย
             </Button>
           </View>
@@ -131,7 +148,7 @@ const DeleteFoodScreen = ({navigation}) => {
                   fontFamily: 'NotoSansThai-Regular',
                 }}
                 buttonColor="#FD9A86"
-                onPress={() => console.log('Ok')}>
+                onPress={() => navigation.navigate('Exercise')}>
                 {'            '}
                 ยืนยัน{'            '}
               </Button>

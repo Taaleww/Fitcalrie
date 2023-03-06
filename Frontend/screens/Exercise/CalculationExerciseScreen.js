@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import {
   View,
   StyleSheet,
@@ -10,6 +10,9 @@ import {
 import {Text, Button, Dialog, Portal, Provider, IconButton} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {AuthContext} from '../../context/AuthContext';
+import {useMutation} from '@apollo/client';
+import {ADD_RUNNING} from '../../graphql/mutation';
 
 const CalculatorSchema = Yup.object().shape({
   period: Yup.number()
@@ -23,6 +26,19 @@ const CalculationExercise = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
+  const context = useContext(AuthContext);
+  const ID = context.user._id;
+
+  const [AddRunning] = useMutation(ADD_RUNNING, {
+    onCompleted(data) {
+      showDialog();
+      console.log('Add Running success');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
+  
 
   const calculator = values => {
     setSpeed(values.distance / (values.period / 60));
@@ -159,15 +175,29 @@ const CalculationExercise = ({navigation}) => {
                   <Button
                     style={{
                       borderRadius: 10,
-                      backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
+                      backgroundColor: isValid && values.period ? '#FD9A86' : '#F2B5AA'
                     }}
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
                     }}
                     textColor="white"
                     mode="contained"
-                    disabled={!isValid || speed > 30}
-                    onPress={handleSubmit}>
+                    disabled={!isValid || speed > 30 ||!values.period }
+                    onPress={() => {
+                      console.log('calculator(values)', calculator(values));
+                       //TODO: Change value of exerciseId 
+                      AddRunning({
+                        variables: {
+                          createRunningUser: {
+                            userId: ID,
+                            total_calories_burned: Number(calculator(values)),
+                            exerciseId: '6406282869c12b5a7b6f5ed9',
+                            time: Number(values.period),
+                            date: new Date()
+                          },
+                        },
+                      });
+                    }}>
                     บันทึก
                   </Button>
                 </View>
@@ -193,7 +223,7 @@ const CalculationExercise = ({navigation}) => {
                       }}
                       textColor="white"
                       buttonColor="#FD9A86"
-                      onPress={hideDialog}>
+                      onPress={() => navigation.navigate('Exercise')}>
                       {'                                '}ยืนยัน
                       {'                                   '}
                     </Button>

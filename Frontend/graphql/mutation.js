@@ -66,3 +66,37 @@ export const DELTE_FOOD = gql`
     removeNutritionOfUser(delete: $delete)
   }
 `;
+
+export const ADD_EXERCISE = gql`
+  mutation createExerciseOfUser(
+    $createExerciseOfUserInput: CreateExerciseOfUserInput!
+  ) {
+    createExerciseOfUser(
+      createExerciseOfUserInput: $createExerciseOfUserInput
+    ) {
+      total_calories_burned
+    }
+  }
+`;
+
+export const ADD_RUNNING = gql`
+  mutation createRunningUser($createRunningUser: CreateRunInput!) {
+    createRunningUser(createRunningUser: $createRunningUser) {
+      total_calories_burned
+    }
+  }
+`;
+
+export const DELETE_EXERCISE = gql`
+  mutation removeExerciseOfUser($delete: String!) {
+    removeExerciseOfUser(delete: $delete)
+  }
+`;
+
+export const FIND_TOTALCAL = gql`
+  mutation createTotalCal($createTotalCal: CreateShowInput!) {
+    createTotalCal(createTotalCal: $createTotalCal) {
+      total_calories_burned
+    }
+  }
+`;

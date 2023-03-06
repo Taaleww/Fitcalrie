@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {
   View,
   StyleSheet,
@@ -17,6 +17,10 @@ import {
 } from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
+import {AuthContext} from '../../context/AuthContext';
+import {useMutation} from '@apollo/client';
+import {ADD_EXERCISE} from '../../graphql/mutation';
+import {FIND_TOTALCAL} from '../../graphql/mutation';
 
 const CalculatorSchema = Yup.object().shape({
   period: Yup.number()
@@ -25,35 +29,35 @@ const CalculatorSchema = Yup.object().shape({
 });
 
 const AddExercise = ({navigation}) => {
-  const [speed, setSpeed] = React.useState(0);
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
+  const context = useContext(AuthContext);
+  const ID = context.user._id;
+  const [totalCal, settotalcal] = React.useState("-");
 
-  const calculator = values => {
-    setSpeed(values.distance / (values.period / 60));
-    console.log(values.distance);
-    console.log('speed', speed);
-    let METs;
+  const [AddExercise] = useMutation(ADD_EXERCISE, {
+    onCompleted(data) {
+      showDialog();
+      console.log('Add Exercise success');
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
 
-    if (speed <= 4) {
-      METs = 2.4;
-    } else if (speed > 4 && speed <= 6) {
-      METs = 4.1;
-    } else if (speed > 6 && speed <= 7) {
-      METs = 6.2;
-    } else if (speed > 7 && speed <= 10) {
-      METs = 9.6;
-    } else if (speed > 10 && speed <= 13) {
-      METs = 12.4;
-    } else if (speed > 13 && speed <= 30) {
-      METs = 14;
-    }
-    console.log('METs', METs);
-
-    let result = METs * 0.0175 * 45 * values.period;
-    return Number.isNaN(result) ? '-' : result.toFixed(2);
-  };
+  const [FindTotalCal] = useMutation(FIND_TOTALCAL, {
+    onCompleted(data) {
+      console.log('Find TotalCal success');
+      console.log('data', data.createTotalCal.total_calories_burned);
+      console.log('data', data.createTotalCal.total_calories_burned);
+      const newTotalCal = data?.createTotalCal?.total_calories_burned || 0;
+      settotalcal(newTotalCal.toFixed(2));
+    },
+    onError(error) {
+      console.error(error);
+    },
+  });
 
   return (
     <Provider>
@@ -61,10 +65,9 @@ const AddExercise = ({navigation}) => {
         <Formik
           initialValues={{
             period: '',
-            distance: '',
           }}
           validationSchema={CalculatorSchema}
-          onSubmit={showDialog}>
+          onSubmit={values => Alert.alert(JSON.stringify(values))}>
           {({
             values,
             errors,
@@ -97,7 +100,7 @@ const AddExercise = ({navigation}) => {
                     fontSize: 20,
                     fontFamily: 'NotoSansThai-SemiBold',
                   }}>
-                  กวาดบ้าน
+                  แบดมินตัน
                 </Text>
                 <Text
                   style={{
@@ -114,7 +117,7 @@ const AddExercise = ({navigation}) => {
                   fontFamily: 'NotoSansThai-Regular',
                 }}
                 values={values.result}>
-                {calculator(values)}
+                {totalCal}
               </Text>
               <Text
                 style={{
@@ -141,20 +144,54 @@ const AddExercise = ({navigation}) => {
                 </SafeAreaView>
               </View>
 
-              <View style={{paddingTop: 260}}>
+              <View style={{paddingTop: 200}}>
                 <View style={styles.button}>
+                  <Button
+                    style={{backgroundColor: 'white', borderRadius: 10}}
+                    labelStyle={{
+                      fontFamily: 'NotoSansThai-Regular',
+                    }}
+                    textColor="#FD9A86"
+                    mode="contained"
+                    onPress={() => {
+                      console.log('sdff', values.period);
+                      //TODO: Change value of exerciseId 
+                      FindTotalCal({
+                        variables: {
+                          createTotalCal: {
+                            userId: ID,
+                            exerciseId: '64063028f3fd01a2138c3d9f',
+                            time: Number(values.period),
+                          },
+                        },
+                      });
+                    }}>
+                    คำนวณการเผาผลาญ
+                  </Button>
+                  <View style={{paddingTop: 10}}></View>
                   <Button
                     style={{
                       borderRadius: 10,
-                      backgroundColor: isValid ? '#FD9A86' : '#F2B5AA',
+                      backgroundColor: isValid && values.period ? '#FD9A86' : '#F2B5AA',
                     }}
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
                     }}
                     textColor="white"
                     mode="contained"
-                    disabled={!isValid || speed > 30}
-                    onPress={handleSubmit}>
+                    disabled={!isValid || !values.period}
+                    onPress={() => {
+                      AddExercise({
+                        variables: {
+                          createExerciseOfUserInput: {
+                            userId: ID,
+                            exerciseId: '64063028f3fd01a2138c3d9f',
+                            time: Number(values.period),
+                            date: new Date(),
+                          },
+                        },
+                      });
+                    }}>
                     บันทึก
                   </Button>
                 </View>
@@ -180,7 +217,7 @@ const AddExercise = ({navigation}) => {
                       }}
                       textColor="white"
                       buttonColor="#FD9A86"
-                      onPress={hideDialog}>
+                      onPress={() => navigation.navigate('Exercise')}>
                       {'                                '}ยืนยัน
                       {'                                   '}
                     </Button>
