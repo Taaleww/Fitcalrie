@@ -11,6 +11,7 @@ export const CREATE_USER = gql`
       BMI
       frq_excercise
       goal
+      calorieOfUser
     }
   }
 `;
@@ -29,6 +30,7 @@ export const LOGIN = gql`
         BMI
         frq_excercise
         goal
+        calorieOfUser
       }
     }
   }
@@ -44,6 +46,7 @@ export const UPDATE_USER = gql`
       weight
       BMI
       goal
+      calorieOfUser
     }
   }
 `;
@@ -100,3 +103,5 @@ export const FIND_TOTALCAL = gql`
     }
   }
 `;
+
+

@@ -1,13 +1,16 @@
-import * as React from 'react';
+import React, {useContext} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
-import {
-  Text,
-  Provider,
-  IconButton,
-} from 'react-native-paper';
+import {Text, Provider, IconButton} from 'react-native-paper';
 import ListNutrition from '../../components/ListNutrition';
+import {AuthContext} from '../../context/AuthContext';
 
 const InformationFood = ({navigation}) => {
+  const context = useContext(AuthContext);
+  const protein = context.user.weight;
+  const calorieOfUser = context.user.calorieOfUser
+  const calorie = calorieOfUser?.toFixed(0);
+  const carbohydrate = ((calorie * (50 / 100)) / 4).toFixed(0);
+  const fat = ((calorie * (25 / 100)) / 9).toFixed(0);
 
   return (
     <Provider>
@@ -59,12 +62,7 @@ const InformationFood = ({navigation}) => {
               }}>
               <Text></Text>
             </View>
-            <Text
-              style={{
-                paddingTop: 4,
-                fontFamily: 'NotoSansThai-SemiBold',
-                fontSize: 12,
-              }}>
+            <Text style={styles.text_info}>
               น้อยเกินไป
             </Text>
           </View>
@@ -79,12 +77,7 @@ const InformationFood = ({navigation}) => {
               }}>
               <Text></Text>
             </View>
-            <Text
-              style={{
-                paddingTop: 4,
-                fontFamily: 'NotoSansThai-SemiBold',
-                fontSize: 12,
-              }}>
+            <Text style={styles.text_info}>
               อยู่ในเกณฑ์พอดี
             </Text>
           </View>
@@ -99,12 +92,7 @@ const InformationFood = ({navigation}) => {
               }}>
               <Text></Text>
             </View>
-            <Text
-              style={{
-                paddingTop: 4,
-                fontFamily: 'NotoSansThai-SemiBold',
-                fontSize: 12,
-              }}>
+            <Text style={styles.text_info}>
               มากเกินไป
             </Text>
           </View>
@@ -112,7 +100,24 @@ const InformationFood = ({navigation}) => {
         <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
         {/* Information */}
-        <ListNutrition kcal={20} protein={20} carbo={20} fat={20} sugar={20} />
+        <ListNutrition
+          kcal={calorie}
+          protein={protein}
+          carbo={carbohydrate}
+          fat={fat}
+          vitaminc={1000}
+        />
+        <Text style={styles.text_Header}>หมายเหตุ</Text>
+        <Text style={styles.text_Detail}>
+          ข้อมูลในส่วนนี้เป็นเพียงปริมาณที่แนะนำในแต่ละวัน
+          สารอาหารในบางชนิดเมื่อรับประทานเกิน 100% จะเป็นสีแดง (เช่น แคลอรี่,
+          คาร์โบไฮเดรต, ไขมัน)
+          สารอาหารข้างต้นไม่ควรรับประทานเกินในปริมาณที่แนะนำ
+        </Text>
+        <Text style={styles.text_Detail}>
+          สารอาหารในบางชนิดเมื่อเกิน 100% จะเป็นสีเขียวอยู่ (เช่น โปรตีน,
+          วิตามินซี) สารอาหารข้างต้นคุณควรรับประทานให้ได้อย่างน้อยตามที่แนะนำ
+        </Text>
       </ScrollView>
     </Provider>
   );
@@ -121,20 +126,6 @@ const InformationFood = ({navigation}) => {
 export default InformationFood;
 
 const styles = StyleSheet.create({
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 116,
-    textAlign: 'center',
-  },
-  text_detail: {
-    color: '#FD9A86',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 116,
-    textAlign: 'center',
-  },
   text_Regular: {
     color: '#1A212F',
     fontSize: 14,
@@ -142,15 +133,21 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     fontFamily: 'NotoSansThai-SemiBold',
   },
-  button: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingLeft: 18,
-    paddingRight: 18,
-    paddingBottom: 10,
+  text_Detail: {
+    paddingVertical: 10,
+    fontSize: 12,
+    fontFamily: 'NotoSansThai-Regular',
+    paddingHorizontal: 18,
   },
-  iconbutton: {
-    paddingLeft: 3,
-    top: 50,
+  text_Header: {
+    paddingTop: 10,
+    fontSize: 14,
+    fontFamily: 'NotoSansThai-SemiBold',
+    paddingHorizontal: 18,
   },
+  text_info:{
+    paddingTop: 4,
+    fontFamily: 'NotoSansThai-SemiBold',
+    fontSize: 12,
+  }
 });

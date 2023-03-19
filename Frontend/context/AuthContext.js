@@ -9,21 +9,28 @@ export const AuthProvider = ({children}) => {
   const [userToken, setUserToken] = useState(null);
   const [user, setUser] = useState('');
   const [username, setUsername] = useState('');
+  // const [calorieOfUser, setCalorieOfUser] = useState(0);
 
   const login = async payload => {
+    console.log(" LOGIN ");
     setIsLoading(true);
     setUserToken(payload.access_token);
-    setUser(JSON.parse(JSON.stringify(payload.user)));
-    const newUser = String(payload.user.username)
-    setUsername(newUser);
+    setUser(JSON.parse(JSON.stringify({...payload.user})));
+    console.log(" -> user raw: ", JSON.parse(JSON.stringify({...payload.user})));
+    console.log(" -> user payload: ",payload.user);
+    console.log(" -> user variable: ", user);
+    const newUsername = String(payload.user.username);
+    setUsername(newUsername);
+    // const newCalorie = payload.user.calorieOfUser;
+    // setCalorieOfUser(newCalorie);
     await AsyncStorage.setItem('userToken', payload.access_token);
     await AsyncStorage.setItem('user', JSON.stringify(payload.user));
     await AsyncStorage.setItem('username', payload.user.username);
-    console.log('userToken',userToken);
-    console.log('payload.user',payload.user);
+    // await AsyncStorage.setItem('calorieOfUser', JSON.stringify((payload.user.calorieOfUser)));
+
     setIsLoading(false);
-    console.log('user checked',newUser);
-    console.log('user check',username);
+
+    console.log(" END LOGIN");
   };
 
   const getTokenData = () => {
@@ -66,7 +73,17 @@ export const AuthProvider = ({children}) => {
 
   return (
     <AuthContext.Provider
-      value={{login, logout, checkExpired, getTokenData, isLoading, userToken, user, username, setUser}}>
+      value={{
+        login,
+        logout,
+        checkExpired,
+        getTokenData,
+        isLoading,
+        userToken,
+        user,
+        username,
+        setUser,
+      }}>
       {children}
     </AuthContext.Provider>
   );

@@ -13,20 +13,22 @@ import {
 import {useMutation} from '@apollo/client';
 import {DELETE_EXERCISE} from '../../graphql/mutation';
 
-const DeleteFoodScreen = ({navigation}) => {
+const DeleteFoodScreen = ({navigation, route}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
 
   const [deleteExercise] = useMutation(DELETE_EXERCISE, {
     onCompleted(data) {
-      showDialog();
+      navigation.navigate('Exercise');
       console.log('Delete Exercise success');
     },
     onError(error) {
       console.error(error);
     },
   });
+
+  console.log('route.params?.id', route.params?.name);
 
   return (
     <Provider>
@@ -53,7 +55,7 @@ const DeleteFoodScreen = ({navigation}) => {
               fontSize: 20,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
-            วิ่ง
+            {route.params?.name}
           </Text>
           <Text
             style={{
@@ -69,7 +71,7 @@ const DeleteFoodScreen = ({navigation}) => {
             color: '#FD9A86',
             fontFamily: 'NotoSansThai-Regular',
           }}>
-          120
+          {(route.params?.total_calories_burned).toFixed(0)}
         </Text>
         <Text
           style={{
@@ -92,7 +94,11 @@ const DeleteFoodScreen = ({navigation}) => {
                 backgroundColor="#E9EFF2"
               />
             )}
-            right={props => <Text style={styles.text_details}>120</Text>}
+            right={props => (
+              <Text style={styles.text_details}>
+                {(route.params?.time).toFixed(0)}
+              </Text>
+            )}
           />
         </View>
 
@@ -106,12 +112,7 @@ const DeleteFoodScreen = ({navigation}) => {
               textColor="white"
               mode="contained"
               onPress={() => {
-                //TODO: Change value of delete 
-                deleteExercise({
-                  variables: {
-                    delete: '64063b684d37ba75bc1710b8',
-                  },
-                });
+                showDialog();
               }}>
               ลบรายการการออกกำลังกาย
             </Button>
@@ -129,7 +130,7 @@ const DeleteFoodScreen = ({navigation}) => {
                 textAlign: 'center',
                 fontFamily: 'NotoSansThai-SemiBold',
               }}>
-              คุณต้องการลบรายการ "วิ่ง" ?
+              {"คุณต้องการลบรายการ" + "  "+ route.params?.name + " ? "} 
             </Dialog.Title>
             <Dialog.Actions>
               <Button
@@ -148,7 +149,14 @@ const DeleteFoodScreen = ({navigation}) => {
                   fontFamily: 'NotoSansThai-Regular',
                 }}
                 buttonColor="#FD9A86"
-                onPress={() => navigation.navigate('Exercise')}>
+                onPress={() => {
+                  //TODO: Change value of delete
+                  deleteExercise({
+                    variables: {
+                      delete: route.params?.id,
+                    },
+                  });
+                }}>
                 {'            '}
                 ยืนยัน{'            '}
               </Button>

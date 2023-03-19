@@ -36,9 +36,12 @@ import {AuthContext} from '../context/AuthContext';
 import {useQuery} from '@apollo/client';
 import {FINDUSER} from '../graphql/query';
 import InformationFoodScreen from '../screens/Food/InformationFood';
+import InformationScreen from '../screens/Food/Information';
 import InformationBMIScreen from '../screens/Home/InformationBMI';
 import AddFoodScreen from '../screens/Food/AddFoodScreen';
 import AddExerciseScreen from '../screens/Exercise/AddExerciseScreen';
+import InformationExerciseScreen from '../screens/Exercise/InformationExercise';
+
 
 const Stack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -124,6 +127,11 @@ const FoodStack = () => {
         component={AddFoodScreen}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="Information"
+        component={InformationScreen}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };
@@ -140,6 +148,7 @@ const ExerciseStack = () => {
       />
       <Stack.Screen name="HistoryExercise" component={HistoryExerciseScreen} />
       <Stack.Screen name="AddExercise" component={AddExerciseScreen} />
+      <Stack.Screen name="InformationExercise" component={InformationExerciseScreen} />
     </Stack.Navigator>
   );
 };
@@ -239,6 +248,9 @@ const Tabs = () => {
             if (routeName === 'InformationFood') {
               return {display: 'none'};
             }
+            if (routeName === 'Information') {
+              return {display: 'none'};
+            }
             return;
           })(route),
         })}
@@ -267,6 +279,9 @@ const Tabs = () => {
               return {display: 'none'};
             }
             if (routeName === 'AddExercise') {
+              return {display: 'none'};
+            }
+            if (routeName === 'InformationExercise') {
               return {display: 'none'};
             }
             return;

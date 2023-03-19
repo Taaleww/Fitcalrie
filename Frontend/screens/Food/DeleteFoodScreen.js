@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView} from 'react-native';
 import {
   Text,
@@ -14,14 +14,31 @@ import {useMutation} from '@apollo/client';
 import {NUTRITION} from '../../graphql/query';
 import {DELTE_FOOD} from '../../graphql/mutation';
 
-const DeleteFoodScreen = ({navigation}) => {
+const DeleteFoodScreen = ({navigation, route}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
+  const [nutrition, setNutrition] = useState('');
+
+  const {data} = useQuery(NUTRITION, {
+    variables: {id: String(route.params?.nutritionID)},
+  });
+
+  console.log(route.params?.totalCalories);
+  console.log(route.params?.totalCalories);
+
+  useEffect(() => {
+    // Handle Nutrtion data when data was fetch
+    if (data) {
+      // - Set Nutrtion
+      const Newnutrition = JSON.parse(JSON.stringify(data.nutrition));
+      setNutrition(Newnutrition);
+    }
+  }, [data]);
 
   const [deleteFood] = useMutation(DELTE_FOOD, {
     onCompleted(data) {
-      showDialog();
+      navigation.navigate('Food');
       console.log('Delete Food success');
     },
     onError(error) {
@@ -54,7 +71,7 @@ const DeleteFoodScreen = ({navigation}) => {
               fontSize: 20,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
-            กระเพราไก่
+            {nutrition.name+ " (" + route.params?.servingSize+ ")"}
           </Text>
           <Text
             style={{
@@ -68,12 +85,18 @@ const DeleteFoodScreen = ({navigation}) => {
             fontFamily: 'NotoSansThai-SemiBold',
             color: '#FD9A86',
           }}>
-          145 kcal
+          {route.params?.totalCalories + ' kacl'}
         </Text>
         <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
         {/* Information */}
-        <ListNutrition kcal={20} protein={20} carbo={20} fat={20} sugar={20} />
+        <ListNutrition
+          kcal={route.params?.totalCalories.toFixed(0)}
+          protein={(nutrition.protein*route.params?.servingSize)?.toFixed(1)}
+          carbo={(nutrition.carbohydrate*route.params?.servingSize)?.toFixed(0)}
+          fat={(nutrition.fat*route.params?.servingSize)?.toFixed(1)}
+          vitaminc={(nutrition.vitaminc*route.params?.servingSize)?.toFixed(0)}
+        />
 
         <View>
           <View style={{paddingTop: 60}}>
@@ -86,12 +109,7 @@ const DeleteFoodScreen = ({navigation}) => {
                 textColor="white"
                 mode="contained"
                 onPress={() => {
-                  //TODO: Change value of delete 
-                  deleteFood({
-                    variables: {
-                      delete: '6404b3b3a37ebe72d6812596',
-                    },
-                  });
+                  showDialog();
                 }}>
                 ลบเมนูอาหาร
               </Button>
@@ -111,7 +129,7 @@ const DeleteFoodScreen = ({navigation}) => {
                   textAlign: 'center',
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-                คุณต้องการลบ "ข้าวกระเพราไก่" ?
+               {  " คุณต้องการลบ " + nutrition.name +" ?"}
               </Dialog.Title>
               <Dialog.Actions>
                 <Button
@@ -130,7 +148,14 @@ const DeleteFoodScreen = ({navigation}) => {
                     fontFamily: 'NotoSansThai-Regular',
                   }}
                   buttonColor="#FD9A86"
-                  onPress={() => navigation.navigate('Food')}>
+                  onPress={() => {
+                    //TODO: Change value of delete
+                    deleteFood({
+                      variables: {
+                        delete: String(route.params?.id),
+                      },
+                    });
+                  }}>
                   {'            '}
                   ยืนยัน{'            '}
                 </Button>

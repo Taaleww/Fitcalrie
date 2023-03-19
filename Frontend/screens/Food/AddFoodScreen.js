@@ -15,7 +15,7 @@ import {useMutation} from '@apollo/client';
 import {NUTRITION} from '../../graphql/query';
 import {ADD_FOOD} from '../../graphql/mutation';
 
-const AddFood = ({navigation}) => {
+const AddFood = ({navigation,route}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -24,7 +24,7 @@ const AddFood = ({navigation}) => {
   const ID = context.user._id;
   const [count, setCount] = useState(1);
   //TODO: ID from FoodScreen or username to query
-  const nutrtionId = '63ee57df8197d0eb367b36bb';
+  const nutrtionId = route.params?.foodId;
   const {data} = useQuery(NUTRITION, {
     variables: {id: nutrtionId},
   });
@@ -47,7 +47,6 @@ const AddFood = ({navigation}) => {
       console.error(error);
     },
   });
-console.log("date",new Date());
 
   return (
     <Provider>
@@ -96,10 +95,10 @@ console.log("date",new Date());
 
           <ListNutrition
             kcal={nutrition.calories * count}
-            protein={(nutrition.protein * count).toFixed(2)}
-            carbo={(nutrition.carbohydrate * count).toFixed(2)}
-            fat={(nutrition.fat * count).toFixed(2)}
-            sugar={(nutrition.vitaminc * count).toFixed(2)}
+            protein={(nutrition.protein * count).toFixed(0)}
+            carbo={(nutrition.carbohydrate * count).toFixed(0)}
+            fat={(nutrition.fat * count).toFixed(0)}
+            vitaminc={(nutrition.vitaminc * count).toFixed(0)}
           />
 
           {/* Counter button */}

@@ -37,22 +37,20 @@ const InformationBMI = ({navigation}) => {
             }}></Text>
         </View>
 
-        <Text
-            style={{
-              paddingHorizontal: 20,
-              fontSize: 12,
-              fontFamily: 'NotoSansThai-Regular',
-              textAlign:'center',
-              paddingHorizontal: 90,
-            }}>
-            ใช้ชี้วัดความสมดุลของน้ำหนักและส่วนสูงซึ่งช่วยระบุได้ว่าตอนนี้รูปร่างอยู่ในเกณฑ์หรือไม่
-          </Text>
-
-       
         <Text style={styles.text_Regular}>ข้อมูลดัชนีมวลกาย</Text>
 
         {/* Information */}
-        <ListBMI kcal={"น้อยกว่า 18.5"} protein={"18.6-22.9"} carbo={"23.0-24.9"} fat={"25.0-29.9"} sugar={"30.0 ขึ้นไป"} />
+        <ListBMI
+          kcal={'น้อยกว่า 18.5'}
+          protein={'18.6-22.9'}
+          carbo={'23.0-24.9'}
+          fat={'25.0-29.9'}
+          sugar={'30.0 ขึ้นไป'}
+        />
+        <Text style={styles.text_Header}>หมายเหตุ</Text>
+        <Text style={styles.text_Detail}>
+          ใช้ชี้วัดความสมดุลของน้ำหนักและส่วนสูงซึ่งช่วยระบุได้ว่าตอนนี้รูปร่างอยู่ในเกณฑ์หรือไม่
+        </Text>
       </ScrollView>
     </Provider>
   );
@@ -61,19 +59,11 @@ const InformationBMI = ({navigation}) => {
 export default InformationBMI;
 
 const styles = StyleSheet.create({
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 116,
-    textAlign: 'center',
-  },
-  text_detail: {
-    color: '#FD9A86',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 116,
-    textAlign: 'center',
+  text_Header: {
+    paddingTop: 10,
+    fontSize: 14,
+    fontFamily: 'NotoSansThai-SemiBold',
+    paddingHorizontal: 18,
   },
   text_Regular: {
     color: '#1A212F',
@@ -82,15 +72,11 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     fontFamily: 'NotoSansThai-SemiBold',
   },
-  button: {
-    flex: 1,
-    justifyContent: 'center',
-    paddingLeft: 18,
-    paddingRight: 18,
-    paddingBottom: 10,
-  },
-  iconbutton: {
-    paddingLeft: 3,
-    top: 50,
+
+  text_Detail: {
+    paddingVertical: 10,
+    fontSize: 12,
+    fontFamily: 'NotoSansThai-Regular',
+    paddingHorizontal: 18,
   },
 });

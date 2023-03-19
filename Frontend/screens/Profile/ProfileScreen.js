@@ -14,9 +14,8 @@ const ProfileScreen = ({navigation}) => {
   const userinfo = context.user;
 
   const {data} = useQuery(FINDUSER, {
-    variables: {username: username},
+    variables: {username: username}
   });
-
   const onUpdateUser = payload => {
     context?.setUser({
       ...context?.user,

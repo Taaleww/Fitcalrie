@@ -1,5 +1,6 @@
-import React, {useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useCallback} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import { useIsFocused } from '@react-navigation/native' // ?
 import {
   Avatar,
   Card,
@@ -8,9 +9,45 @@ import {
   ProgressBar,
   Button,
 } from 'react-native-paper';
+import {AuthContext} from '../../context/AuthContext';
+import {useLazyQuery} from '@apollo/client';
+import {FIND_EXERCISE} from '../../graphql/query';
 
-const FoodScreen = ({navigation}) => {
+
+const ExerciseScreen = ({navigation}) => {
   const [currentDate, setCurrentDate] = useState('');
+  const context = useContext(AuthContext);
+  const ID = context.user._id;
+  const CURRENT_DATE = new Date();
+  const dateString = CURRENT_DATE.toISOString();
+  const calorieOfUser = context.user.calorieOfUser;
+  const [total_calories_burned, setTotal_calories_burned] = useState(0);
+  const [exerciseData, setExerciseData] = useState(undefined);
+  const isFocused = useIsFocused() // ?
+
+  const [
+    loadExerciseStatus,
+    {loading: exerciseLoading, error: exerciseError, data: newExerciseData},
+  ] = useLazyQuery(FIND_EXERCISE);
+  useEffect(() => {
+    loadExerciseStatus({
+      variables: {
+        date: dateString,
+        userId: ID,
+      },
+    });
+  }, [isFocused]); // called once
+
+  useEffect(() => {
+    if (newExerciseData) {
+      setExerciseData(newExerciseData);
+      const newtotal_calories_burned = newExerciseData?.findExList.reduce(
+        (acc, item) => acc + item.total_calories_burned,
+        0,
+      );
+      setTotal_calories_burned(newtotal_calories_burned);
+    }
+  }, [newExerciseData]);
 
   useEffect(() => {
     var monthNames = [
@@ -45,7 +82,11 @@ const FoodScreen = ({navigation}) => {
           <View style={{width: 48}}></View>
           <Text style={styles.text_header}>
             วันนี้คุณเผาผลาญไปทั้งหมด
-            <Text style={styles.innerText}> 500</Text> Kcal
+            <Text style={styles.innerText}>
+              {' '}
+              {total_calories_burned?.toFixed(0)}
+            </Text>{' '}
+            kcal
           </Text>
 
           <View style={styles.iconbutton}>
@@ -75,43 +116,77 @@ const FoodScreen = ({navigation}) => {
                 backgroundColor="#E9EFF2"
               />
             )}
-            right={props => <Text style={styles.text_details}>500</Text>}
+            right={props => (
+              <Text style={styles.text_details}>
+                {total_calories_burned?.toFixed(0)}
+              </Text>
+            )}
           />
-          <ProgressBar progress={0.5} color="#E2D784" style={styles.progress} />
+          {total_calories_burned > calorieOfUser ? (
+            <ProgressBar
+              progress={total_calories_burned / calorieOfUser}
+              color="#50BFC3"
+              style={styles.progress}
+            />
+          ) : (
+            <ProgressBar
+              progress={total_calories_burned / calorieOfUser}
+              color="#E2D784"
+              style={styles.progress}
+            />
+          )}
         </View>
 
-        <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
-        <TouchableOpacity
-          activeOpacity={0.5}
-          onPress={() => navigation.navigate('DeleteExercise')}>
-          <View style={{paddingTop: 10}}>
-          <Card.Title
-              style={{backgroundColor: 'white', borderRadius: 10}}
-              titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-              title="วิ่ง"
-              subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-              subtitle="120 kcal"
-              left={props => (
-                <Avatar.Icon
-                  {...props}
-                  icon="arm-flex"
-                  color="#1A212F"
-                  backgroundColor="#E9EFF2"
-                />
-              )}
-              right={props => (
-                <IconButton
-                  {...props}
-                  icon="chevron-right"
-                  iconColor="#1A212F"
-                  onPress={() => {}}
-                />
-              )}
-            />
+        {exerciseData && (
+          <View>
+            <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
+            {exerciseData?.findExList?.map((item, index) => (
+              <TouchableOpacity
+                key={`exercise-${index}`}
+                activeOpacity={0.5}
+                onPress={() =>
+                  navigation.navigate({
+                    name: 'DeleteExercise',
+                    params: {
+                      id: item._id,
+                      name: item.exerciseId.name,
+                      time: item.time,
+                      total_calories_burned: item.total_calories_burned,
+                    },
+                    merge: true,
+                  })
+                }>
+                <View style={{paddingTop: 10}}>
+                  <Card.Title
+                    style={{backgroundColor: 'white', borderRadius: 10}}
+                    titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    title={item.exerciseId.name}
+                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    subtitle={String(item.total_calories_burned?.toFixed(0)) + ' kcal'}
+                    left={props => (
+                      <Avatar.Icon
+                        {...props}
+                        icon="arm-flex"
+                        color="#1A212F"
+                        backgroundColor="#E9EFF2"
+                      />
+                    )}
+                    right={props => (
+                      <IconButton
+                        {...props}
+                        icon="chevron-right"
+                        iconColor="#1A212F"
+                        onPress={() => {}}
+                      />
+                    )}
+                  />
+                </View>
+              </TouchableOpacity>
+            ))}
           </View>
-        </TouchableOpacity>
+        )}
 
-        <View style={{paddingTop:24}} >
+        <View style={{paddingTop: 24}}>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: 'white', borderRadius: 10}}
@@ -120,11 +195,15 @@ const FoodScreen = ({navigation}) => {
               }}
               textColor="#FD9A86"
               mode="contained"
-              onPress={() => navigation.navigate('CalculationExercise')}>
+              onPress={() =>
+                navigation.navigate({
+                  name: 'CalculationExercise',
+                })
+              }>
               เพิ่มการเผาผลาญจากการวิ่ง
             </Button>
           </View>
-          <View style={{paddingTop:10}}></View>
+          <View style={{paddingTop: 10}}></View>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
@@ -133,7 +212,11 @@ const FoodScreen = ({navigation}) => {
               }}
               textColor="white"
               mode="contained"
-              onPress={() => navigation.navigate('SearchExercise')}>
+              onPress={() =>
+                navigation.navigate({
+                  name: 'SearchExercise',
+                })
+              }>
               เพิ่มการเผาผลาญ
             </Button>
           </View>
@@ -143,10 +226,11 @@ const FoodScreen = ({navigation}) => {
   );
 };
 
-export default FoodScreen;
+export default ExerciseScreen;
 
 const styles = StyleSheet.create({
   box: {
+    paddingBottom: 10,
     paddingLeft: 18,
     paddingRight: 18,
   },

@@ -3,7 +3,7 @@ import {View, StyleSheet} from 'react-native';
 import {Avatar, Card, Text} from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle';
 
-export default function ListSummaryNutrition({kcal, protein, carbo, fat, sugar}) {
+export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitaminc}) {
   return (
     <View>
       <View style={{paddingHorizontal: 18,paddingTop:10}}>
@@ -144,7 +144,7 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, sugar})
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-                {sugar+ '   g'}
+                {vitaminc+ '   mg'}
               </Text>
             </ProgressCircle>
             <Text
@@ -154,7 +154,7 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, sugar})
                 fontSize: 12,
                 paddingTop: 2,
               }}>
-              น้ำตาล
+              วิตามินซี
             </Text>
           </View>
         </View>

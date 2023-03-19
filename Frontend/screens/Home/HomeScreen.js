@@ -1,4 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
+import { useIsFocused } from '@react-navigation/native' // ?
 import {
   View,
   StyleSheet,
@@ -18,7 +19,9 @@ import {
 } from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle';
 import {AuthContext} from '../../context/AuthContext';
-import moment from 'moment';
+import {FIND_NUTRITION} from '../../graphql/query';
+import {FIND_EXERCISE} from '../../graphql/query';
+import {useLazyQuery} from '@apollo/client';
 
 const MainScreen = ({navigation}) => {
   const [visible, setVisible] = React.useState(false);
@@ -26,54 +29,56 @@ const MainScreen = ({navigation}) => {
   const hideDialog = () => setVisible(false);
   const [currentDate, setCurrentDate] = useState('');
   const context = useContext(AuthContext);
+  const user = context?.user;
   const username = context.username;
-  const gender = context.user.gender;
-  const weight = context.user.weight;
-  const height = context.user.height;
-  const dateOfbirth = context.user.dateOfbirth;
-  const dateOfbirthObj = moment(dateOfbirth, 'YYYY-MM-DD');
-  const frq_excercise = context.user.frq_excercise;
+  const ID = user._id;
+  const CURRENT_DATE = new Date();
+  const dateString = CURRENT_DATE.toISOString();
+  const calorieOfUser = context.user.calorieOfUser;
+  const isFocused = useIsFocused() // ?
 
-  const CalculateAge = dateOfbirthObj => {
-    const ageDifMs = new Date() - dateOfbirthObj;
-    const ageDate = new Date(ageDifMs); // miliseconds from epoch
-    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  const [
+    loadNutritionStatus,
+    {loading: nutritionLoading, error: nutritionError, data: nutritionData},
+  ] = useLazyQuery(FIND_NUTRITION);
+
+  useEffect(() => {
+    loadNutritionStatus({
+      variables: {
+        date: dateString,
+        userId: ID,
+      },
+    });
+  }, [user, isFocused]); // called once
+
+  const [
+    loadExerciseStatus,
+    {loading: exerciseLoading, error: exerciseError, data: exerciseData},
+  ] = useLazyQuery(FIND_EXERCISE);
+
+  useEffect(() => {
+    loadExerciseStatus({
+      variables: {
+        date: dateString,
+        userId: ID,
+      },
+    });
+  }, [user, isFocused]); // called once
+
+  const totalCalories = nutritionData?.findList.reduce(
+    (acc, item) => acc + item.total_calorie,
+    0,
+  );
+  const total_calories_burned = exerciseData?.findExList.reduce(
+    (acc, item) => acc + item.total_calories_burned,
+    0,
+  );
+
+  const CalculateTotalCal = calories => {
+    return calories - Number(totalCalories);
   };
 
-  const CalculateCalorie = () => {
-    let BMR = '';
-    let result = '';
-    const CalculateBMR = () => {
-      let BMR_Frq = '';
-      if (frq_excercise == 1) {
-        BMR_Frq = BMR * 1.2;
-      }
-      if (frq_excercise == 2) {
-        BMR_Frq = BMR * 1.375;
-      }
-      if (frq_excercise == 3) {
-        BMR_Frq = BMR * 1.55;
-      }
-      if (frq_excercise == 4) {
-        BMR_Frq = BMR * 1.725;
-      }
-      if (frq_excercise == 5) {
-        BMR_Frq = BMR * 1.9;
-      }
-      return BMR_Frq.toFixed(0);
-    };
-    if (gender == 'male') {
-      BMR =
-        66 + 13.7 * weight + 5 * height - 6.8 * CalculateAge(dateOfbirthObj);
-      result = CalculateBMR(BMR);
-    }
-    if (gender == 'female') {
-      BMR =
-        665 + 9.6 * weight + 1.8 * height - 4.7 * CalculateAge(dateOfbirthObj);
-      result = CalculateBMR(BMR);
-    }
-    return result;
-  };
+  const percentage = (totalCalories / 1700) * 100;
 
   const onUpdateUser = payload => {
     context?.setUser({
@@ -95,7 +100,6 @@ const MainScreen = ({navigation}) => {
     } else if (BMI > 30) {
       result = ' อ้วนมาก';
     }
-
     return result;
   };
 
@@ -155,15 +159,17 @@ const MainScreen = ({navigation}) => {
               <Card.Content>
                 <View style={styles.container_progress}>
                   <Text style={styles.text_Information} variant="titleLarge">
-                    {'วันนี้คุณควรรับประทาน ' + CalculateCalorie() + ' (kcal)'}
+                    {'วันนี้คุณควรรับประทาน ' +
+                      calorieOfUser?.toFixed(0) +
+                      ' (kcal)'}
                   </Text>
                   <View style={styles.ProgressCircle}>
                     <ProgressCircle
-                      percent={CalculateCalorie()}
+                      percent={percentage}
                       radius={60}
                       borderWidth={16}
                       color="#FD9A86"
-                      shadowColor="#E9EFF2"
+                      shadowColor="#F2B5AA"
                       bgColor="#fff">
                       <Text
                         style={{
@@ -172,7 +178,9 @@ const MainScreen = ({navigation}) => {
                           textAlign: 'center',
                           fontFamily: 'NotoSansThai-SemiBold',
                         }}>
-                        {'เหลืออีก ' + CalculateCalorie() + ' kcal'}
+                        {'เหลืออีก ' +
+                          CalculateTotalCal(calorieOfUser?.toFixed(0)) +
+                          ' kcal'}
                       </Text>
                     </ProgressCircle>
                   </View>
@@ -219,7 +227,7 @@ const MainScreen = ({navigation}) => {
                 titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
                 title="รับประทาน"
                 subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-                subtitle="0 (kcal)"
+                subtitle={totalCalories + ' kcal'}
                 left={props => (
                   <Avatar.Icon
                     {...props}
@@ -237,7 +245,7 @@ const MainScreen = ({navigation}) => {
                 titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
                 title="เผาผลาญ "
                 subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-                subtitle="0 (kcal)"
+                subtitle={total_calories_burned?.toFixed(0) + ' kcal'}
                 left={props => (
                   <Avatar.Icon
                     {...props}
@@ -290,7 +298,7 @@ const MainScreen = ({navigation}) => {
           </Text>
           <View
             style={{
-              paddingTop:10,
+              paddingTop: 10,
               paddingBottom: 10,
             }}>
             <View

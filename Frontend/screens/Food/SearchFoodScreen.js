@@ -1,11 +1,16 @@
-import * as React from 'react';
-import {View, StyleSheet, ScrollView} from 'react-native';
-import {Searchbar, Text, IconButton, Button} from 'react-native-paper';
+import React, {useContext, useState, useEffect} from 'react';
+import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
+import {Searchbar, Text, IconButton, Card, Avatar} from 'react-native-paper';
+import {SEARCH_FOOD} from '../../graphql/query';
+import {useQuery} from '@apollo/client';
 
 const SearchFoodScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = React.useState('');
-
   const onChangeSearch = query => setSearchQuery(query);
+
+  const {data} = useQuery(SEARCH_FOOD, {
+    variables: {Food: searchQuery},
+  });
 
   return (
     <ScrollView>
@@ -54,19 +59,44 @@ const SearchFoodScreen = ({navigation}) => {
           />
         </View>
 
-        <View style={styles.button}>
-          <Button
-            style={{backgroundColor: '#FD9A86', borderRadius: 10}}
-            labelStyle={{
-              fontFamily: 'NotoSansThai-Regular',
-            }}
-            textColor="white"
-            mode="contained"
-            onPress={() => navigation.navigate('AddFood')}>
-            เพิ่มมื้ออาหาร
-          </Button>
-        </View>
-
+        {data && (
+          <View>
+            {data?.findFood?.map((item, index) => (
+              <TouchableOpacity
+                key={item._id}
+                activeOpacity={0.5}
+                onPress={() =>
+                  navigation.navigate({
+                    name: 'AddFood',
+                    params: {foodId: item._id},
+                  })
+                }>
+                <View style={{paddingTop: 10, paddingHorizontal: 18}}>
+                  <Card.Title
+                    style={{backgroundColor: 'white', borderRadius: 10}}
+                    titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    title={item.name ? String(item.name): " "}
+                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    // subtitle={String(item.name)}
+                    left={props => (
+                      <Avatar.Icon
+                        {...props}
+                        icon="food"
+                        color="#1A212F"
+                        backgroundColor="#E9EFF2"
+                      />
+                    )}
+                    right={props => (
+                      <Text style={styles.text_details}>
+                        {String(item?.calories) + ' kcal'}
+                      </Text>
+                    )}
+                  />
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -92,7 +122,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 116,
     textAlign: 'center',
   },
-   button: {
+  button: {
     flex: 1,
     justifyContent: 'center',
     paddingTop: 10,
@@ -102,5 +132,11 @@ const styles = StyleSheet.create({
   iconbutton: {
     paddingLeft: 3,
     top: 50,
+  },
+  text_details: {
+    paddingRight: 10,
+    fontSize: 14,
+    fontFamily: 'NotoSansThai-SemiBold',
+    color: '#FD9A86',
   },
 });

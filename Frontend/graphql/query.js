@@ -12,6 +12,7 @@ export const FINDUSER = gql`
       BMI
       frq_excercise
       goal
+      calorieOfUser
     }
   }
 `;
@@ -25,6 +26,60 @@ export const NUTRITION = gql`
       carbohydrate
       fat
       vitaminc
+    }
+  }
+`;
+
+export const FIND_NUTRITION = gql`
+  query findList($date: DateTime!, $userId: String!) {
+    findList(date: $date, userId: $userId) {
+      _id
+      total_calorie
+      nutritionId {
+        _id
+        name
+        calories
+        protein
+        carbohydrate
+        fat
+        vitaminc
+      }
+      servingSize
+    }
+  }
+`;
+
+export const FIND_EXERCISE = gql`
+  query findExList($date: DateTime!, $userId: String!) {
+    findExList(date: $date, userId: $userId) {
+      _id
+      exerciseId {
+        _id
+        name
+        total_calorie_burned
+      }
+      total_calories_burned
+      time
+    }
+  }
+`;
+
+export const SEARCH_FOOD = gql`
+  query findFood($Food: String!) {
+    findFood(Food: $Food) {
+      _id
+      name
+      calories
+    }
+  }
+`;
+
+export const SEARCH_EXERCISE = gql`
+  query findEx($Exercise: String!) {
+    findEx(Exercise: $Exercise) {
+      _id
+      name
+      total_calorie_burned
     }
   }
 `;

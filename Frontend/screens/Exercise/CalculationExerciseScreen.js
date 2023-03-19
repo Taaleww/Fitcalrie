@@ -7,7 +7,14 @@ import {
   TextInput,
   Alert,
 } from 'react-native';
-import {Text, Button, Dialog, Portal, Provider, IconButton} from 'react-native-paper';
+import {
+  Text,
+  Button,
+  Dialog,
+  Portal,
+  Provider,
+  IconButton,
+} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {AuthContext} from '../../context/AuthContext';
@@ -38,7 +45,6 @@ const CalculationExercise = ({navigation}) => {
       console.error(error);
     },
   });
-  
 
   const calculator = values => {
     setSpeed(values.distance / (values.period / 60));
@@ -86,34 +92,34 @@ const CalculationExercise = ({navigation}) => {
           }) => (
             <View>
               <View
-              style={{
-                width: '100%',
-                flexDirection: 'row',
-                flexWrap: 'wrap',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 8,
-              }}>
-              <IconButton
-                style={{width: 32}}
-                icon="chevron-left"
-                iconColor="#1A212F"
-                size={32}
-                onPress={() => navigation.goBack()}
-              />
-              <Text
                 style={{
-                  color: 'black',
-                  fontSize: 20,
-                  fontFamily: 'NotoSansThai-SemiBold',
+                  width: '100%',
+                  flexDirection: 'row',
+                  flexWrap: 'wrap',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  paddingTop: 8,
                 }}>
-                คำนวณการเผาผลาญ
-              </Text>
-              <Text
-                style={{
-                  width: 32,
-                }}></Text>
-            </View>
+                <IconButton
+                  style={{width: 32}}
+                  icon="chevron-left"
+                  iconColor="#1A212F"
+                  size={32}
+                  onPress={() => navigation.goBack()}
+                />
+                <Text
+                  style={{
+                    color: 'black',
+                    fontSize: 20,
+                    fontFamily: 'NotoSansThai-SemiBold',
+                  }}>
+                  คำนวณการเผาผลาญ
+                </Text>
+                <Text
+                  style={{
+                    width: 32,
+                  }}></Text>
+              </View>
               <Text
                 style={{
                   textAlign: 'center',
@@ -121,12 +127,19 @@ const CalculationExercise = ({navigation}) => {
                   fontWeight: 'bold',
                   fontSize: 60,
                   color: '#FD9A86',
-                  fontFamily: 'NotoSansThai-Regular'
+                  fontFamily: 'NotoSansThai-Regular',
                 }}
                 values={values.result}>
                 {calculator(values)}
               </Text>
-              <Text style={{textAlign: 'center',fontFamily: 'NotoSansThai-Regular', size:14}}>kcal</Text>
+              <Text
+                style={{
+                  textAlign: 'center',
+                  fontFamily: 'NotoSansThai-Regular',
+                  size: 14,
+                }}>
+                kcal
+              </Text>
               {!isValid ||
                 (speed > 30 && (
                   <Text style={styles.errorTxtDisabled}>
@@ -135,7 +148,12 @@ const CalculationExercise = ({navigation}) => {
                 ))}
               {!isValid ||
                 (speed > 30 && (
-                  <Text style={{color: '#FD9A86', textAlign: 'center',fontFamily: 'NotoSansThai-Regular',}}>
+                  <Text
+                    style={{
+                      color: '#FD9A86',
+                      textAlign: 'center',
+                      fontFamily: 'NotoSansThai-Regular',
+                    }}>
                     (จำกัดความเร็วไม่เกิน 30 km/h)
                   </Text>
                 ))}
@@ -175,17 +193,18 @@ const CalculationExercise = ({navigation}) => {
                   <Button
                     style={{
                       borderRadius: 10,
-                      backgroundColor: isValid && values.period ? '#FD9A86' : '#F2B5AA'
+                      backgroundColor:
+                        isValid && values.period ? '#FD9A86' : '#F2B5AA',
                     }}
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
                     }}
                     textColor="white"
                     mode="contained"
-                    disabled={!isValid || speed > 30 ||!values.period }
+                    disabled={!isValid || speed > 30 || !values.period}
                     onPress={() => {
                       console.log('calculator(values)', calculator(values));
-                       //TODO: Change value of exerciseId 
+                      //TODO: Change value of exerciseId
                       AddRunning({
                         variables: {
                           createRunningUser: {
@@ -193,7 +212,7 @@ const CalculationExercise = ({navigation}) => {
                             total_calories_burned: Number(calculator(values)),
                             exerciseId: '6406282869c12b5a7b6f5ed9',
                             time: Number(values.period),
-                            date: new Date()
+                            date: new Date(),
                           },
                         },
                       });
@@ -220,12 +239,13 @@ const CalculationExercise = ({navigation}) => {
                     <Button
                       labelStyle={{
                         fontFamily: 'NotoSansThai-Regular',
+                        textAlign: 'center',
+                        width: '100%',
                       }}
                       textColor="white"
                       buttonColor="#FD9A86"
                       onPress={() => navigation.navigate('Exercise')}>
-                      {'                                '}ยืนยัน
-                      {'                                   '}
+                      ยืนยัน
                     </Button>
                   </Dialog.Actions>
                 </Dialog>

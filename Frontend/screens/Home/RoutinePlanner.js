@@ -1,8 +1,12 @@
-import React, {useState} from 'react';
+import React, {useContext, useState, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {IconButton, Text, Card, Avatar} from 'react-native-paper';
 import {LocaleConfig} from 'react-native-calendars';
 import {Calendar} from 'react-native-calendars';
+import {AuthContext} from '../../context/AuthContext';
+import {FIND_NUTRITION} from '../../graphql/query';
+import {FIND_EXERCISE} from '../../graphql/query';
+import {useLazyQuery} from '@apollo/client';
 
 LocaleConfig.locales['th'] = {
   monthNames: [
@@ -49,10 +53,53 @@ LocaleConfig.defaultLocale = 'th';
 
 const RoutinePlanner = ({navigation}) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const context = useContext(AuthContext);
+  const ID = context.user._id;
+  const CURRENT_DATE = new Date();
+  const dateString = CURRENT_DATE.toISOString();
 
   const onDateChange = date => {
     setSelectedStartDate(date);
   };
+
+  const [
+    loadNutritionStatus,
+    {loading: nutritionLoading, error: nutritionError, data: nutritionData},
+  ] = useLazyQuery(FIND_NUTRITION);
+
+  useEffect(() => {
+    loadNutritionStatus({
+      variables: {
+        date: dateString,
+        userId: ID,
+      },
+    });
+  }, []); // called once
+
+  const [
+    loadExerciseStatus,
+    {loading: exerciseLoading, error: exerciseError, data: exerciseData},
+  ] = useLazyQuery(FIND_EXERCISE);
+
+  useEffect(() => {
+    loadExerciseStatus({
+      variables: {
+        date: dateString,
+        userId: ID,
+      },
+    });
+  }, []); // called once
+
+  const totalCalories = nutritionData?.findList.reduce(
+    (acc, item) => acc + item.total_calorie,
+    0,
+  );
+
+  const total_calories_burned = exerciseData?.findExList.reduce(
+    (acc, item) => acc + item.total_calories_burned,
+    0,
+  );
+
 
   return (
     <View style={styles.container}>
@@ -111,7 +158,7 @@ const RoutinePlanner = ({navigation}) => {
             titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
             title="รับประทาน"
             subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-            subtitle="0 (kcal)"
+            subtitle={totalCalories?.toFixed(0) + ' kcal'}
             left={props => (
               <Avatar.Icon
                 {...props}
@@ -129,7 +176,7 @@ const RoutinePlanner = ({navigation}) => {
             titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
             title="เผาผลาญ "
             subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-            subtitle="0 (kcal)"
+            subtitle={total_calories_burned?.toFixed(0) + " kcal"}
             left={props => (
               <Avatar.Icon
                 {...props}

@@ -28,7 +28,7 @@ const CalculatorSchema = Yup.object().shape({
     .required('กรุณากรอกระยะเวลา'),
 });
 
-const AddExercise = ({navigation}) => {
+const AddExercise = ({navigation,route}) => {
   const [visible, setVisible] = React.useState(false);
   const showDialog = () => setVisible(true);
   const hideDialog = () => setVisible(false);
@@ -58,6 +58,9 @@ const AddExercise = ({navigation}) => {
       console.error(error);
     },
   });
+
+  console.log("route.params?.name",route.params?.id);
+  console.log("route.params?.name",route.params?.name);
 
   return (
     <Provider>
@@ -100,7 +103,7 @@ const AddExercise = ({navigation}) => {
                     fontSize: 20,
                     fontFamily: 'NotoSansThai-SemiBold',
                   }}>
-                  แบดมินตัน
+                  {route.params?.name}
                 </Text>
                 <Text
                   style={{
@@ -160,7 +163,7 @@ const AddExercise = ({navigation}) => {
                         variables: {
                           createTotalCal: {
                             userId: ID,
-                            exerciseId: '64063028f3fd01a2138c3d9f',
+                            exerciseId: route.params?.id,
                             time: Number(values.period),
                           },
                         },
@@ -185,7 +188,7 @@ const AddExercise = ({navigation}) => {
                         variables: {
                           createExerciseOfUserInput: {
                             userId: ID,
-                            exerciseId: '64063028f3fd01a2138c3d9f',
+                            exerciseId: route.params?.id,
                             time: Number(values.period),
                             date: new Date(),
                           },
