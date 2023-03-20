@@ -45,6 +45,8 @@ export const FIND_NUTRITION = gql`
         vitaminc
       }
       servingSize
+      date
+      weightOfUser
     }
   }
 `;
@@ -80,6 +82,22 @@ export const SEARCH_EXERCISE = gql`
       _id
       name
       total_calorie_burned
+    }
+  }
+`;
+
+export const SEARCH_FOOD_MONTH = gql`
+  query findListByMonth($date: DateTime!, $userId: String!) {
+    findListByMonth(date: $date, userId: $userId) {
+      date
+    }
+  }
+`;
+
+export const SEARCH_EXERCISE_MONTH = gql`
+  query findExListByMonth($date: DateTime!, $userId: String!) {
+    findExListByMonth(date: $date, userId: $userId) {
+      date
     }
   }
 `;

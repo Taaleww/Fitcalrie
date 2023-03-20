@@ -4,13 +4,19 @@ import {Text, Provider, IconButton} from 'react-native-paper';
 import ListNutrition from '../../components/ListNutrition';
 import {AuthContext} from '../../context/AuthContext';
 
-const InformationFood = ({navigation}) => {
+const InformationFood = ({navigation,route}) => {
   const context = useContext(AuthContext);
   const protein = context.user.weight;
   const calorieOfUser = context.user.calorieOfUser
   const calorie = calorieOfUser?.toFixed(0);
+  const carbohydrate_start = ((calorie * (40 / 100)) / 4).toFixed(0);
   const carbohydrate = ((calorie * (50 / 100)) / 4).toFixed(0);
+  const fat_start = ((calorie * (20 / 100)) / 9).toFixed(0);
   const fat = ((calorie * (25 / 100)) / 9).toFixed(0);
+  const BMR = route?.params.BMR.BMR;
+
+  console.log("route?.params.BMR.BMR",route?.params.BMR.BMR);
+
 
   return (
     <Provider>
@@ -57,8 +63,8 @@ const InformationFood = ({navigation}) => {
               style={{
                 backgroundColor: '#E2D784',
                 borderRadius: 10,
-                width: 12,
-                height: 12,
+                width: 16,
+                height: 16,
               }}>
               <Text></Text>
             </View>
@@ -72,8 +78,8 @@ const InformationFood = ({navigation}) => {
               style={{
                 backgroundColor: '#50BFC3',
                 borderRadius: 10,
-                width: 12,
-                height: 12,
+                width: 16,
+                height: 16,
               }}>
               <Text></Text>
             </View>
@@ -87,8 +93,8 @@ const InformationFood = ({navigation}) => {
               style={{
                 backgroundColor: '#FD9A86',
                 borderRadius: 10,
-                width: 12,
-                height: 12,
+                width: 16,
+                height: 16,
               }}>
               <Text></Text>
             </View>
@@ -106,6 +112,9 @@ const InformationFood = ({navigation}) => {
           carbo={carbohydrate}
           fat={fat}
           vitaminc={1000}
+          carbohydrate_start={carbohydrate_start}
+          fat_start={fat_start}
+          BMR={BMR}
         />
         <Text style={styles.text_Header}>หมายเหตุ</Text>
         <Text style={styles.text_Detail}>

@@ -6,6 +6,8 @@ import {Calendar} from 'react-native-calendars';
 import {AuthContext} from '../../context/AuthContext';
 import {useLazyQuery} from '@apollo/client';
 import {FIND_EXERCISE} from '../../graphql/query';
+import {SEARCH_EXERCISE_MONTH} from '../../graphql/query';
+import moment from 'moment-timezone';
 
 LocaleConfig.locales['th'] = {
   monthNames: [
@@ -51,50 +53,105 @@ LocaleConfig.locales['th'] = {
 LocaleConfig.defaultLocale = 'th';
 
 const HistoryExercise = ({navigation}) => {
-  const [selectedStartDate, setSelectedStartDate] = useState(null);
-
-  const onDateChange = date => {
-    setSelectedStartDate(date);
-  };
-
+  const [currentDate, setCurrentDate] = useState('');
   const context = useContext(AuthContext);
+  const calorieOfUser = context.user.calorieOfUser;
   const ID = context.user._id;
   const CURRENT_DATE = new Date();
   const dateString = CURRENT_DATE.toISOString();
-  const [check_data, setCheck_data] = useState(0);
-
+  const [exerciseData, setExerciseData] = useState(undefined);
+  const [Isodate, setIsoDate] = useState(dateString);
+  const [Isomonth, setIsoMonth] = useState(dateString);
+  const [total_calories_burned, setTotal_calories_burned] = useState(0);
+  const [markedDate, setMarkedDate] = useState({});
   const [
     loadExerciseStatus,
-    {loading: exerciseLoading, error: exerciseError, data: exerciseData},
+    {loading: exerciseLoading, error: exerciseError, data: newExerciseData},
   ] = useLazyQuery(FIND_EXERCISE);
 
+  const [
+    loadExercisemonthStatus,
+    {
+      loading: exercisemonthLoading,
+      error: exercisemonthError,
+      data: newExercisemonthData,
+    },
+  ] = useLazyQuery(SEARCH_EXERCISE_MONTH);
+
+  const formatdate = day => {
+    const date = new Date(day);
+    return date.toISOString();
+  };
+
+  const initCurrentDate = () => {
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const date = new Date(Isodate).getDate(); //Current Date
+    const month = monthNames[new Date(Isodate).getMonth()]; //Current Month
+    const year = new Date(Isodate).getFullYear(); //Current Year
+    setCurrentDate(date + ' ' + month + ' ' + year);
+  };
+
   useEffect(() => {
+    initCurrentDate();
     loadExerciseStatus({
       variables: {
-        date: dateString,
+        date: Isodate,
         userId: ID,
       },
     });
-  }, []); // called once
+  }, [Isodate]); // called once
 
   useEffect(() => {
-    if (exerciseData) {
-      setCheck_data(1);
-    }
-  }, []);
+    loadExercisemonthStatus({
+      variables: {
+        date: Isomonth,
+        userId: ID,
+      },
+    });
+  }, [Isomonth]); // called once
 
-  const total_calories_burned = exerciseData?.findExList.reduce(
-    (acc, item) => acc + item.total_calories_burned,
-    0,
-  );
-  const exerciseItems = exerciseData?.findExList?.map(
-    exercise => exercise?.exerciseId,
-  );
-  const name = exerciseItems?.map(item => item.name);
-  const exercise = exerciseData?.findExList?.map(
-    exercise => exercise?.total_calories_burned,
-  );
-  const time = exerciseData?.findExList?.map(exercise => exercise?.time);
+  useEffect(() => {
+    if (newExerciseData) {
+      setExerciseData(newExerciseData);
+      const newtotal_calories_burned = newExerciseData?.findExList.reduce(
+        (acc, item) => acc + item.total_calories_burned,
+        0,
+      );
+      setTotal_calories_burned(newtotal_calories_burned);
+    }
+  }, [newExerciseData]);
+
+  useEffect(() => {
+    if (newExercisemonthData) {
+      const newexercise_month = newExercisemonthData.findExListByMonth.map(
+        item => item.date,
+      );
+      const newMarkedDate = {};
+
+      newexercise_month.forEach(date => {
+        const utcDateTime = date;
+        const formattedDate = moment
+          .utc(utcDateTime)
+          .tz('Asia/Bangkok')
+          .format('YYYY-MM-DD');
+        newMarkedDate[formattedDate] = {marked: true, dotColor: '#FD9A86'};
+      });
+      setMarkedDate(newMarkedDate);
+    }
+  }, [newExercisemonthData]);
 
   return (
     <ScrollView>
@@ -137,15 +194,20 @@ const HistoryExercise = ({navigation}) => {
             arrowColor: 'black',
             todayTextColor: '#FD9A86',
           }}
-          // Collection of dates that have to be marked. Default = {}
-          markedDates={{
-            '2023-02-16': {marked: true, dotColor: '#FD9A86'},
-            '2023-02-17': {marked: true, dotColor: '#E2D784'},
-            '2023-02-18': {marked: true, dotColor: '#50BFC3', activeOpacity: 0},
-            '2023-02-19': {disabled: true, disableTouchEvent: true},
+          onDayPress={day => {
+            const newisoDate = formatdate(day.dateString);
+            setIsoDate(newisoDate);
+            console.log('selected day ISO date', Isodate);
           }}
+          onMonthChange={month => {
+            const newisoMonth = formatdate(month.dateString);
+            setIsoMonth(newisoMonth);
+            console.log('month changed', newisoMonth);
+          }}
+          // Collection of dates that have to be marked. Default = {}
+          markedDates={markedDate}
         />
-        <Text style={styles.text_Regular}>Mon 22 Jun</Text>
+        <Text style={styles.text_Regular}>{currentDate}</Text>
         <View style={{paddingTop: 10, paddingHorizontal: 18}}>
           <Card.Title
             style={{backgroundColor: 'white', borderRadius: 10}}
@@ -165,50 +227,64 @@ const HistoryExercise = ({navigation}) => {
               </Text>
             )}
           />
-          <ProgressBar progress={0.5} color="#E2D784" style={styles.progress} />
+          <ProgressBar
+            progress={total_calories_burned / calorieOfUser}
+            color={
+              total_calories_burned > calorieOfUser ? '#50BFC3' : '#E2D784'
+            }
+            style={styles.progress}
+          />
         </View>
-        <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
-        {exerciseData?.findExList?.map((item, index) => (
-          <TouchableOpacity
-            activeOpacity={0.5}
-            style={{paddingHorizontal: 18}}
-            onPress={() =>
-              navigation.navigate({
-                name: 'InformationExercise',
-                params: {
-                  name: name[index],
-                  time: time[index],
-                  total_calories_burned: exercise[index],
-                },
-                merge: true,
-              })
-            }>
-            <View style={{paddingTop: 10}}>
-              <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10}}
-                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                title={exerciseItems[index].name}
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                subtitle={String(exercise[index]?.toFixed(0))}
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    icon="arm-flex"
-                    color="#1A212F"
-                    backgroundColor="#E9EFF2"
+        {exerciseData && (
+          <View>
+             {exerciseData?.findExList?.length > 0 && (
+              <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
+            )}
+            {exerciseData?.findExList?.map((item, index) => (
+              <TouchableOpacity
+                activeOpacity={0.5}
+                style={{paddingHorizontal: 18}}
+                onPress={() =>
+                  navigation.navigate({
+                    name: 'InformationExercise',
+                    params: {
+                      name: item.exerciseId.name,
+                      time: item.time,
+                      total_calories_burned: item.total_calories_burned,
+                    },
+                    merge: true,
+                  })
+                }>
+                <View style={{paddingTop: 10}}>
+                  <Card.Title
+                    style={{backgroundColor: 'white', borderRadius: 10}}
+                    titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    title={item.exerciseId.name}
+                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    subtitle={
+                      String(item.total_calories_burned?.toFixed(0)) + ' kcal'
+                    }
+                    left={props => (
+                      <Avatar.Icon
+                        {...props}
+                        icon="arm-flex"
+                        color="#1A212F"
+                        backgroundColor="#E9EFF2"
+                      />
+                    )}
+                    right={props => (
+                      <IconButton
+                        {...props}
+                        icon="chevron-right"
+                        iconColor="#1A212F"
+                      />
+                    )}
                   />
-                )}
-                right={props => (
-                  <IconButton
-                    {...props}
-                    icon="chevron-right"
-                    iconColor="#1A212F"
-                  />
-                )}
-              />
-            </View>
-          </TouchableOpacity>
-        ))}
+                </View>
+              </TouchableOpacity>
+            ))}
+          </View>
+        )}
       </View>
     </ScrollView>
   );
@@ -217,7 +293,7 @@ const HistoryExercise = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingBottom: 10
+    paddingBottom: 10,
   },
   text_Regular: {
     fontSize: 14,

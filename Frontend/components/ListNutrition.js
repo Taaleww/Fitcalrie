@@ -2,7 +2,7 @@ import * as React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {Avatar, Card, Text} from 'react-native-paper';
 
-export default function ListNutrition({kcal, protein, carbo, fat, vitaminc}) {
+export default function ListNutrition({kcal, protein, carbo, fat, vitaminc,carbohydrate_start,fat_start,BMR}) {
   return (
     <View>
       <View style={styles.container}>
@@ -18,7 +18,7 @@ export default function ListNutrition({kcal, protein, carbo, fat, vitaminc}) {
               backgroundColor="#E9EFF2"
             />
           )}
-          right={props => <Text style={styles.text_details}>{kcal}</Text>}
+          right={props => <Text style={styles.text_details}>{`${BMR.toFixed(0)}-${kcal}`}</Text>}
         />
       </View>
 
@@ -52,7 +52,7 @@ export default function ListNutrition({kcal, protein, carbo, fat, vitaminc}) {
               backgroundColor="#E9EFF2"
             />
           )}
-          right={props => <Text style={styles.text_details}>{carbo}</Text>}
+          right={props => <Text style={styles.text_details}>{carbohydrate_start+"-"+carbo}</Text>}
         />
       </View>
 
@@ -69,7 +69,7 @@ export default function ListNutrition({kcal, protein, carbo, fat, vitaminc}) {
               backgroundColor="#E9EFF2"
             />
           )}
-          right={props => <Text style={styles.text_details}>{fat}</Text>}
+          right={props => <Text style={styles.text_details}>{fat_start+"-"+fat}</Text>}
         />
       </View>
 

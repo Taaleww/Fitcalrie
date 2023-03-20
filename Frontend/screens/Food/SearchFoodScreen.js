@@ -1,16 +1,26 @@
-import React, {useContext, useState, useEffect} from 'react';
+import React, {useContext, useState, useEffect, useCallback} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {Searchbar, Text, IconButton, Card, Avatar} from 'react-native-paper';
 import {SEARCH_FOOD} from '../../graphql/query';
-import {useQuery} from '@apollo/client';
+import {useLazyQuery} from '@apollo/client';
+import debounce from 'lodash/debounce';
 
 const SearchFoodScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
-
-  const {data} = useQuery(SEARCH_FOOD, {
+  const onChangeSearch = query => {
+    setSearchQuery(query);
+    handleLoadFoodData();
+  };
+  const [loadFoods, {loading, error, data}] = useLazyQuery(SEARCH_FOOD, {
     variables: {Food: searchQuery},
   });
+  const handleLoadFoodData = debounce(loadFoods, 200);
+
+  useEffect(() => {
+    if (searchQuery) {
+      handleLoadFoodData();
+    }
+  }, [searchQuery]);
 
   return (
     <ScrollView>
@@ -75,7 +85,7 @@ const SearchFoodScreen = ({navigation}) => {
                   <Card.Title
                     style={{backgroundColor: 'white', borderRadius: 10}}
                     titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                    title={item.name ? String(item.name): " "}
+                    title={item.name ? String(item.name) : ' '}
                     subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
                     // subtitle={String(item.name)}
                     left={props => (

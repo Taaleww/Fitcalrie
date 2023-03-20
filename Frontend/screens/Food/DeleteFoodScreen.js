@@ -8,7 +8,7 @@ import {
   Provider,
   IconButton,
 } from 'react-native-paper';
-import ListNutrition from '../../components/ListNutrition';
+import ListInformation from '../../components/ListInformation';
 import {useQuery} from '@apollo/client';
 import {useMutation} from '@apollo/client';
 import {NUTRITION} from '../../graphql/query';
@@ -90,11 +90,11 @@ const DeleteFoodScreen = ({navigation, route}) => {
         <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
         {/* Information */}
-        <ListNutrition
+        <ListInformation
           kcal={route.params?.totalCalories.toFixed(0)}
-          protein={(nutrition.protein*route.params?.servingSize)?.toFixed(1)}
+          protein={(nutrition.protein*route.params?.servingSize)?.toFixed(0)}
           carbo={(nutrition.carbohydrate*route.params?.servingSize)?.toFixed(0)}
-          fat={(nutrition.fat*route.params?.servingSize)?.toFixed(1)}
+          fat={(nutrition.fat*route.params?.servingSize)?.toFixed(0)}
           vitaminc={(nutrition.vitaminc*route.params?.servingSize)?.toFixed(0)}
         />
 

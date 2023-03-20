@@ -7,6 +7,10 @@ import {AuthContext} from '../../context/AuthContext';
 import {FIND_NUTRITION} from '../../graphql/query';
 import {FIND_EXERCISE} from '../../graphql/query';
 import {useLazyQuery} from '@apollo/client';
+import {SEARCH_FOOD_MONTH} from '../../graphql/query';
+import {SEARCH_EXERCISE_MONTH} from '../../graphql/query';
+import moment from 'moment-timezone';
+import _ from 'lodash';
 
 LocaleConfig.locales['th'] = {
   monthNames: [
@@ -53,10 +57,18 @@ LocaleConfig.defaultLocale = 'th';
 
 const RoutinePlanner = ({navigation}) => {
   const [selectedStartDate, setSelectedStartDate] = useState(null);
+  const [currentDate, setCurrentDate] = useState('');
   const context = useContext(AuthContext);
   const ID = context.user._id;
+  const weight = context.user.weight;
   const CURRENT_DATE = new Date();
   const dateString = CURRENT_DATE.toISOString();
+  const [Isodate, setIsoDate] = useState(dateString);
+  const [Isomonth, setIsoMonth] = useState(dateString);
+  const [markedDate, setMarkedDate] = useState({});
+  const [markedDateExercise, setMarkedDateExercise] = useState({});
+  const [combinedMarkedDate, setCombinedMarkedDate] = useState({});
+  const [selectedDate, setSelectedDate] = useState({});
 
   const onDateChange = date => {
     setSelectedStartDate(date);
@@ -68,13 +80,14 @@ const RoutinePlanner = ({navigation}) => {
   ] = useLazyQuery(FIND_NUTRITION);
 
   useEffect(() => {
+    initCurrentDate();
     loadNutritionStatus({
       variables: {
-        date: dateString,
+        date: Isodate,
         userId: ID,
       },
     });
-  }, []); // called once
+  }, [Isodate]); // called once
 
   const [
     loadExerciseStatus,
@@ -82,13 +95,100 @@ const RoutinePlanner = ({navigation}) => {
   ] = useLazyQuery(FIND_EXERCISE);
 
   useEffect(() => {
+    initCurrentDate();
     loadExerciseStatus({
       variables: {
-        date: dateString,
+        date: Isodate,
         userId: ID,
       },
     });
-  }, []); // called once
+  }, [Isodate]); // called once
+
+  const [
+    loadFoodmonthStatus,
+    {loading: foodmonthLoading, error: foodmonthError, data: newfoodmonthData},
+  ] = useLazyQuery(SEARCH_FOOD_MONTH);
+
+  useEffect(() => {
+    loadFoodmonthStatus({
+      variables: {
+        date: Isomonth,
+        userId: ID,
+      },
+    });
+  }, [Isomonth]); // called once
+
+  const [
+    loadExercisemonthStatus,
+    {
+      loading: exercisemonthLoading,
+      error: exercisemonthError,
+      data: newExercisemonthData,
+    },
+  ] = useLazyQuery(SEARCH_EXERCISE_MONTH);
+
+  useEffect(() => {
+    loadExercisemonthStatus({
+      variables: {
+        date: Isomonth,
+        userId: ID,
+      },
+    });
+  }, [Isomonth]); // called once
+
+  useEffect(() => {
+    if (newfoodmonthData) {
+      const newexfood_month = newfoodmonthData.findListByMonth.map(
+        item => item.date,
+      );
+      const newMarkedDate = {};
+      newexfood_month.forEach((date, i) => {
+        const utcDateTime = date;
+        const formattedDate = moment
+          .utc(utcDateTime)
+          .tz('Asia/Bangkok')
+          .format('YYYY-MM-DD');
+        if (!newMarkedDate[formattedDate]) {
+          newMarkedDate[formattedDate] = {dots: []};
+        }
+        newMarkedDate[formattedDate].dots[0] = {
+          key: 'food' + formattedDate,
+          color: '#68AD9F',
+        };
+      });
+      setMarkedDate(newMarkedDate);
+    }
+  }, [newfoodmonthData]);
+
+  useEffect(() => {
+    if (newExercisemonthData) {
+      const newexercise_month = newExercisemonthData.findExListByMonth.map(
+        item => item.date,
+      );
+      const newMarkedDateExercise = {};
+      newexercise_month.forEach((date, i) => {
+        const utcDateTime = date;
+        const formattedDate = moment
+          .utc(utcDateTime)
+          .tz('Asia/Bangkok')
+          .format('YYYY-MM-DD');
+        if (!newMarkedDateExercise[formattedDate]) {
+          newMarkedDateExercise[formattedDate] = {dots: []};
+        }
+        newMarkedDateExercise[formattedDate].dots[0] = {
+          key: 'exercise' + formattedDate,
+          color: '#3959A4',
+        };
+      });
+      setMarkedDateExercise(newMarkedDateExercise);
+    }
+  }, [newExercisemonthData]);
+
+  const customizer = (objValue, srcValue) => {
+    if (_.isArray(objValue?.dots)) {
+      return {...srcValue, dots: objValue.dots.concat(srcValue?.dots || [])};
+    }
+  };
 
   const totalCalories = nutritionData?.findList.reduce(
     (acc, item) => acc + item.total_calorie,
@@ -100,6 +200,33 @@ const RoutinePlanner = ({navigation}) => {
     0,
   );
 
+  const weightOfUser = nutritionData?.findList.map(item => item.weightOfUser);
+
+  const formatdate = day => {
+    const date = new Date(day);
+    return date.toISOString();
+  };
+
+  const initCurrentDate = () => {
+    const monthNames = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    const date = new Date(Isodate).getDate(); //Current Date
+    const month = monthNames[new Date(Isodate).getMonth()]; //Current Month
+    const year = new Date(Isodate).getFullYear(); //Current Year
+    setCurrentDate(date + ' ' + month + ' ' + year);
+  };
 
   return (
     <View style={styles.container}>
@@ -140,31 +267,61 @@ const RoutinePlanner = ({navigation}) => {
           monthTextColor: 'black',
           arrowColor: 'black',
           todayTextColor: '#FD9A86',
+          'stylesheet.day.basic': {
+            base: {
+              height: 40,
+              width: 40,
+              alignItems: 'center',
+            },
+            selected: {
+              borderRadius: 50
+            },
+        }
         }}
-        // Collection of dates that have to be marked. Default = {}
-        markedDates={{
-          '2023-02-16': {marked: true, dotColor: '#FD9A86'},
-          '2023-02-17': {marked: true, dotColor: '#E2D784'},
-          '2023-02-18': {marked: true, dotColor: '#50BFC3', activeOpacity: 0},
-          '2023-02-19': {disabled: true, disableTouchEvent: true},
+        onDayPress={day => {
+          const newisoDate = formatdate(day.dateString);
+          setIsoDate(newisoDate);
+          const newSelectedDate = {};
+          const formattedDate = moment
+            .utc(newisoDate)
+            .tz('Asia/Bangkok')
+            .format('YYYY-MM-DD');
+          newSelectedDate[formattedDate] = {
+            selected: true,
+            selectedColor: '#FD9A86', 
+            selectedTextColor: '',
+          };
+          setSelectedDate(newSelectedDate);
         }}
+        onMonthChange={month => {
+          const newisoMonth = formatdate(month.dateString);
+          setIsoMonth(newisoMonth);
+        }}
+        markedDates={_.mergeWith(
+          {},
+          markedDateExercise,
+          markedDate,
+          selectedDate,
+          customizer,
+        )}
+        markingType="multi-dot"
       />
-      <Text style={styles.text_Regular}>Mon 22 Jun</Text>
+      <Text style={styles.text_Regular}>{currentDate}</Text>
 
       <View style={styles.container_cardtitle}>
         <View style={{paddingRight: 16}}>
           <Card.Title
-            style={{backgroundColor: 'white', borderRadius: 10, width: 180}}
+            style={{backgroundColor: '#DBE9EA', borderRadius: 10, width: 180}}
             titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
             title="รับประทาน"
             subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-            subtitle={totalCalories?.toFixed(0) + ' kcal'}
+            subtitle={(totalCalories?.toFixed(0) || 0) + ' kcal'}
             left={props => (
               <Avatar.Icon
                 {...props}
                 icon="food"
                 color="white"
-                backgroundColor="#FD9A86"
+                backgroundColor="#68AD9F"
               />
             )}
           />
@@ -172,17 +329,17 @@ const RoutinePlanner = ({navigation}) => {
 
         <View>
           <Card.Title
-            style={{backgroundColor: 'white', borderRadius: 10, width: 180}}
+            style={{backgroundColor: '#D4DEEF', borderRadius: 10, width: 180}}
             titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
             title="เผาผลาญ "
             subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-            subtitle={total_calories_burned?.toFixed(0) + " kcal"}
+            subtitle={(total_calories_burned?.toFixed(0) || 0) + ' kcal'}
             left={props => (
               <Avatar.Icon
                 {...props}
                 icon="fire"
                 color="white"
-                backgroundColor="#FD9A86"
+                backgroundColor="#3959A4"
               />
             )}
           />
@@ -190,7 +347,7 @@ const RoutinePlanner = ({navigation}) => {
       </View>
       <View style={{paddingTop: 10, paddingHorizontal: 18}}>
         <Card.Title
-          style={{backgroundColor: 'white', borderRadius: 10}}
+          style={{backgroundColor: '#F5ECDE', borderRadius: 10}}
           titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
           title="น้ำหนักปัจจุบัน (kg) "
           left={props => (
@@ -198,13 +355,15 @@ const RoutinePlanner = ({navigation}) => {
               {...props}
               icon="human-handsup"
               color="white"
-              backgroundColor="#FD9A86"
+              backgroundColor="#E4B765"
             />
           )}
           right={props => (
             <Text
               style={{fontFamily: 'NotoSansThai-SemiBold', paddingRight: 16}}>
-              40
+              {weightOfUser?.length > 0
+                ? weightOfUser[weightOfUser.length - 1]
+                : weight}
             </Text>
           )}
         />

@@ -27,6 +27,7 @@
     "jwt-decode": "^3.1.2",
     "lottie-react-native": "^5.1.5",
     "metro-runtime": "^0.74.1",
+    "moment-timezone": "^0.5.41",
     "react": "17.0.2",
     "react-native": "0.68.2",
     "react-native-calendar-picker": "^7.1.3",

@@ -6,31 +6,40 @@ import ListFood from '../../components/ListFood';
 import {AuthContext} from '../../context/AuthContext';
 import {FIND_NUTRITION} from '../../graphql/query';
 import {useLazyQuery} from '@apollo/client';
+import moment from 'moment';
 
 const FoodScreen = ({navigation}) => {
   const [currentDate, setCurrentDate] = useState('');
   const context = useContext(AuthContext);
   const ID = context.user._id;
+
   const CURRENT_DATE = new Date();
   const dateString = CURRENT_DATE.toISOString();
   const calorieOfUser = context.user.calorieOfUser;
   const protein = context.user.weight;
+  const weight = context.user.weight;
+  const height = context.user.height;
+  const dateOfbirth = context.user.dateOfbirth;
+  const gender = context.user.gender;
   const isFocused = useIsFocused(); // ?
-
-  const user = context?.user;
+  const dateOfbirthObj = moment(dateOfbirth, 'YYYY-MM-DD');
   const [totalCalories, setTotalCalories] = useState(0);
   const [totalProtein, setTotalProtein] = useState(0);
   const [totalCarbohydrate, setTotalCarbohydrate] = useState(0);
   const [totalFat, setTotalFat] = useState(0);
   const [totalVitaminc, setTotalVitaminc] = useState(0);
+  const [totalCabo_day_start, setTotalCabo_day_start] = useState(0);
   const [totalCabo_day, setTotalCabo_day] = useState(0);
+  const [totalFat_day_start, setTotalFat_day_start] = useState(0);
   const [totalFat_day, setTotalFat_day] = useState(0);
+  const [BMR, setBMR] = useState(0);
 
   const [loadExpenseStatus, {loading, error, data}] =
     useLazyQuery(FIND_NUTRITION);
 
   useEffect(() => {
     initCurrentDate();
+    CalculateCalorie();
     loadExpenseStatus({
       variables: {
         date: dateString,
@@ -62,7 +71,9 @@ const FoodScreen = ({navigation}) => {
       setTotalCarbohydrate(newtotalCarbohydrate);
 
       // Calculate total carbohydrate per day
+      const newtotalCabo_day_start = (calorieOfUser * (40 / 100)) / 4;
       const newtotalCabo_day = (calorieOfUser * (50 / 100)) / 4;
+      setTotalCabo_day_start(newtotalCabo_day_start);
       setTotalCabo_day(newtotalCabo_day);
 
       // Calculate total fat
@@ -72,7 +83,9 @@ const FoodScreen = ({navigation}) => {
       setTotalFat(newtotalFat);
 
       // Calculate total fat per day
+      const newtotalFat_day_start = (calorieOfUser * (20 / 100)) / 9;
       const newtotalFat_day = (calorieOfUser * (25 / 100)) / 9;
+      setTotalFat_day_start(newtotalFat_day_start);
       setTotalFat_day(newtotalFat_day);
 
       // Calculate total vitamin C
@@ -82,6 +95,25 @@ const FoodScreen = ({navigation}) => {
       setTotalVitaminc(newtotalVitaminc);
     }
   }, [data]); // called when data fetched
+
+  const CalculateAge = dateOfbirthObj => {
+    const ageDifMs = new Date() - dateOfbirthObj;
+    const ageDate = new Date(ageDifMs); // miliseconds from epoch
+    return Math.abs(ageDate.getUTCFullYear() - 1970);
+  };
+
+  const CalculateCalorie = () => {
+    let BMR = '';
+    if (gender == 'male') {
+      BMR =
+        66 + 13.7 * weight + 5 * height - 6.8 * CalculateAge(dateOfbirthObj);
+    }
+    if (gender == 'female') {
+      BMR =
+        665 + 9.6 * weight + 1.8 * height - 4.7 * CalculateAge(dateOfbirthObj);
+    }
+    setBMR(BMR);
+  };
 
   const initCurrentDate = () => {
     const monthNames = [
@@ -126,7 +158,15 @@ const FoodScreen = ({navigation}) => {
               mode="contained-tonal"
               containerColor="#FD9A86"
               size={20}
-              onPress={() => navigation.navigate('HistoryFood')}
+              onPress={() =>
+                navigation.navigate({
+                  name: 'HistoryFood',
+                  params: {
+                    BMR: {BMR},
+                  },
+                  merge: true,
+                })
+              }
             />
           </View>
         </View>
@@ -142,7 +182,15 @@ const FoodScreen = ({navigation}) => {
               icon="alert-circle-outline"
               iconColor="#8E8E8E"
               size={14}
-              onPress={() => navigation.navigate('InformationFood')}
+              onPress={() =>
+                navigation.navigate({
+                  name: 'InformationFood',
+                  params: {
+                    BMR: {BMR},
+                  },
+                  merge: true,
+                })
+              }
             />
           </View>
         </View>
@@ -175,7 +223,9 @@ const FoodScreen = ({navigation}) => {
             totalProtein={protein}
             calorieOfUser={calorieOfUser}
             totalCarbohydrate={totalCabo_day}
+            totalCabo_day_start={totalCabo_day_start}
             totalFat={totalFat_day}
+            BMR={BMR}
           />
         ) : (
           <ListFood
@@ -191,7 +241,9 @@ const FoodScreen = ({navigation}) => {
             resultVitamin={0}
             totalProtein={protein}
             calorieOfUser={calorieOfUser}
+            totalCabo_day_start={totalCabo_day_start}
             totalCarbohydrate={totalCabo_day}
+            totalFat_day_start={totalFat_day_start}
             totalFat={totalFat_day}
           />
         )}
@@ -199,14 +251,16 @@ const FoodScreen = ({navigation}) => {
         {/* Add Food */}
         {typeof data !== 'undefined' ? (
           <View>
-            <Text
-              style={{
-                fontSize: 14,
-                paddingTop: 24,
-                fontFamily: 'NotoSansThai-SemiBold',
-              }}>
-              อาหารที่รับประทาน
-            </Text>
+            {data?.findList?.length > 0 && (
+              <Text
+                style={{
+                  fontSize: 14,
+                  paddingTop: 24,
+                  fontFamily: 'NotoSansThai-SemiBold',
+                }}>
+                อาหารที่รับประทาน
+              </Text>
+            )}
 
             {data?.findList?.map((item, index) => (
               <TouchableOpacity
@@ -279,6 +333,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 18,
     paddingRight: 18,
+    // backgroundColor: '#F9FBFC'
   },
   container: {
     paddingTop: 10,

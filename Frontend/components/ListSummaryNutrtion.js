@@ -3,10 +3,28 @@ import {View, StyleSheet} from 'react-native';
 import {Avatar, Card, Text} from 'react-native-paper';
 import ProgressCircle from 'react-native-progress-circle';
 
-export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitaminc}) {
+export default function ListSummaryNutrition({
+  kcal = 0,
+  protein = 0,
+  carbo = 0,
+  fat = 0,
+  vitaminc = 0,
+  percentCalories = 0,
+  percentProtein = 0,
+  percentCarbo = 0,
+  percentFat = 0,
+  percentVitamin = 0,
+  totalProtein = 0,
+  calorieOfUser = 0,
+  totalCarbohydrate = 0,
+  totalFat = 0,
+  totalCabo_day_start=0,
+  totalFat_day_start=0,
+  BMR={BMR}
+}) {
   return (
     <View>
-      <View style={{paddingHorizontal: 18,paddingTop:10}}>
+      <View style={{paddingHorizontal: 18, paddingTop: 10}}>
         <View
           style={{
             flexDirection: 'row',
@@ -18,10 +36,16 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
           }}>
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
-              percent={30}
+              percent={percentCalories}
               radius={30}
               borderWidth={5}
-              color="#FD9A86"
+              color={
+                kcal > calorieOfUser
+                  ? '#F89C8A'
+                  : kcal < BMR
+                  ? '#E2D784'
+                  : '#50BFC3'
+              }
               shadowColor="#E9EFF2"
               bgColor="#fff">
               <Text
@@ -32,7 +56,7 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-                {kcal+ ' kcal'}
+                {kcal + ' kcal'}
               </Text>
             </ProgressCircle>
             <Text
@@ -47,10 +71,10 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
           </View>
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
-              percent={30}
+              percent={percentProtein}
               radius={30}
               borderWidth={5}
-              color="#FD9A86"
+              color={protein > totalProtein ? '#50BFC3' : '#E2D784'}
               shadowColor="#E9EFF2"
               bgColor="#fff">
               <Text
@@ -60,7 +84,7 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-                {protein+ '   g'}
+                {protein + '   g'}
               </Text>
             </ProgressCircle>
             <Text
@@ -75,10 +99,16 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
           </View>
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
-              percent={30}
+              percent={percentCarbo}
               radius={30}
               borderWidth={5}
-              color="#FD9A86"
+              color={
+                carbo > totalCarbohydrate
+                  ? '#F89C8A'
+                  : carbo < totalCabo_day_start
+                  ? '#E2D784'
+                  : '#50BFC3'
+              }
               shadowColor="#E9EFF2"
               bgColor="#fff">
               <Text
@@ -88,7 +118,7 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-                {carbo+ '   g'}
+                {carbo + '   g'}
               </Text>
             </ProgressCircle>
             <Text
@@ -103,10 +133,16 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
           </View>
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
-              percent={30}
+              percent={percentFat}
               radius={30}
               borderWidth={5}
-              color="#FD9A86"
+              color={
+                fat > totalFat
+                  ? '#F89C8A'
+                  : fat < totalFat_day_start
+                  ? '#E2D784'
+                  : '#50BFC3'
+              }
               shadowColor="#E9EFF2"
               bgColor="#fff">
               <Text
@@ -116,7 +152,7 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-                {fat+ '   g'}
+                {fat + '   g'}
               </Text>
             </ProgressCircle>
             <Text
@@ -131,10 +167,10 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
           </View>
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
-              percent={30}
+              percent={percentVitamin}
               radius={30}
               borderWidth={5}
-              color="#FD9A86"
+              color={vitaminc > 1000 ? '#50BFC3' : '#E2D784'}
               shadowColor="#E9EFF2"
               bgColor="#fff">
               <Text
@@ -144,7 +180,7 @@ export default function ListSummaryNutrition({kcal, protein, carbo, fat, vitamin
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-                {vitaminc+ '   mg'}
+                {vitaminc + '   mg'}
               </Text>
             </ProgressCircle>
             <Text

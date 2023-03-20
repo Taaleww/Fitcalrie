@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect, useCallback} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
-import { useIsFocused } from '@react-navigation/native' // ?
+import {useIsFocused} from '@react-navigation/native'; // ?
 import {
   Avatar,
   Card,
@@ -13,7 +13,6 @@ import {AuthContext} from '../../context/AuthContext';
 import {useLazyQuery} from '@apollo/client';
 import {FIND_EXERCISE} from '../../graphql/query';
 
-
 const ExerciseScreen = ({navigation}) => {
   const [currentDate, setCurrentDate] = useState('');
   const context = useContext(AuthContext);
@@ -23,7 +22,7 @@ const ExerciseScreen = ({navigation}) => {
   const calorieOfUser = context.user.calorieOfUser;
   const [total_calories_burned, setTotal_calories_burned] = useState(0);
   const [exerciseData, setExerciseData] = useState(undefined);
-  const isFocused = useIsFocused() // ?
+  const isFocused = useIsFocused(); // ?
 
   const [
     loadExerciseStatus,
@@ -122,24 +121,21 @@ const ExerciseScreen = ({navigation}) => {
               </Text>
             )}
           />
-          {total_calories_burned > calorieOfUser ? (
-            <ProgressBar
-              progress={total_calories_burned / calorieOfUser}
-              color="#50BFC3"
-              style={styles.progress}
-            />
-          ) : (
-            <ProgressBar
-              progress={total_calories_burned / calorieOfUser}
-              color="#E2D784"
-              style={styles.progress}
-            />
-          )}
+          <ProgressBar
+            progress={total_calories_burned / calorieOfUser}
+            color={
+              total_calories_burned > calorieOfUser ? '#50BFC3' : '#E2D784'
+            }
+            style={styles.progress}
+          />
         </View>
 
         {exerciseData && (
           <View>
-            <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
+            {exerciseData?.findExList?.length > 0 && (
+              <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
+            )}
+
             {exerciseData?.findExList?.map((item, index) => (
               <TouchableOpacity
                 key={`exercise-${index}`}
@@ -162,7 +158,9 @@ const ExerciseScreen = ({navigation}) => {
                     titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
                     title={item.exerciseId.name}
                     subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                    subtitle={String(item.total_calories_burned?.toFixed(0)) + ' kcal'}
+                    subtitle={
+                      String(item.total_calories_burned?.toFixed(0)) + ' kcal'
+                    }
                     left={props => (
                       <Avatar.Icon
                         {...props}

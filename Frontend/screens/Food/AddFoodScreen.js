@@ -8,7 +8,7 @@ import {
   Provider,
   IconButton,
 } from 'react-native-paper';
-import ListNutrition from '../../components/ListNutrition';
+import ListInformation from '../../components/ListInformation';
 import {AuthContext} from '../../context/AuthContext';
 import {useQuery} from '@apollo/client';
 import {useMutation} from '@apollo/client';
@@ -93,7 +93,7 @@ const AddFood = ({navigation,route}) => {
           </Text>
           <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
-          <ListNutrition
+          <ListInformation
             kcal={nutrition.calories * count}
             protein={(nutrition.protein * count).toFixed(0)}
             carbo={(nutrition.carbohydrate * count).toFixed(0)}

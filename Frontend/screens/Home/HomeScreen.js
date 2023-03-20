@@ -1,5 +1,5 @@
 import React, {useContext, useState, useEffect} from 'react';
-import { useIsFocused } from '@react-navigation/native' // ?
+import {useIsFocused} from '@react-navigation/native'; // ?
 import {
   View,
   StyleSheet,
@@ -35,7 +35,7 @@ const MainScreen = ({navigation}) => {
   const CURRENT_DATE = new Date();
   const dateString = CURRENT_DATE.toISOString();
   const calorieOfUser = context.user.calorieOfUser;
-  const isFocused = useIsFocused() // ?
+  const isFocused = useIsFocused(); // ?
 
   const [
     loadNutritionStatus,
@@ -126,7 +126,16 @@ const MainScreen = ({navigation}) => {
 
   return (
     <Provider>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#F9FBFC'}}>
+        <View
+          style={{
+            backgroundColor: '#FD9A86',
+            height: 180,
+            borderBottomEndRadius: 16,
+            borderBottomLeftRadius: 16,
+            top: 0,
+            zIndex: -2,
+          }}></View>
         <View style={styles.box}>
           <View style={styles.iconbutton}>
             <IconButton
@@ -134,7 +143,7 @@ const MainScreen = ({navigation}) => {
               iconColor="white"
               mode="contained-tonal"
               containerColor="#FD9A86"
-              size={20}
+              size={24}
               onPress={() => navigation.navigate('RoutinePlanner')}
             />
           </View>
@@ -154,62 +163,90 @@ const MainScreen = ({navigation}) => {
               สวัสดี, {context?.user?.username}{' '}
             </Text>
           </View>
+
           <View style={styles.container_card}>
             <Card style={styles.card}>
               <Card.Content>
-                <View style={styles.container_progress}>
-                  <Text style={styles.text_Information} variant="titleLarge">
-                    {'วันนี้คุณควรรับประทาน ' +
-                      calorieOfUser?.toFixed(0) +
-                      ' (kcal)'}
-                  </Text>
-                  <View style={styles.ProgressCircle}>
-                    <ProgressCircle
-                      percent={percentage}
-                      radius={60}
-                      borderWidth={16}
-                      color="#FD9A86"
-                      shadowColor="#F2B5AA"
-                      bgColor="#fff">
-                      <Text
-                        style={{
-                          fontSize: 14,
-                          paddingHorizontal: 10,
-                          textAlign: 'center',
-                          fontFamily: 'NotoSansThai-SemiBold',
-                        }}>
-                        {'เหลืออีก ' +
-                          CalculateTotalCal(calorieOfUser?.toFixed(0)) +
-                          ' kcal'}
-                      </Text>
-                    </ProgressCircle>
-                  </View>
-                </View>
                 <View
                   style={{
                     flexDirection: 'row',
                   }}>
-                  <Text
-                    style={{
-                      fontFamily: 'NotoSansThai-Regular',
-                      paddingTop: 12,
-                    }}
-                    variant="bodyMedium">
-                    BMI :{' '}
-                    {(context?.user?.BMI || 0).toFixed(2) +
-                      CalculatorBMI(context?.user.BMI)}
-                  </Text>
-                  <View>
-                    <IconButton
-                      icon="alert-circle-outline"
-                      iconColor="#8E8E8E"
-                      size={14}
-                      onPress={() => navigation.navigate('InformationBMI')}
-                    />
+                  <Image
+                    style={{width: 110, height: 110}}
+                    source={require('../../assets/images/personalgoal.png')}
+                  />
+                  <View style={{flexDirection: 'column'}}>
+                    <View style={styles.container_progress}>
+                      <Text
+                        style={styles.text_Information}
+                        variant="titleLarge">
+                        วันนี้คุณควรรับประทาน
+                        <Text
+                          style={{
+                            fontFamily: 'NotoSansThai-SemiBold',
+                            fontSize: 20,
+                            color: '#FD9A86',
+                          }}>
+                          {' '}
+                          {(calorieOfUser?.toFixed(0) || 0) + ' '}
+                        </Text>
+                        kcal
+                      </Text>
+                      <View style={styles.ProgressCircle}>
+                        <ProgressCircle
+                          percent={percentage}
+                          radius={50}
+                          borderWidth={12}
+                          color="#FD9A86"
+                          shadowColor="#F2B5AA"
+                          bgColor="#fff">
+                          <Text
+                            style={{
+                              fontSize: 14,
+                              paddingHorizontal: 10,
+                              textAlign: 'center',
+                              fontFamily: 'NotoSansThai-SemiBold',
+                            }}>
+                            เหลืออีก  <Text style={{fontSize: 16,
+                              fontFamily: 'NotoSansThai-SemiBold',color:'#FD9A86'}}> {CalculateTotalCal(calorieOfUser?.toFixed(0) )} </Text>
+                             
+                              
+                          </Text>
+                        </ProgressCircle>
+                      </View>
+                    </View>
                   </View>
                 </View>
               </Card.Content>
             </Card>
+          </View>
+          <View style={{paddingTop: 10}}>
+            <Card.Title
+              style={{backgroundColor: '#FBE5E4', borderRadius: 10}}
+              titleStyle={{fontFamily: 'NotoSansThai-SemiBold', fontSize: 14}}
+              title={
+                'BMI :' +
+                (context?.user?.BMI || 0).toFixed(2) +
+                CalculatorBMI(context?.user.BMI)
+              }
+              subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
+              left={props => (
+                <Avatar.Icon
+                  {...props}
+                  icon="human-handsup"
+                  color="white"
+                  backgroundColor="#F89C8A"
+                />
+              )}
+              right={props => (
+                <IconButton
+                  icon="alert-circle-outline"
+                  iconColor="#F89C8A"
+                  size={20}
+                  onPress={() => navigation.navigate('InformationBMI')}
+                />
+              )}
+            />
           </View>
           <Text
             style={{
@@ -223,17 +260,21 @@ const MainScreen = ({navigation}) => {
           <View style={styles.container_cardtitle}>
             <View style={{paddingRight: 16}}>
               <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10, width: 180}}
+                style={{
+                  backgroundColor: '#DBE9EA',
+                  borderRadius: 10,
+                  width: 180,
+                }}
                 titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
                 title="รับประทาน"
                 subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-                subtitle={totalCalories + ' kcal'}
+                subtitle={(totalCalories || 0) + ' kcal'}
                 left={props => (
                   <Avatar.Icon
                     {...props}
                     icon="food"
                     color="white"
-                    backgroundColor="#FD9A86"
+                    backgroundColor="#68AD9F"
                   />
                 )}
               />
@@ -241,17 +282,21 @@ const MainScreen = ({navigation}) => {
 
             <View>
               <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10, width: 180}}
+                style={{
+                  backgroundColor: '#D4DEEF',
+                  borderRadius: 10,
+                  width: 180,
+                }}
                 titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
                 title="เผาผลาญ "
                 subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-                subtitle={total_calories_burned?.toFixed(0) + ' kcal'}
+                subtitle={(total_calories_burned?.toFixed(0) || 0 )+ ' kcal'}
                 left={props => (
                   <Avatar.Icon
                     {...props}
                     icon="fire"
                     color="white"
-                    backgroundColor="#FD9A86"
+                    backgroundColor="#3959A4"
                   />
                 )}
               />
@@ -259,15 +304,23 @@ const MainScreen = ({navigation}) => {
           </View>
           <View style={{paddingTop: 10}}>
             <Card.Title
-              style={{backgroundColor: 'white', borderRadius: 10}}
+              style={{backgroundColor: '#F5ECDE', borderRadius: 10}}
               titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
               title="น้ำหนักปัจจุบัน (kg) "
               subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
               subtitle={context?.user?.weight + ' / ' + context?.user?.goal}
+              left={props => (
+                <Avatar.Icon
+                  {...props}
+                  icon="human-handsup"
+                  color="white"
+                  backgroundColor="#E4B765"
+                />
+              )}
               right={props => (
                 <Button
                   mode="text"
-                  textColor="#FD9A86"
+                  textColor="#E4B765"
                   labelStyle={{
                     fontFamily: 'NotoSansThai-Regular',
                   }}
@@ -299,7 +352,7 @@ const MainScreen = ({navigation}) => {
           <View
             style={{
               paddingTop: 10,
-              paddingBottom: 10,
+              bottom: 0,
             }}>
             <View
               style={{
@@ -478,8 +531,10 @@ const MainScreen = ({navigation}) => {
 
 const styles = StyleSheet.create({
   box: {
+    top: -180,
     paddingLeft: 18,
     paddingRight: 18,
+    backgroundColor: 'transparent',
   },
   container_header: {
     flexDirection: 'row',
@@ -496,21 +551,22 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingTop: 10,
     fontFamily: 'NotoSansThai-SemiBold',
+    color: 'white',
   },
   text_Information: {
     fontSize: 14,
-    width: 160,
+    width: 140,
     fontFamily: 'NotoSansThai-Regular',
+    paddingTop: 16,
   },
   container_card: {
     paddingTop: 20,
   },
   card: {
     backgroundColor: 'white',
+    height: 130,
   },
-  ProgressCircle: {
-    paddingHorizontal: 60,
-  },
+  ProgressCircle: {},
   container_progress: {
     flexDirection: 'row',
   },

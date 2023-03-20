@@ -1,16 +1,31 @@
 import React, {useContext, useState, useEffect} from 'react';
 import {View, StyleSheet, ScrollView, TouchableOpacity} from 'react-native';
 import {Searchbar, Text, IconButton, Card, Avatar} from 'react-native-paper';
-import {useQuery} from '@apollo/client';
+
+import {useLazyQuery} from '@apollo/client';
+import debounce from 'lodash/debounce';
 import {SEARCH_EXERCISE} from '../../graphql/query';
 
 const SearchExerciseScreen = ({navigation}) => {
   const [searchQuery, setSearchQuery] = React.useState('');
-  const onChangeSearch = query => setSearchQuery(query);
+  const onChangeSearch = query => {
+    setSearchQuery(query);
+    handleLoadExercisesData();
+  };
 
-  const {data} = useQuery(SEARCH_EXERCISE, {
-    variables: {Exercise: searchQuery},
-  });
+  const [loadExercises, {loading, error, data}] = useLazyQuery(
+    SEARCH_EXERCISE,
+    {
+      variables: {Exercise: searchQuery},
+    },
+  );
+  const handleLoadExercisesData = debounce(loadExercises, 200);
+
+  useEffect(() => {
+    if (searchQuery) {
+      handleLoadExercisesData();
+    }
+  }, [searchQuery]);
 
   return (
     <ScrollView>
