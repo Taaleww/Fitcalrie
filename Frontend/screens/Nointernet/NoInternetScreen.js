@@ -3,7 +3,7 @@ import { View, StyleSheet, ScrollView, Image } from 'react-native';
 import { Text } from 'react-native-paper';
 
 const NoInternetScreen = () => (
-  <ScrollView>
+  <ScrollView style={{backgroundColor: '#F9FBFC'}}>
 
     <View style={styles.container}>
       <Image

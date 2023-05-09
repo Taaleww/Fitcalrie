@@ -11,15 +11,8 @@ import HomeScreen from '../screens/Home/HomeScreen';
 import FoodScreen from '../screens/Food/FoodScreen';
 import ExerciseScreen from '../screens/Exercise/ExerciseScreen';
 import ProfileScreen from '../screens/Profile/ProfileScreen';
-import SuggestionMenu from '../screens/Home/SuggestionMenu';
-import SuggestionLunchScreen from '../screens/Home/SuggestionLunch';
-import SuggestionNightScreen from '../screens/Home/SuggestionNight';
-import NutritionScreen from '../screens/Food/NutritionScreen';
-import NutritionLunchScreen from '../screens/Food/NutritionLunchScreen';
-import NutritionNightScreen from '../screens/Food/NutrtionNightScreen';
 import DeleteFoodScreen from '../screens/Food/DeleteFoodScreen';
 import SearchFoodScreen from '../screens/Food/SearchFoodScreen';
-import EditFormNameScreen from '../screens/Profile/EditFormName';
 import EditFormGenderScreen from '../screens/Profile/EditFormGender';
 import EditFormHeightScreen from '../screens/Profile/EditFormHeight';
 import EditFormWeightScreen from '../screens/Profile/EditFormWeight';
@@ -41,6 +34,7 @@ import InformationBMIScreen from '../screens/Home/InformationBMI';
 import AddFoodScreen from '../screens/Food/AddFoodScreen';
 import AddExerciseScreen from '../screens/Exercise/AddExerciseScreen';
 import InformationExerciseScreen from '../screens/Exercise/InformationExercise';
+import AddFoodRecomScreen from '../screens/Food/AddFoodRecomScreen';
 
 
 const Stack = createNativeStackNavigator();
@@ -64,7 +58,6 @@ const HomeStack = () => {
     <Stack.Navigator
       screenOptions={{headerTitleAlign: 'center', headerShown: false}}>
       <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen name="SuggestionMenu" component={SuggestionMenu} />
       <Stack.Screen
         name="EditCurrentWeight"
         component={EditCurrentWeightScreen}
@@ -73,6 +66,11 @@ const HomeStack = () => {
       <Stack.Screen
         name="InformationBMI"
         component={InformationBMIScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="AddFoodRecom"
+        component={AddFoodRecomScreen}
         options={{headerShown: false}}
       />
     </Stack.Navigator>
@@ -86,21 +84,6 @@ const FoodStack = () => {
         name="Food"
         component={FoodScreen}
         options={{headerShown: false}}
-      />
-      <Stack.Screen
-        name="Nutrition"
-        component={NutritionScreen}
-        options={{title: 'มื้อเช้า'}}
-      />
-      <Stack.Screen
-        name="NutritionLunch"
-        component={NutritionLunchScreen}
-        options={{title: 'มื้อกลางวัน'}}
-      />
-      <Stack.Screen
-        name="NutritionNight"
-        component={NutritionNightScreen}
-        options={{title: 'มื้อเย็น'}}
       />
       <Stack.Screen
         name="DeleteFood"
@@ -162,7 +145,6 @@ const ProfileStack = () => {
         component={ProfileScreen}
         options={{headerShown: false}}
       />
-      <Stack.Screen name="EditFormName" component={EditFormNameScreen} />
       <Stack.Screen name="EditFormGender" component={EditFormGenderScreen} />
       <Stack.Screen name="EditFormBirth" component={EditFormBirthScreen} />
       <Stack.Screen name="EditFormHeight" component={EditFormHeightScreen} />
@@ -194,15 +176,6 @@ const Tabs = () => {
           tabBarStyle: (route => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? '';
             console.log(routeName);
-            if (routeName === 'SuggestionMorning') {
-              return {display: 'none'};
-            }
-            if (routeName === 'SuggestionLunch') {
-              return {display: 'none'};
-            }
-            if (routeName === 'SuggestionNight') {
-              return {display: 'none'};
-            }
             if (routeName === 'EditCurrentWeight') {
               return {display: 'none'};
             }
@@ -210,6 +183,9 @@ const Tabs = () => {
               return {display: 'none'};
             }
             if (routeName === 'InformationBMI') {
+              return {display: 'none'};
+            }
+            if (routeName === 'AddFood') {
               return {display: 'none'};
             }
             return;
@@ -227,15 +203,6 @@ const Tabs = () => {
           tabBarStyle: (route => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? '';
             console.log(routeName);
-            if (routeName === 'Nutrition') {
-              return {display: 'none'};
-            }
-            if (routeName === 'NutritionLunch') {
-              return {display: 'none'};
-            }
-            if (routeName === 'NutritionNight') {
-              return {display: 'none'};
-            }
             if (routeName === 'DeleteFood') {
               return {display: 'none'};
             }
@@ -249,6 +216,9 @@ const Tabs = () => {
               return {display: 'none'};
             }
             if (routeName === 'Information') {
+              return {display: 'none'};
+            }
+            if (routeName === 'AddFoodRecom') {
               return {display: 'none'};
             }
             return;

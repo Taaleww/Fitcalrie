@@ -4,9 +4,8 @@ import {Button, Text} from 'react-native-paper';
 import DateField from 'react-native-datefield';
 
 const FormBirth = ({nextStep, onUpdateState, state}) => {
-  // let newdate = new Date(date).toLocaleDateString("th");
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image
@@ -142,24 +141,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 161,
-    textAlign: 'center',
-  },
-  iconbutton: {
-    top: 50,
-  },
-  input: {
-    width: 380,
-    height: 40,
-    margin: 12,
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 10,
   },
   button: {
     flex: 1,

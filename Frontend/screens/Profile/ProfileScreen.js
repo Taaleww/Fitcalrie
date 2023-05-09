@@ -7,14 +7,12 @@ import {FINDUSER} from '../../graphql/query';
 
 const ProfileScreen = ({navigation}) => {
   const context = useContext(AuthContext);
-  const [user, setUser] = useState(null);
   const [date, setDate] = useState('');
 
   const username = context.username;
-  const userinfo = context.user;
 
   const {data} = useQuery(FINDUSER, {
-    variables: {username: username}
+    variables: {username: username},
   });
   const onUpdateUser = payload => {
     context?.setUser({
@@ -56,7 +54,7 @@ const ProfileScreen = ({navigation}) => {
   }, [context.user?.dateOfbirth]);
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <Text style={styles.text_header}>โปรไฟล์ของฉัน</Text>
         {context.user?.gender === 'male' ? (

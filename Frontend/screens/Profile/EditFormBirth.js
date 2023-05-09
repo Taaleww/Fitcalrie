@@ -1,11 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Image,
-  Text,
-} from 'react-native';
+import {View, StyleSheet, ScrollView, Image, Text} from 'react-native';
 import {Button, IconButton} from 'react-native-paper';
 import DateField from 'react-native-datefield';
 import {useMutation} from '@apollo/client';
@@ -15,7 +9,7 @@ const EditFormBirth = ({navigation, route}) => {
   const [date, setDate] = useState(new Date());
 
   useEffect(() => {
-    setDate(route.params?.dateOfbirth)
+    setDate(route.params?.dateOfbirth);
   }, [route.params?.dateOfbirth]);
 
   const [editDateOfBirth] = useMutation(UPDATE_USER, {
@@ -29,7 +23,7 @@ const EditFormBirth = ({navigation, route}) => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View
         style={{
           width: '100%',
@@ -120,24 +114,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 161,
-    textAlign: 'center',
-  },
-  iconbutton: {
-    top: 50,
-  },
-  input: {
-    width: 380,
-    height: 40,
-    margin: 12,
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 10,
   },
   button: {
     flex: 1,

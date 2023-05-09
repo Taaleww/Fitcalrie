@@ -81,7 +81,7 @@ export default function ListNutrition({kcal, protein, carbo, fat, vitaminc,carbo
           left={props => (
             <Avatar.Icon
               {...props}
-              icon="spoon-sugar"
+              icon="pill"
               color="#1A212F"
               backgroundColor="#E9EFF2"
             />

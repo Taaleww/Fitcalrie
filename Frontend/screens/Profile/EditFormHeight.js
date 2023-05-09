@@ -8,7 +8,7 @@ import {
   SafeAreaView,
   Text,
 } from 'react-native';
-import {Button,IconButton} from 'react-native-paper';
+import {Button, IconButton} from 'react-native-paper';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {useMutation} from '@apollo/client';
@@ -21,10 +21,13 @@ const EditHeightSchema = Yup.object().shape({
     .required('กรุณากรอกส่วนสูง'),
 });
 
-const EditFormHeight = ({navigation,route}) => {
+const EditFormHeight = ({navigation, route}) => {
   const [editHeight] = useMutation(UPDATE_USER, {
     onCompleted(data) {
-      route.params?.onUpdateUser({height: data.updateUser.height, BMI: data.updateUser.BMI});
+      route.params?.onUpdateUser({
+        height: data.updateUser.height,
+        BMI: data.updateUser.BMI,
+      });
       navigation.navigate('Profile');
     },
     onError(error) {
@@ -32,7 +35,7 @@ const EditFormHeight = ({navigation,route}) => {
     },
   });
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <Formik
         initialValues={{
           height: String(route.params?.height),
@@ -141,16 +144,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 161,
-    textAlign: 'center',
-  },
-  iconbutton: {
-    top: 50,
   },
   input: {
     width: 380,

@@ -101,3 +101,13 @@ export const SEARCH_EXERCISE_MONTH = gql`
     }
   }
 `;
+
+export const RECOMMENDATIONS = gql`
+  query model($userId: String!) {
+    model(userId: $userId) {
+      _id
+      name
+      calories
+    }
+  }
+`;

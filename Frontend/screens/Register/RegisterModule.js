@@ -91,7 +91,6 @@ const RegisterModule = ({navigation}) => {
       frq_excercise: state.frq_excercise,
       goal: state.goal,
     };
-    console.log(' KP KP ', createUserInput);
     await createUser({variables: {createUserInput}});
   };
 
@@ -108,6 +107,7 @@ const RegisterModule = ({navigation}) => {
               justifyContent: 'space-between',
               alignItems: 'center',
               paddingTop: 8,
+              backgroundColor: '#F9FBFC'
             }}>
             <IconButton
               style={{width: 32}}

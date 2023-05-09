@@ -4,7 +4,7 @@ import {Button} from 'react-native-paper';
 
 const MainScreen = ({navigation}) => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image

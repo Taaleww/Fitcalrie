@@ -168,5 +168,6 @@ const styles = StyleSheet.create({
   progress: {
     height: 8,
     borderRadius: 8,
+    backgroundColor:'#E9EFF2'
   },
 });

@@ -70,7 +70,7 @@ const ExerciseScreen = ({navigation}) => {
   }, []);
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <View
           style={{
@@ -252,6 +252,7 @@ const styles = StyleSheet.create({
   progress: {
     height: 8,
     borderRadius: 8,
+    backgroundColor:'#E9EFF2'
   },
   iconbutton: {},
   button: {

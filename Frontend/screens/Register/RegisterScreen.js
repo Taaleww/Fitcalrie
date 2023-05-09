@@ -29,7 +29,7 @@ const SignupSchema = Yup.object().shape({
 
 const Register = ({navigation, nextStep, onUpdateState, state}) => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <View style={styles.container}>
           <Image

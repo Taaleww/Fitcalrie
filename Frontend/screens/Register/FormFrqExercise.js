@@ -4,7 +4,7 @@ import {Avatar, Card, Text, Button} from 'react-native-paper';
 
 const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <TouchableOpacity
           activeOpacity={0.5}

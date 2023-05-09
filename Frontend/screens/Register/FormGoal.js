@@ -23,7 +23,7 @@ const EditWeightSchema = Yup.object().shape({
 const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
   const {login} = useContext(AuthContext);
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <Formik
         initialValues={{
           goal: state.goal,
@@ -173,16 +173,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 161,
-    textAlign: 'center',
-  },
-  iconbutton: {
-    top: 50,
   },
   input: {
     width: 380,

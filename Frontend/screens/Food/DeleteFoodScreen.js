@@ -48,7 +48,7 @@ const DeleteFoodScreen = ({navigation, route}) => {
 
   return (
     <Provider>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#F9FBFC'}}>
         <View
           style={{
             width: '100%',

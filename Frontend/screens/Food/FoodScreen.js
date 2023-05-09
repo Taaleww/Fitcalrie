@@ -137,7 +137,7 @@ const FoodScreen = ({navigation}) => {
   };
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <View
           style={{
@@ -226,6 +226,7 @@ const FoodScreen = ({navigation}) => {
             totalCabo_day_start={totalCabo_day_start}
             totalFat={totalFat_day}
             BMR={BMR}
+            totalFat_day_start={totalFat_day_start}
           />
         ) : (
           <ListFood
@@ -333,7 +334,6 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 18,
     paddingRight: 18,
-    // backgroundColor: '#F9FBFC'
   },
   container: {
     paddingTop: 10,

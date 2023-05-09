@@ -22,7 +22,7 @@ const FormGender = ({navigation, route}) => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View
         style={{
           width: '100%',
@@ -120,12 +120,6 @@ const FormGender = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  MainContainer: {
-    backgroundColor: 'white',
-    borderRadius: 10,
-    paddingRight: 100,
-    paddingTop: 20,
-  },
   container: {
     paddingTop: 40,
     justifyContent: 'center',
@@ -133,30 +127,6 @@ const styles = StyleSheet.create({
   },
   box: {
     paddingBottom: 13,
-  },
-  Image: {
-    height: 80,
-    width: 60,
-  },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 110,
-    textAlign: 'center',
-    paddingBottom: 10,
-  },
-  iconbutton: {
-    top: 50,
-  },
-  input: {
-    width: 360,
-    height: 40,
-    margin: 12,
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    fontFamily: 'NotoSansThai-Regular',
   },
   button: {
     flex: 1,

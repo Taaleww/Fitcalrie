@@ -6,7 +6,7 @@ import ListBMI from '../../components/ListBMI';
 const InformationBMI = ({navigation}) => {
   return (
     <Provider>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#F9FBFC'}}>
         <View
           style={{
             width: '100%',
@@ -15,6 +15,7 @@ const InformationBMI = ({navigation}) => {
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingTop: 8,
+            
           }}>
           <IconButton
             style={{width: 32}}

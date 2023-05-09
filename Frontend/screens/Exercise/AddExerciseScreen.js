@@ -48,9 +48,6 @@ const AddExercise = ({navigation,route}) => {
 
   const [FindTotalCal] = useMutation(FIND_TOTALCAL, {
     onCompleted(data) {
-      console.log('Find TotalCal success');
-      console.log('data', data.createTotalCal.total_calories_burned);
-      console.log('data', data.createTotalCal.total_calories_burned);
       const newTotalCal = data?.createTotalCal?.total_calories_burned || 0;
       settotalcal(newTotalCal.toFixed(2));
     },
@@ -59,12 +56,10 @@ const AddExercise = ({navigation,route}) => {
     },
   });
 
-  console.log("route.params?.name",route.params?.id);
-  console.log("route.params?.name",route.params?.name);
 
   return (
     <Provider>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#F9FBFC'}}>
         <Formik
           initialValues={{
             period: '',

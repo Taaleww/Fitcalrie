@@ -33,7 +33,7 @@ const EditCurrrentWeight = ({navigation,route}) => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <Formik
         initialValues={{
           weight: String(route.params?.weight),

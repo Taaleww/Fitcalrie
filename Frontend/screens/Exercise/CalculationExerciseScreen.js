@@ -48,8 +48,6 @@ const CalculationExercise = ({navigation}) => {
 
   const calculator = values => {
     setSpeed(values.distance / (values.period / 60));
-    console.log(values.distance);
-    console.log('speed', speed);
     let METs;
 
     if (speed <= 4) {
@@ -65,7 +63,6 @@ const CalculationExercise = ({navigation}) => {
     } else if (speed > 13 && speed <= 30) {
       METs = 14;
     }
-    console.log('METs', METs);
 
     let result = METs * 0.0175 * 45 * values.period;
     return Number.isNaN(result) ? '-' : result.toFixed(2);
@@ -73,7 +70,7 @@ const CalculationExercise = ({navigation}) => {
 
   return (
     <Provider>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#F9FBFC'}}>
         <Formik
           initialValues={{
             period: '',

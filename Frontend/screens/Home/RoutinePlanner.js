@@ -260,6 +260,9 @@ const RoutinePlanner = ({navigation}) => {
           }}></Text>
       </View>
       <Calendar
+        style={{
+          borderRadius:40
+        }}
         theme={{
           textDayFontFamily: 'NotoSansThai-SemiBold',
           textMonthFontFamily: 'NotoSansThai-SemiBold',
@@ -267,10 +270,11 @@ const RoutinePlanner = ({navigation}) => {
           monthTextColor: 'black',
           arrowColor: 'black',
           todayTextColor: '#FD9A86',
+         
           'stylesheet.day.basic': {
             base: {
-              height: 40,
-              width: 40,
+              height: 28,
+              width: 28,
               alignItems: 'center',
             },
             selected: {
@@ -302,7 +306,7 @@ const RoutinePlanner = ({navigation}) => {
           markedDateExercise,
           markedDate,
           selectedDate,
-          customizer,
+          customizer
         )}
         markingType="multi-dot"
       />
@@ -375,6 +379,7 @@ const RoutinePlanner = ({navigation}) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#F9FBFC'
   },
   text_Regular: {
     fontSize: 14,

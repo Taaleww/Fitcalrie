@@ -9,6 +9,7 @@ import {FIND_NUTRITION} from '../../graphql/query';
 import {useLazyQuery} from '@apollo/client';
 import {SEARCH_FOOD_MONTH} from '../../graphql/query';
 import moment from 'moment-timezone';
+import _ from 'lodash';
 
 LocaleConfig.locales['th'] = {
   monthNames: [
@@ -104,7 +105,6 @@ const HistoryFood = ({navigation, route}) => {
       },
     });
   }, [Isomonth]); // called once
-  console.log("newfoodmonthData",newfoodmonthData);
 
   useEffect(() => {
     if (newfoodmonthData) {
@@ -177,6 +177,12 @@ const HistoryFood = ({navigation, route}) => {
     return date.toISOString();
   };
 
+  const customizer = (objValue, srcValue) => {
+    if (_.isArray(objValue?.dots)) {
+      return {...srcValue, dots: objValue.dots.concat(srcValue?.dots || [])};
+    }
+  };
+
   const initCurrentDate = () => {
     const monthNames = [
       'Jan',
@@ -198,7 +204,7 @@ const HistoryFood = ({navigation, route}) => {
     setCurrentDate(date + ' ' + month + ' ' + year);
   };
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.container}>
         <View
           style={{
@@ -230,6 +236,9 @@ const HistoryFood = ({navigation, route}) => {
             }}></Text>
         </View>
         <Calendar
+          style={{
+            borderRadius: 40,
+          }}
           theme={{
             textDayFontFamily: 'NotoSansThai-SemiBold',
             textMonthFontFamily: 'NotoSansThai-SemiBold',
@@ -239,14 +248,14 @@ const HistoryFood = ({navigation, route}) => {
             todayTextColor: '#FD9A86',
             'stylesheet.day.basic': {
               base: {
-                height: 40,
-                width: 40,
+                height: 28,
+                width: 28,
                 alignItems: 'center',
               },
               selected: {
-                borderRadius: 4
+                borderRadius: 50,
               },
-          }
+            },
           }}
           onDayPress={day => {
             const newisoDate = formatdate(day.dateString);
@@ -258,17 +267,17 @@ const HistoryFood = ({navigation, route}) => {
               .format('YYYY-MM-DD');
             newSelectedDate[formattedDate] = {
               selected: true,
-              selectedColor: '#FD9A86', 
+              selectedColor: '#FD9A86',
               selectedTextColor: '',
             };
             setSelectedDate(newSelectedDate);
+            console.log('newSelectedDate', newSelectedDate);
           }}
           onMonthChange={month => {
             const newisoMonth = formatdate(month.dateString);
             setIsoMonth(newisoMonth);
-            console.log('month changed', newisoMonth);
           }}
-          markedDates={markedDate}
+          markedDates={_.mergeWith({}, markedDate, selectedDate, customizer)}
         />
         <Text style={styles.text_Regular}>{currentDate}</Text>
 
@@ -305,8 +314,10 @@ const HistoryFood = ({navigation, route}) => {
           totalFat_day_start={totalFat_day_start}
           BMR={BMR}
         />
-        {data?.findList?.length > 0 && ( <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>)} 
-       
+        {data?.findList?.length > 0 && (
+          <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
+        )}
+
         {data?.findList?.map((item, index) => (
           <TouchableOpacity
             activeOpacity={0.5}

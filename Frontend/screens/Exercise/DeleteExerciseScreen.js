@@ -28,11 +28,9 @@ const DeleteFoodScreen = ({navigation, route}) => {
     },
   });
 
-  console.log('route.params?.id', route.params?.name);
-
   return (
     <Provider>
-      <ScrollView>
+      <ScrollView style={{backgroundColor: '#F9FBFC'}}>
         <View
           style={{
             width: '100%',
@@ -150,7 +148,6 @@ const DeleteFoodScreen = ({navigation, route}) => {
                 }}
                 buttonColor="#FD9A86"
                 onPress={() => {
-                  //TODO: Change value of delete
                   deleteExercise({
                     variables: {
                       delete: route.params?.id,

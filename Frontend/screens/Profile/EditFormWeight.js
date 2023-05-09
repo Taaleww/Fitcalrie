@@ -33,7 +33,7 @@ const EditFormWeight = ({navigation, route}) => {
   });
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <Formik
         initialValues={{
           weight: String(route.params?.weight),
@@ -141,16 +141,6 @@ const styles = StyleSheet.create({
     paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 161,
-    textAlign: 'center',
-  },
-  iconbutton: {
-    top: 50,
   },
   input: {
     width: 380,

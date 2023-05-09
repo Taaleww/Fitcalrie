@@ -23,7 +23,7 @@ const SearchFoodScreen = ({navigation}) => {
   }, [searchQuery]);
 
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
         <View
           style={{
@@ -54,17 +54,23 @@ const SearchFoodScreen = ({navigation}) => {
               width: 32,
             }}></Text>
         </View>
-        <View style={{paddingLeft: 18, paddingRight: 18, paddingTop: 24}}>
+        <View style={{paddingLeft: 18, paddingRight: 18, paddingTop: 16}}>
           <Searchbar
             style={{
-              borderRadius: 10,
-              height: 48,
+              borderRadius: 20,
+              height: 42,
               width: 380,
-              backgroundColor: 'white',
+              backgroundColor: '#FBE5E4',
+              shadowColor:'transparent',
             }}
+            fontSize={15}
+            cursorColor='#FD9A86'
+            fontFamily= 'NotoSansThai-Regular'
+            placeholderTextColor='#FCC3B7'
+            iconColor='#FD9A86'
+            
             placeholder="ค้นหาเมนูอาหาร"
             onChangeText={onChangeSearch}
-            placeholderTextColor="#E0E0E0"
             value={searchQuery}
           />
         </View>

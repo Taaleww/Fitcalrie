@@ -39,7 +39,7 @@ const AddFood = ({navigation, route}) => {
 
   const [addFood] = useMutation(ADD_FOOD, {
     onCompleted(data) {
-      navigation.navigate('Food');
+      navigation.navigate('Home');
       console.log('Add Food success');
     },
     onError(error) {

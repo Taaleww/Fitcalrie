@@ -21,12 +21,10 @@ import ProgressCircle from 'react-native-progress-circle';
 import {AuthContext} from '../../context/AuthContext';
 import {FIND_NUTRITION} from '../../graphql/query';
 import {FIND_EXERCISE} from '../../graphql/query';
+import {RECOMMENDATIONS} from '../../graphql/query';
 import {useLazyQuery} from '@apollo/client';
 
 const MainScreen = ({navigation}) => {
-  const [visible, setVisible] = React.useState(false);
-  const showDialog = () => setVisible(true);
-  const hideDialog = () => setVisible(false);
   const [currentDate, setCurrentDate] = useState('');
   const context = useContext(AuthContext);
   const user = context?.user;
@@ -60,6 +58,23 @@ const MainScreen = ({navigation}) => {
     loadExerciseStatus({
       variables: {
         date: dateString,
+        userId: ID,
+      },
+    });
+  }, [user, isFocused]); // called once
+
+  const [
+    loadRecommendationsStatus,
+    {
+      loading: recommendationsLoading,
+      error: recommendationsError,
+      data: recommendationsData,
+    },
+  ] = useLazyQuery(RECOMMENDATIONS);
+
+  useEffect(() => {
+    loadRecommendationsStatus({
+      variables: {
         userId: ID,
       },
     });
@@ -207,10 +222,22 @@ const MainScreen = ({navigation}) => {
                               textAlign: 'center',
                               fontFamily: 'NotoSansThai-SemiBold',
                             }}>
-                            เหลืออีก  <Text style={{fontSize: 16,
-                              fontFamily: 'NotoSansThai-SemiBold',color:'#FD9A86'}}> {CalculateTotalCal(calorieOfUser?.toFixed(0) )} </Text>
-                             
-                              
+                            เหลืออีก{' '}
+                            <Text
+                              style={{
+                                fontSize: 14,
+                                fontFamily: 'NotoSansThai-SemiBold',
+                                color: '#FD9A86',
+                              }}>
+                              {' '}
+                              {isNaN(
+                                CalculateTotalCal(calorieOfUser?.toFixed(0)),
+                              )
+                                ? '0'
+                                : CalculateTotalCal(calorieOfUser.toFixed(0)) +
+                                  ' '}
+                            </Text>
+                            kcal
                           </Text>
                         </ProgressCircle>
                       </View>
@@ -233,7 +260,7 @@ const MainScreen = ({navigation}) => {
               left={props => (
                 <Avatar.Icon
                   {...props}
-                  icon="human-handsup"
+                  icon="information-variant"
                   color="white"
                   backgroundColor="#F89C8A"
                 />
@@ -290,7 +317,7 @@ const MainScreen = ({navigation}) => {
                 titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
                 title="เผาผลาญ "
                 subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
-                subtitle={(total_calories_burned?.toFixed(0) || 0 )+ ' kcal'}
+                subtitle={(total_calories_burned?.toFixed(0) || 0) + ' kcal'}
                 left={props => (
                   <Avatar.Icon
                     {...props}
@@ -340,7 +367,6 @@ const MainScreen = ({navigation}) => {
               )}
             />
           </View>
-          {/* //TODO: NOT HAVE DATA RECOMMENDATION */}
           <Text
             style={{
               paddingTop: 24,
@@ -349,180 +375,95 @@ const MainScreen = ({navigation}) => {
             }}>
             เมนูแนะนำสำหรับคุณ
           </Text>
-          <View
-            style={{
-              paddingTop: 10,
-              bottom: 0,
-            }}>
+          { recommendationsData !== undefined ? (
+            <View>
+              {recommendationsData?.model?.map((item, index) => (
+                <TouchableOpacity
+                  key={item._id}
+                  activeOpacity={0.5}
+                  onPress={() =>
+                    navigation.navigate({
+                      name: 'AddFoodRecom',
+                      params: {foodId: item._id},
+                    })
+                  }>
+                  <View style={styles.container}>
+                    <Card.Title
+                      style={{backgroundColor: 'white', borderRadius: 10}}
+                      titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                      title={`${item.name} `}
+                      subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                      subtitle={String(item.calories) + ' kcal'}
+                      left={props => (
+                        <Avatar.Icon
+                          {...props}
+                          icon="food"
+                          color="#1A212F"
+                          backgroundColor="#E9EFF2"
+                        />
+                      )}
+                      right={props => (
+                        <IconButton
+                          {...props}
+                          icon="chevron-right"
+                          iconColor="#1A212F"
+                          onPress={() => {}}
+                        />
+                      )}
+                    />
+                  </View>
+                </TouchableOpacity>
+              ))}
+            </View>
+          ) : (
             <View
               style={{
-                backgroundColor: '#FBE5E4',
-                height: 146,
-                borderRadius: 10,
-                flexDirection: 'row',
+                paddingTop: 10,
+                bottom: 0,
               }}>
-              <Image
-                style={{width: 160, height: 160}}
-                source={require('../../assets/images/personalname.png')}
-              />
-              <View style={{flexDirection: 'column'}}>
-                <Text
-                  style={{
-                    paddingHorizontal: 30,
-                    paddingTop: 36,
-                    fontFamily: 'NotoSansThai-Regular',
-                    paddingRight: 180,
-                    textAlign: 'center',
-                  }}>
-                  กรุณาเพิ่มเมนูอาหารเพื่อให้เราได้แนะนำเมนูอาหารให้แก่คุณ
-                </Text>
-
-                <View style={{paddingTop: 10, paddingLeft: 20}}>
-                  <Button
+              <View
+                style={{
+                  backgroundColor: '#FBE5E4',
+                  height: 146,
+                  borderRadius: 10,
+                  flexDirection: 'row',
+                }}>
+                <Image
+                  style={{width: 160, height: 160}}
+                  source={require('../../assets/images/personalname.png')}
+                />
+                <View style={{flexDirection: 'column'}}>
+                  <Text
                     style={{
-                      backgroundColor: '#FD9A86',
-                      borderRadius: 10,
-                      width: 180,
-                    }}
-                    labelStyle={{
+                      paddingHorizontal: 30,
+                      paddingTop: 36,
                       fontFamily: 'NotoSansThai-Regular',
-                    }}
-                    textColor="white"
-                    mode="contained"
-                    onPress={() => navigation.navigate('SearchFood')}>
-                    เพิ่มมื้ออาหาร
-                  </Button>
+                      paddingRight: 180,
+                      textAlign: 'center',
+                    }}>
+                    กรุณาเพิ่มเมนูอาหารเพื่อให้เราได้แนะนำเมนูอาหารให้แก่คุณ
+                  </Text>
+
+                  <View style={{paddingTop: 10, paddingLeft: 20}}>
+                    <Button
+                      style={{
+                        backgroundColor: '#FD9A86',
+                        borderRadius: 10,
+                        width: 180,
+                      }}
+                      labelStyle={{
+                        fontFamily: 'NotoSansThai-Regular',
+                      }}
+                      textColor="white"
+                      mode="contained"
+                      onPress={() => navigation.navigate('SearchFood')}>
+                      เพิ่มมื้ออาหาร
+                    </Button>
+                  </View>
                 </View>
               </View>
             </View>
-          </View>
-          {/* <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('SuggestionMenu')}>
-            <View style={styles.container}>
-              <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10}}
-                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                title="ข้าวกระเพราไก่"
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                subtitle="120 kcal"
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    icon="food"
-                    color="#1A212F"
-                    backgroundColor="#E9EFF2"
-                  />
-                )}
-                right={props => (
-                  <IconButton
-                    {...props}
-                    icon="chevron-right"
-                    iconColor="#1A212F"
-                    onPress={() => {}}
-                  />
-                )}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('SuggestionMenu')}>
-            <View style={styles.container}>
-              <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10}}
-                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                title="ข้าวกระเพราไก่"
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                subtitle="120 kcal"
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    icon="food"
-                    color="#1A212F"
-                    backgroundColor="#E9EFF2"
-                  />
-                )}
-                right={props => (
-                  <IconButton
-                    {...props}
-                    icon="chevron-right"
-                    iconColor="#1A212F"
-                    onPress={() => {}}
-                  />
-                )}
-              />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('SuggestionMenu')}>
-            <View style={styles.container}>
-              <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10}}
-                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                title="ข้าวกระเพราไก่"
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                subtitle="120 kcal"
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    icon="food"
-                    color="#1A212F"
-                    backgroundColor="#E9EFF2"
-                  />
-                )}
-                right={props => (
-                  <IconButton
-                    {...props}
-                    icon="chevron-right"
-                    iconColor="#1A212F"
-                    onPress={() => {}}
-                  />
-                )}
-              />
-            </View>
-          </TouchableOpacity>
-          <View style={styles.button}>
-            <Button
-              style={{backgroundColor: '#FD9A86', borderRadius: 10}}
-              labelStyle={{
-                fontFamily: 'NotoSansThai-Regular',
-              }}
-              textColor="white"
-              mode="contained"
-              onPress={showDialog}>
-              บันทึกแคลอรี่ทั้งหมด 360 kcal
-            </Button>
-          </View>
-          <Portal>
-            <Dialog
-              visible={visible}
-              onDismiss={hideDialog}
-              style={{backgroundColor: 'white', borderRadius: 10}}>
-              <Dialog.Icon color="#42DCAE" icon="check-circle" size={30} />
-              <Dialog.Title
-                style={{
-                  fontSize: 16,
-                  textAlign: 'center',
-                  fontFamily: 'NotoSansThai-SemiBold',
-                }}>
-                เพิ่มรายการใหม่สำเร็จ
-              </Dialog.Title>
-              <Dialog.Actions>
-                <Button
-                  labelStyle={{
-                    fontFamily: 'NotoSansThai-Regular',
-                  }}
-                  textColor="white"
-                  buttonColor="#FD9A86"
-                  onPress={hideDialog}>
-                  {'                                '}ยืนยัน
-                  {'                                   '}
-                </Button>
-              </Dialog.Actions>
-            </Dialog>
-          </Portal> */}
+          )}
         </View>
       </ScrollView>
     </Provider>
@@ -583,111 +524,3 @@ const styles = StyleSheet.create({
 });
 
 export default MainScreen;
-
-{
-  /* <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('SuggestionMorning')}>
-            <View style={{paddingTop: 10}}>
-              <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10}}
-                titleStyle={{
-                  fontFamily: 'NotoSansThai-Regular',
-                }}
-                title="มื้อเช้า "
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                subtitle="แซนวิช"
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    icon="weather-sunset"
-                    color="#1A212F"
-                    backgroundColor="#E9EFF2"
-                  />
-                )}
-                right={props => (
-                  <Text
-                    style={{
-                      paddingRight: 10,
-                      fontSize: 14,
-                      fontFamily: 'NotoSansThai-Regular',
-                    }}>
-                    120 kcal
-                  </Text>
-                )}
-              />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('SuggestionLunch')}>
-            <View style={{paddingTop: 10}}>
-              <Card.Title
-                style={{
-                  backgroundColor: 'white',
-                  borderRadius: 10,
-                  fontFamily: 'NotoSansThai-Regular',
-                }}
-                titleStyle={{
-                  fontFamily: 'NotoSansThai-Regular',
-                }}
-                title="มื้อกลางวัน "
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                subtitle="แซนวิช"
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    icon="white-balance-sunny"
-                    color="#1A212F"
-                    backgroundColor="#E9EFF2"
-                  />
-                )}
-                right={props => (
-                  <Text
-                    style={{
-                      paddingRight: 10,
-                      fontSize: 14,
-                      fontFamily: 'NotoSansThai-Regular',
-                    }}>
-                    120 kcal
-                  </Text>
-                )}
-              />
-            </View>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            activeOpacity={0.5}
-            onPress={() => navigation.navigate('SuggestionNight')}>
-            <View style={{paddingTop: 10}}>
-              <Card.Title
-                style={{backgroundColor: 'white', borderRadius: 10}}
-                titleStyle={{
-                  fontFamily: 'NotoSansThai-Regular',
-                }}
-                title="มื้อเย็น "
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
-                subtitle="แซนวิช"
-                left={props => (
-                  <Avatar.Icon
-                    {...props}
-                    icon="weather-night"
-                    color="#1A212F"
-                    backgroundColor="#E9EFF2"
-                  />
-                )}
-                right={props => (
-                  <Text
-                    style={{
-                      paddingRight: 10,
-                      fontSize: 14,
-                      fontFamily: 'NotoSansThai-Regular',
-                    }}>
-                    120 kcal
-                  </Text>
-                )}
-              />
-            </View>
-          </TouchableOpacity> */
-}

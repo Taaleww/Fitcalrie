@@ -21,7 +21,7 @@ const EditWeightSchema = Yup.object().shape({
 
 const FormWeight = ({nextStep, onUpdateState, state}) => {
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <Formik
         initialValues={{
           weight: state.weight,
@@ -174,25 +174,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 161,
-    textAlign: 'center',
-  },
-  iconbutton: {
-    top: 50,
-  },
-  input: {
-    width: 380,
-    height: 40,
-    margin: 12,
-    padding: 10,
-    backgroundColor: 'white',
-    borderRadius: 10,
-    fontFamily: 'NotoSansThai-Regular',
-  },
   button: {
     flex: 1,
     justifyContent: 'center',
@@ -205,6 +186,15 @@ const styles = StyleSheet.create({
     paddingLeft: 16,
     fontFamily: 'NotoSansThai-Regular',
   },
+  input: {
+    width: 380,
+    height: 40,
+    margin: 12,
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    fontFamily: 'NotoSansThai-Regular',
+  }
 });
 
 export default FormWeight;

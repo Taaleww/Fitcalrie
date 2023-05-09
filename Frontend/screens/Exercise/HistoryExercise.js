@@ -8,6 +8,7 @@ import {useLazyQuery} from '@apollo/client';
 import {FIND_EXERCISE} from '../../graphql/query';
 import {SEARCH_EXERCISE_MONTH} from '../../graphql/query';
 import moment from 'moment-timezone';
+import _ from 'lodash';
 
 LocaleConfig.locales['th'] = {
   monthNames: [
@@ -64,6 +65,7 @@ const HistoryExercise = ({navigation}) => {
   const [Isomonth, setIsoMonth] = useState(dateString);
   const [total_calories_burned, setTotal_calories_burned] = useState(0);
   const [markedDate, setMarkedDate] = useState({});
+  const [selectedDate, setSelectedDate] = useState({});
   const [
     loadExerciseStatus,
     {loading: exerciseLoading, error: exerciseError, data: newExerciseData},
@@ -153,8 +155,14 @@ const HistoryExercise = ({navigation}) => {
     }
   }, [newExercisemonthData]);
 
+  const customizer = (objValue, srcValue) => {
+    if (_.isArray(objValue?.dots)) {
+      return {...srcValue, dots: objValue.dots.concat(srcValue?.dots || [])};
+    }
+  };
+
   return (
-    <ScrollView>
+    <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.container}>
         <View
           style={{
@@ -186,6 +194,9 @@ const HistoryExercise = ({navigation}) => {
             }}></Text>
         </View>
         <Calendar
+          style={{
+            borderRadius: 40,
+          }}
           theme={{
             textDayFontFamily: 'NotoSansThai-SemiBold',
             textMonthFontFamily: 'NotoSansThai-SemiBold',
@@ -193,19 +204,43 @@ const HistoryExercise = ({navigation}) => {
             monthTextColor: 'black',
             arrowColor: 'black',
             todayTextColor: '#FD9A86',
+            'stylesheet.day.basic': {
+              base: {
+                height: 28,
+                width: 28,
+                alignItems: 'center',
+              },
+              selected: {
+                borderRadius: 50
+              },
+          }
           }}
           onDayPress={day => {
             const newisoDate = formatdate(day.dateString);
             setIsoDate(newisoDate);
-            console.log('selected day ISO date', Isodate);
+            const newSelectedDate = {};
+            const formattedDate = moment
+              .utc(newisoDate)
+              .tz('Asia/Bangkok')
+              .format('YYYY-MM-DD');
+            newSelectedDate[formattedDate] = {
+              selected: true,
+              selectedColor: '#FD9A86',
+              selectedTextColor: '',
+            };
+            setSelectedDate(newSelectedDate);
+            console.log('newSelectedDate', newSelectedDate);
           }}
           onMonthChange={month => {
             const newisoMonth = formatdate(month.dateString);
             setIsoMonth(newisoMonth);
-            console.log('month changed', newisoMonth);
           }}
-          // Collection of dates that have to be marked. Default = {}
-          markedDates={markedDate}
+          markedDates={_.mergeWith(
+            {},
+            markedDate,
+            selectedDate,
+            customizer
+          )}
         />
         <Text style={styles.text_Regular}>{currentDate}</Text>
         <View style={{paddingTop: 10, paddingHorizontal: 18}}>
@@ -237,7 +272,7 @@ const HistoryExercise = ({navigation}) => {
         </View>
         {exerciseData && (
           <View>
-             {exerciseData?.findExList?.length > 0 && (
+            {exerciseData?.findExList?.length > 0 && (
               <Text style={styles.text_Regular}>ออกกำลังกาย</Text>
             )}
             {exerciseData?.findExList?.map((item, index) => (
@@ -304,6 +339,7 @@ const styles = StyleSheet.create({
   progress: {
     height: 8,
     borderRadius: 8,
+    backgroundColor:'#E9EFF2'
   },
   text_details: {
     paddingRight: 10,
