@@ -36,6 +36,18 @@ export const LOGIN = gql`
   }
 `;
 
+// export const LOGIN = gql`
+//   mutation {
+//     login(loginUserInput: {username: "testtest67", password: "123123123"}) {
+//       access_token
+//       user {
+//         _id
+//         username
+//       }
+//     }
+//   }
+// `;
+
 export const UPDATE_USER = gql`
   mutation updateUser($updateUserInput: UpdateUserInput!) {
     updateUser(updateUserInput: $updateUserInput) {
@@ -103,5 +115,3 @@ export const FIND_TOTALCAL = gql`
     }
   }
 `;
-
-
