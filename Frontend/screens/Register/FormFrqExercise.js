@@ -16,7 +16,8 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 1 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',
+              fontSize: 12,}}
               title="ไม่เคย "
               left={props => (
                 <Avatar.Icon
@@ -43,7 +44,8 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 2 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',
+              fontSize: 12,}}
               title="น้อย"
               left={props => (
                 <Avatar.Icon
@@ -70,7 +72,8 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 3 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',
+              fontSize: 12,}}
               title="ปานกลาง "
               left={props => (
                 <Avatar.Icon
@@ -97,7 +100,8 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 4 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',
+              fontSize: 12,}}
               title="บ่อยครั้ง"
               left={props => (
                 <Avatar.Icon
@@ -124,7 +128,8 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={
                 state.frq_excercise !== 5 ? styles.defaultButtonTab : styles.buttonTab
               }
-              titleStyle={{fontFamily: 'NotoSansThai-Regular',}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular',
+              fontSize: 12,}}
               title="เป็นประจำ"
               left={props => (
                 <Avatar.Icon
@@ -141,7 +146,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
           </View>
         </TouchableOpacity>
 
-        <View style={{paddingTop: 40}}>
+        <View style={{paddingTop: 30}}>
           <View
             style={{
               paddingLeft: 18,
@@ -225,6 +230,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
               style={{borderRadius: 10, backgroundColor: '#FD9A86'}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize: 12,
               }}
               mode="contained"
               disabled={state.frq_excercise === ''}
@@ -240,7 +246,7 @@ const FormFrqExercise = ({nextStep, onUpdateState, state}) => {
 
 const styles = StyleSheet.create({
   box: {
-    paddingTop: 60,
+    paddingTop: 20,
   },
   container: {
     justifyContent: 'center',
@@ -271,6 +277,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     fontSize: 14,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
   button: {
     flex: 1,

@@ -12,11 +12,12 @@ const MainScreen = ({navigation}) => {
             source={require('../../assets/images/Logo_FITCLRIE.png')}
           />
         </View>
-        <View style={{paddingTop: 220}}>
+        <View style={{paddingTop: 200}}>
           <Button
             style={{backgroundColor: '#FD9A86', borderRadius: 10}}
             labelStyle={{
               fontFamily: 'NotoSansThai-Regular',
+              fontSize:12
             }}
             textColor="white"
             mode="contained"
@@ -37,7 +38,7 @@ const styles = StyleSheet.create({
   container: {
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 200,
+    paddingTop: 180,
   },
 });
 

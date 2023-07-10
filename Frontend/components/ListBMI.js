@@ -14,7 +14,7 @@ export default function ListBMI({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ fontFamily: 'NotoSansThai-Regular'}}
+                    titleStyle={{ fontFamily: 'NotoSansThai-Regular', fontSize:12}}
                     title="ผอมเกินไป"
                     left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{kcal}</Text>}
@@ -24,8 +24,8 @@ export default function ListBMI({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ fontFamily: 'NotoSansThai-Regular'}}
-                    title="น้ำหนักปกติ เหมาะสม"
+                    titleStyle={{ fontFamily: 'NotoSansThai-Regular', fontSize:12}}
+                    title="สมส่วน"
                     left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{protein}</Text>}
                 />
@@ -34,7 +34,7 @@ export default function ListBMI({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ fontFamily: 'NotoSansThai-Regular' }}
+                    titleStyle={{ fontFamily: 'NotoSansThai-Regular' , fontSize:12}}
                     title="นํ้าหนักเกินตัว"
                     left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{carbo}</Text>}
@@ -44,7 +44,7 @@ export default function ListBMI({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ fontFamily: 'NotoSansThai-Regular' }}
+                    titleStyle={{ fontFamily: 'NotoSansThai-Regular' , fontSize:12}}
                     title="อ้วน"
                     left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{fat}</Text>}
@@ -54,7 +54,7 @@ export default function ListBMI({
             <View style={styles.container}>
                 <Card.Title
                     style={{ backgroundColor: 'white', borderRadius: 10 }}
-                    titleStyle={{ fontFamily: 'NotoSansThai-Regular' }}
+                    titleStyle={{ fontFamily: 'NotoSansThai-Regular' , fontSize:12}}
                     title="อ้วนมาก"
                     left={(props) => <Avatar.Icon {...props} icon="information-variant" color='#1A212F' backgroundColor='#E9EFF2' />}
                     right={(props) => <Text style={styles.text_details}>{sugar}</Text>}
@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
     text_details: {
         paddingRight: 10,
         fontSize: 14,
-        fontFamily: 'NotoSansThai-Regular'
+        fontFamily: 'NotoSansThai-Regular',
+        fontSize:12
     }
 });

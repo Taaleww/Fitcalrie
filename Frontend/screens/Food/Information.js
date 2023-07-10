@@ -46,10 +46,12 @@ const InformationScreen = ({navigation, route}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
-            {nutrition.name+ " (" + route.params?.servingSize+ ")"}
+           {nutrition.name
+              ? `${nutrition.name} (${route.params?.servingSize})`
+              : 'อาหาร'}
           </Text>
           <Text
             style={{
@@ -59,7 +61,7 @@ const InformationScreen = ({navigation, route}) => {
         <Text
           style={{
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 16,
             fontFamily: 'NotoSansThai-SemiBold',
             color: '#FD9A86',
           }}>
@@ -69,11 +71,33 @@ const InformationScreen = ({navigation, route}) => {
 
         {/* Information */}
         <ListInformation
-          kcal={route.params?.totalCalories.toFixed(0)}
-          protein={(nutrition.protein*route.params?.servingSize)?.toFixed(0)}
-          carbo={(nutrition.carbohydrate*route.params?.servingSize)?.toFixed(0)}
-          fat={(nutrition.fat*route.params?.servingSize)?.toFixed(0)}
-          vitaminc={(nutrition.vitaminc*route.params?.servingSize)?.toFixed(0)}
+          kcal={
+            isNaN(route.params.totalCalories.toFixed(0))
+              ? '-'
+              : route.params.totalCalories.toFixed(0)
+          }
+          protein={
+            isNaN((nutrition.protein * route.params?.servingSize)?.toFixed(0))
+              ? '-'
+              : (nutrition.protein * route.params?.servingSize)?.toFixed(0)
+          }
+          carbo={
+            isNaN(
+              (nutrition.carbohydrate * route.params?.servingSize)?.toFixed(0),
+            )
+              ? '-'
+              : (nutrition.carbohydrate * route.params?.servingSize)?.toFixed(0)
+          }
+          fat={
+            isNaN((nutrition.fat * route.params?.servingSize)?.toFixed(0))
+              ? '-'
+              : (nutrition.fat * route.params?.servingSize)?.toFixed(0)
+          }
+          vitaminc={
+            isNaN((nutrition.vitaminc * route.params?.servingSize)?.toFixed(0))
+              ? '-'
+              : (nutrition.vitaminc * route.params?.servingSize)?.toFixed(0)
+          }
         />
       </ScrollView>
     </Provider>
@@ -85,7 +109,7 @@ export default InformationScreen;
 const styles = StyleSheet.create({
   text_Regular: {
     color: '#1A212F',
-    fontSize: 14,
+    fontSize: 12,
     paddingLeft: 18,
     paddingTop: 24,
     fontFamily: 'NotoSansThai-SemiBold',

@@ -31,7 +31,7 @@ const DeleteFoodScreen = ({navigation, route}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
             {route.params?.name}
@@ -63,7 +63,7 @@ const DeleteFoodScreen = ({navigation, route}) => {
         <View style={styles.container}>
           <Card.Title
             style={{backgroundColor: 'white', borderRadius: 10}}
-            titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize:12}}
             title="ระยะเวลา (นาที)"
             left={props => (
               <Avatar.Icon
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
   },
   text_details: {
     paddingRight: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'NotoSansThai-Regular',
   },
   text_Regular: {

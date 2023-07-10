@@ -40,10 +40,17 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
           <View>
             <View style={styles.container}>
               <Image
-                style={{width: 300, height: 300}}
+                style={{
+                  width: 300,
+                  height: 300,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                }}
                 source={require('../../assets/images/personalweight.png')}
               />
+            </View>
 
+            <View style={{padding: 18}}>
               <SafeAreaView>
                 <TextInput
                   style={styles.input}
@@ -53,7 +60,7 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
                     onUpdateState({weight: Number(val)});
                   }}
                   onBlur={() => setFieldTouched('weight')}
-                  placeholder="น้ำหนัก                                                                        กิโลกรัม"
+                  placeholder="  น้ำหนัก                                                        กิโลกรัม"
                   keyboardType="numeric"
                   defaultValue={String(state.weight)}
                 />
@@ -63,7 +70,7 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
               </SafeAreaView>
             </View>
 
-            <View style={{paddingTop: 110}}>
+            <View style={{paddingTop: 90}}>
               <View
                 style={{
                   paddingLeft: 18,
@@ -152,6 +159,7 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
                   }}
                   labelStyle={{
                     fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
                   }}
                   textColor="white"
                   mode="contained"
@@ -170,7 +178,6 @@ const FormWeight = ({nextStep, onUpdateState, state}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
@@ -185,16 +192,16 @@ const styles = StyleSheet.create({
     color: '#FD9A86',
     paddingLeft: 16,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
   input: {
-    width: 380,
     height: 40,
-    margin: 12,
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
     fontFamily: 'NotoSansThai-Regular',
-  }
+    fontSize: 12,
+  },
 });
 
 export default FormWeight;

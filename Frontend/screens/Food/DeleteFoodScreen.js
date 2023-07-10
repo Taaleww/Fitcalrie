@@ -24,8 +24,6 @@ const DeleteFoodScreen = ({navigation, route}) => {
     variables: {id: String(route.params?.nutritionID)},
   });
 
-  console.log(route.params?.totalCalories);
-  console.log(route.params?.totalCalories);
 
   useEffect(() => {
     // Handle Nutrtion data when data was fetch
@@ -68,10 +66,12 @@ const DeleteFoodScreen = ({navigation, route}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
-            {nutrition.name+ " (" + route.params?.servingSize+ ")"}
+            {nutrition.name
+              ? `${nutrition.name} (${route.params?.servingSize})`
+              : 'อาหาร'}
           </Text>
           <Text
             style={{
@@ -81,30 +81,53 @@ const DeleteFoodScreen = ({navigation, route}) => {
         <Text
           style={{
             textAlign: 'center',
-            fontSize: 20,
+            fontSize: 16,
             fontFamily: 'NotoSansThai-SemiBold',
             color: '#FD9A86',
           }}>
-          {route.params?.totalCalories + ' kacl'}
+          {route.params?.totalCalories + ' kcal'}
         </Text>
         <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
         {/* Information */}
         <ListInformation
-          kcal={route.params?.totalCalories.toFixed(0)}
-          protein={(nutrition.protein*route.params?.servingSize)?.toFixed(0)}
-          carbo={(nutrition.carbohydrate*route.params?.servingSize)?.toFixed(0)}
-          fat={(nutrition.fat*route.params?.servingSize)?.toFixed(0)}
-          vitaminc={(nutrition.vitaminc*route.params?.servingSize)?.toFixed(0)}
+          kcal={
+            isNaN(route.params.totalCalories.toFixed(0))
+              ? '-'
+              : route.params.totalCalories.toFixed(0)
+          }
+          protein={
+            isNaN((nutrition.protein * route.params?.servingSize)?.toFixed(0))
+              ? '-'
+              : (nutrition.protein * route.params?.servingSize)?.toFixed(0)
+          }
+          carbo={
+            isNaN(
+              (nutrition.carbohydrate * route.params?.servingSize)?.toFixed(0),
+            )
+              ? '-'
+              : (nutrition.carbohydrate * route.params?.servingSize)?.toFixed(0)
+          }
+          fat={
+            isNaN((nutrition.fat * route.params?.servingSize)?.toFixed(0))
+              ? '-'
+              : (nutrition.fat * route.params?.servingSize)?.toFixed(0)
+          }
+          vitaminc={
+            isNaN((nutrition.vitaminc * route.params?.servingSize)?.toFixed(0))
+              ? '-'
+              : (nutrition.vitaminc * route.params?.servingSize)?.toFixed(0)
+          }
         />
 
         <View>
-          <View style={{paddingTop: 60}}>
+          <View style={{paddingTop: 40}}>
             <View style={styles.button}>
               <Button
                 style={{backgroundColor: '#FD9A86', borderRadius: 10}}
                 labelStyle={{
                   fontFamily: 'NotoSansThai-Regular',
+                  fontSize: 12,
                 }}
                 textColor="white"
                 mode="contained"
@@ -129,7 +152,7 @@ const DeleteFoodScreen = ({navigation, route}) => {
                   textAlign: 'center',
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
-               {  " คุณต้องการลบ " + nutrition.name +" ?"}
+                {' คุณต้องการลบ ' + nutrition.name + ' ?'}
               </Dialog.Title>
               <Dialog.Actions>
                 <Button
@@ -138,8 +161,8 @@ const DeleteFoodScreen = ({navigation, route}) => {
                     fontFamily: 'NotoSansThai-Regular',
                   }}
                   onPress={hideDialog}>
-                  {'            '}
-                  ยกเลิก{'            '}
+                  {'        '}
+                  ยกเลิก{'        '}
                 </Button>
 
                 <Button
@@ -149,15 +172,14 @@ const DeleteFoodScreen = ({navigation, route}) => {
                   }}
                   buttonColor="#FD9A86"
                   onPress={() => {
-                    //TODO: Change value of delete
                     deleteFood({
                       variables: {
                         delete: String(route.params?.id),
                       },
                     });
                   }}>
-                  {'            '}
-                  ยืนยัน{'            '}
+                  {'        '}
+                  ยืนยัน{'        '}
                 </Button>
               </Dialog.Actions>
             </Dialog>
@@ -187,7 +209,7 @@ const styles = StyleSheet.create({
   },
   text_Regular: {
     color: '#1A212F',
-    fontSize: 14,
+    fontSize: 12,
     paddingLeft: 18,
     paddingTop: 24,
     fontFamily: 'NotoSansThai-SemiBold',

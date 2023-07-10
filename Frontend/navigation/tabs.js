@@ -175,7 +175,6 @@ const Tabs = () => {
           ),
           tabBarStyle: (route => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-            console.log(routeName);
             if (routeName === 'EditCurrentWeight') {
               return {display: 'none'};
             }
@@ -202,7 +201,6 @@ const Tabs = () => {
           ),
           tabBarStyle: (route => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-            console.log(routeName);
             if (routeName === 'DeleteFood') {
               return {display: 'none'};
             }
@@ -235,7 +233,6 @@ const Tabs = () => {
           ),
           tabBarStyle: (route => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-            console.log(routeName);
             if (routeName === 'SearchExercise') {
               return {display: 'none'};
             }
@@ -268,7 +265,6 @@ const Tabs = () => {
           ),
           tabBarStyle: (route => {
             const routeName = getFocusedRouteNameFromRoute(route) ?? '';
-            console.log(routeName);
             if (routeName === 'EditFormName') {
               return {display: 'none'};
             }

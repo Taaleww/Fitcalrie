@@ -71,7 +71,7 @@ const EditFormHeight = ({navigation, route}) => {
               <Text
                 style={{
                   color: 'black',
-                  fontSize: 20,
+                  fontSize: 14,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
                 ส่วนสูง
@@ -86,14 +86,16 @@ const EditFormHeight = ({navigation, route}) => {
                 style={{width: 300, height: 300}}
                 source={require('../../assets/images/personalheight.png')}
               />
+            </View>
 
+            <View style={{padding: 18}}>
               <SafeAreaView>
                 <TextInput
                   style={styles.input}
                   value={values.height}
                   onChangeText={handleChange('height')}
                   onBlur={() => setFieldTouched('height')}
-                  placeholder="ส่วนสูง"
+                  placeholder="ส่วนสูง                                                    เซนติเมตร"
                   keyboardType="numeric"
                 />
                 {touched.height && errors.height && (
@@ -102,7 +104,7 @@ const EditFormHeight = ({navigation, route}) => {
               </SafeAreaView>
             </View>
 
-            <View style={{paddingTop: 130}}>
+            <View style={{paddingTop: 110}}>
               <View style={styles.button}>
                 <Button
                   style={{
@@ -111,6 +113,7 @@ const EditFormHeight = ({navigation, route}) => {
                   }}
                   labelStyle={{
                     fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
                   }}
                   textColor="white"
                   mode="contained"
@@ -141,18 +144,16 @@ const styles = StyleSheet.create({
     paddingBottom: 13,
   },
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
-    width: 380,
     height: 40,
-    margin: 12,
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
   button: {
     flex: 1,
@@ -165,6 +166,7 @@ const styles = StyleSheet.create({
     color: '#FD9A86',
     paddingLeft: 16,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
 });
 

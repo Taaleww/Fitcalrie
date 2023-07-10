@@ -45,7 +45,9 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
                 style={{width: 300, height: 300}}
                 source={require('../../assets/images/personalgoal.png')}
               />
+            </View>
 
+            <View style={{padding: 18}}>
               <SafeAreaView>
                 <TextInput
                   style={styles.input}
@@ -55,7 +57,7 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
                     onUpdateState({goal: Number(val)});
                   }}
                   onBlur={() => setFieldTouched('goal')}
-                  placeholder="เป้าหมายน้ำหนัก                                                           กิโลกรัม"
+                  placeholder="เป้าหมายน้ำหนัก                                            กิโลกรัม"
                   defaultValue={String(state.goal)}
                   keyboardType="numeric"
                 />
@@ -65,7 +67,7 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
               </SafeAreaView>
             </View>
 
-            <View style={{paddingTop: 110}}>
+            <View style={{paddingTop: 90}}>
               <View
                 style={{
                   paddingLeft: 18,
@@ -152,6 +154,7 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
                   }}
                   labelStyle={{
                     fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
                   }}
                   textColor="white"
                   mode="contained"
@@ -170,18 +173,16 @@ const EditFormGoal = ({nextStep, onUpdateState, state, onSubmitRegister}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
-    width: 380,
     height: 40,
-    margin: 12,
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
   button: {
     flex: 1,
@@ -194,6 +195,7 @@ const styles = StyleSheet.create({
     color: '#FD9A86',
     paddingLeft: 16,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
 });
 

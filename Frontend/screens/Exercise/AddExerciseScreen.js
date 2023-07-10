@@ -95,7 +95,7 @@ const AddExercise = ({navigation,route}) => {
                 <Text
                   style={{
                     color: 'black',
-                    fontSize: 20,
+                    fontSize: 16,
                     fontFamily: 'NotoSansThai-SemiBold',
                   }}>
                   {route.params?.name}
@@ -126,14 +126,14 @@ const AddExercise = ({navigation,route}) => {
                 kcal
               </Text>
 
-              <View style={{paddingTop: 80, alignItems: 'center'}}>
+              <View style={{paddingTop: 80, paddingHorizontal:18}}>
                 <SafeAreaView>
                   <TextInput
                     style={styles.input}
                     onChangeText={handleChange('period')}
                     onBlur={() => setFieldTouched('period')}
                     values={values.period}
-                    placeholder="ระยะเวลา                                                                         นาที"
+                    placeholder="ระยะเวลา                                                              นาที"
                     keyboardType="numeric"
                   />
                   {touched.period && errors.period && (
@@ -142,18 +142,18 @@ const AddExercise = ({navigation,route}) => {
                 </SafeAreaView>
               </View>
 
-              <View style={{paddingTop: 200}}>
+              <View style={{paddingTop: 140}}>
                 <View style={styles.button}>
                   <Button
                     style={{backgroundColor: 'white', borderRadius: 10}}
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
+                      fontSize:12
+                      
                     }}
                     textColor="#FD9A86"
                     mode="contained"
                     onPress={() => {
-                      console.log('sdff', values.period);
-                      //TODO: Change value of exerciseId 
                       FindTotalCal({
                         variables: {
                           createTotalCal: {
@@ -174,6 +174,7 @@ const AddExercise = ({navigation,route}) => {
                     }}
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
+                      fontSize:12
                     }}
                     textColor="white"
                     mode="contained"
@@ -202,7 +203,7 @@ const AddExercise = ({navigation,route}) => {
                   <Dialog.Icon color="#42DCAE" icon="check-circle" size={30} />
                   <Dialog.Title
                     style={{
-                      fontSize: 16,
+                      fontSize: 14,
                       textAlign: 'center',
                       fontFamily: 'NotoSansThai-SemiBold',
                     }}>
@@ -211,13 +212,14 @@ const AddExercise = ({navigation,route}) => {
                   <Dialog.Actions>
                     <Button
                       labelStyle={{
-                        fontFamily: 'NotoSansThai-Regular',
+                      fontSize:12,
+                      fontFamily: 'NotoSansThai-Regular',
                       }}
                       textColor="white"
                       buttonColor="#FD9A86"
                       onPress={() => navigation.navigate('Exercise')}>
-                      {'                                '}ยืนยัน
-                      {'                                   '}
+                       {'                           '}ยืนยัน
+                    {'                                   '}
                     </Button>
                   </Dialog.Actions>
                 </Dialog>
@@ -259,23 +261,25 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   input: {
-    width: 380,
     height: 40,
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
     marginBottom: 10,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize:12
   },
   errorTxt: {
     color: '#FD9A86',
     paddingLeft: 16,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize:12
   },
   errorTxtDisabled: {
     color: '#FD9A86',
     paddingTop: 10,
     textAlign: 'center',
     fontFamily: 'NotoSansThai-Regular',
+    fontSize:12
   },
 });

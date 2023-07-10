@@ -43,7 +43,7 @@ const EditFormBirth = ({navigation, route}) => {
         <Text
           style={{
             color: 'black',
-            fontSize: 20,
+            fontSize: 14,
             fontFamily: 'NotoSansThai-SemiBold',
           }}>
           วันเกิด
@@ -68,22 +68,26 @@ const EditFormBirth = ({navigation, route}) => {
               backgroundColor: 'white',
               marginHorizontal: 10,
               fontFamily: 'NotoSansThai-Regular',
+              fontSize:12
             }}
             disabled
             labelDate="วัน"
             labelMonth="เดือน"
             labelYear="ปี"
             defaultValue={new Date(route.params.dateOfbirth)}
+            maximumDate={new Date(2004, 1, 1)}
+            minimumDate={new Date(1933, 1, 1)}
             onSubmit={value => setDate(value)}
           />
         </View>
 
-        <View style={{paddingTop: 145}}>
+        <View style={{paddingTop: 140}}>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize:12
               }}
               textColor="white"
               mode="contained"
@@ -107,11 +111,7 @@ const EditFormBirth = ({navigation, route}) => {
 };
 
 const styles = StyleSheet.create({
-  box: {
-    paddingBottom: 13,
-  },
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },

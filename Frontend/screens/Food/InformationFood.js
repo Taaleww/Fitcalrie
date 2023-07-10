@@ -40,7 +40,7 @@ const InformationFood = ({navigation,route}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
             ปริมาณสารอาหารที่ควรได้รับ
@@ -137,7 +137,7 @@ export default InformationFood;
 const styles = StyleSheet.create({
   text_Regular: {
     color: '#1A212F',
-    fontSize: 14,
+    fontSize: 12,
     paddingLeft: 18,
     paddingTop: 24,
     fontFamily: 'NotoSansThai-SemiBold',
@@ -150,7 +150,7 @@ const styles = StyleSheet.create({
   },
   text_Header: {
     paddingTop: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'NotoSansThai-SemiBold',
     paddingHorizontal: 18,
   },

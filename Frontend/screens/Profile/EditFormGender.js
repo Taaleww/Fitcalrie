@@ -42,7 +42,7 @@ const FormGender = ({navigation, route}) => {
         <Text
           style={{
             color: 'black',
-            fontSize: 20,
+            fontSize: 14,
             fontFamily: 'NotoSansThai-SemiBold',
           }}>
           เพศ
@@ -73,6 +73,7 @@ const FormGender = ({navigation, route}) => {
             }}
             labelStyle={{
               fontFamily: 'NotoSansThai-Regular',
+              fontSize:12
             }}
             label="ชาย"
             value="male"
@@ -85,18 +86,20 @@ const FormGender = ({navigation, route}) => {
             }}
             labelStyle={{
               fontFamily: 'NotoSansThai-Regular',
+              fontSize:12
             }}
             label="หญิง"
             value="female"
           />
         </RadioButton.Group>
 
-        <View style={{paddingTop: 75}}>
+        <View style={{paddingTop: 60}}>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize:12
               }}
               textColor="white"
               mode="contained"
@@ -121,7 +124,6 @@ const FormGender = ({navigation, route}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },

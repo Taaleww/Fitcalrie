@@ -183,7 +183,7 @@ const HistoryExercise = ({navigation}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
             ออกกำลังกาย
@@ -229,7 +229,6 @@ const HistoryExercise = ({navigation}) => {
               selectedTextColor: '',
             };
             setSelectedDate(newSelectedDate);
-            console.log('newSelectedDate', newSelectedDate);
           }}
           onMonthChange={month => {
             const newisoMonth = formatdate(month.dateString);
@@ -246,7 +245,7 @@ const HistoryExercise = ({navigation}) => {
         <View style={{paddingTop: 10, paddingHorizontal: 18}}>
           <Card.Title
             style={{backgroundColor: 'white', borderRadius: 10}}
-            titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize:12}}
             title="เผาผลาญ (kcal)"
             left={props => (
               <Avatar.Icon
@@ -293,9 +292,9 @@ const HistoryExercise = ({navigation}) => {
                 <View style={{paddingTop: 10}}>
                   <Card.Title
                     style={{backgroundColor: 'white', borderRadius: 10}}
-                    titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize:12}}
                     title={item.exerciseId.name}
-                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize:12}}
                     subtitle={
                       String(item.total_calories_burned?.toFixed(0)) + ' kcal'
                     }
@@ -331,7 +330,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   text_Regular: {
-    fontSize: 14,
+    fontSize: 12,
     paddingTop: 10,
     fontFamily: 'NotoSansThai-SemiBold',
     paddingLeft: 18,
@@ -343,7 +342,7 @@ const styles = StyleSheet.create({
   },
   text_details: {
     paddingRight: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'NotoSansThai-Regular',
   },
 });

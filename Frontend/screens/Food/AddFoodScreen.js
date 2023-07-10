@@ -28,6 +28,7 @@ const AddFood = ({navigation, route}) => {
     variables: {id: nutrtionId},
   });
 
+
   useEffect(() => {
     // Handle Nutrtion data when data was fetch
     if (data) {
@@ -70,10 +71,10 @@ const AddFood = ({navigation, route}) => {
             <Text
               style={{
                 color: 'black',
-                fontSize: 20,
+                fontSize: 16,
                 fontFamily: 'NotoSansThai-SemiBold',
               }}>
-              {nutrition.name + ' (' + count + ')'}
+              {nutrition.name ? `${nutrition.name} (${count})` : 'อาหาร'}
             </Text>
 
             <Text
@@ -84,25 +85,44 @@ const AddFood = ({navigation, route}) => {
           <Text
             style={{
               textAlign: 'center',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
               color: '#FD9A86',
             }}>
-            {nutrition.calories * count + ' kcal'}{' '}
+              {nutrition.calories ? `${nutrition.calories * count} kcal` : 'kcal'}
           </Text>
           <Text style={styles.text_Regular}>ข้อมูลโภชนาการ</Text>
 
           <ListInformation
-            kcal={nutrition.calories * count}
-            protein={(nutrition.protein * count).toFixed(0)}
-            carbo={(nutrition.carbohydrate * count).toFixed(0)}
-            fat={(nutrition.fat * count).toFixed(0)}
-            vitaminc={(nutrition.vitaminc * count).toFixed(0)}
+            kcal={
+              isNaN(nutrition.calories * count)
+                ? '-'
+                : nutrition.calories * count
+            }
+            protein={
+              isNaN((nutrition.protein * count).toFixed(0))
+                ? '-'
+                : (nutrition.protein * count).toFixed(0)
+            }
+            carbo={
+              isNaN((nutrition.carbohydrate * count).toFixed(0))
+                ? '-'
+                : (nutrition.protein * count).toFixed(0)
+            }
+            fat={
+              isNaN((nutrition.fat * count).toFixed(0))
+                ? '-'
+                : (nutrition.protein * count).toFixed(0)
+            }
+            vitaminc={
+              isNaN((nutrition.vitaminc * count).toFixed(0))
+                ? '-'
+                : (nutrition.protein * count).toFixed(0)
+            }
           />
 
           {/* Counter button */}
-          <View style={{alignItems:'center',
-                }}>
+          <View style={{alignItems: 'center'}}>
             <View
               style={{
                 flexDirection: 'row',
@@ -115,7 +135,7 @@ const AddFood = ({navigation, route}) => {
                 <Text
                   style={{
                     fontFamily: 'NotoSansThai-SemiBold',
-                    fontSize: 14,
+                    fontSize: 12,
                     color: '#FD9A86',
                   }}>
                   จำนวนหน่วยบริโภค:
@@ -123,7 +143,7 @@ const AddFood = ({navigation, route}) => {
               </View>
               <View style={{paddingHorizontal: 10}}>
                 <Button
-                  style={{backgroundColor: '#F5ECDE', borderRadius:10}}
+                  style={{backgroundColor: '#F5ECDE', borderRadius: 10}}
                   labelStyle={{
                     fontFamily: 'NotoSansThai-SemiBold',
                     fontSize: 16,
@@ -142,7 +162,10 @@ const AddFood = ({navigation, route}) => {
                   justifyContent: 'center',
                   paddingHorizontal: 10,
                 }}>
-                <Text>{count}</Text>
+                <Text
+                  style={{fontFamily: 'NotoSansThai-SemiBold', fontSize: 12}}>
+                  {count}
+                </Text>
               </View>
               <View style={{paddingHorizontal: 10}}>
                 <Button
@@ -168,6 +191,7 @@ const AddFood = ({navigation, route}) => {
                 style={{backgroundColor: '#FD9A86', borderRadius: 10}}
                 labelStyle={{
                   fontFamily: 'NotoSansThai-Regular',
+                  fontSize: 12,
                 }}
                 textColor="white"
                 mode="contained"
@@ -185,7 +209,7 @@ const AddFood = ({navigation, route}) => {
                 <Dialog.Icon color="#42DCAE" icon="check-circle" size={30} />
                 <Dialog.Title
                   style={{
-                    fontSize: 16,
+                    fontSize: 14,
                     textAlign: 'center',
                     fontFamily: 'NotoSansThai-SemiBold',
                   }}>
@@ -195,6 +219,7 @@ const AddFood = ({navigation, route}) => {
                   <Button
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
+                      fontSize: 12,
                     }}
                     textColor="white"
                     buttonColor="#FD9A86"
@@ -210,7 +235,7 @@ const AddFood = ({navigation, route}) => {
                         },
                       });
                     }}>
-                    {'                                '}ยืนยัน
+                    {'                           '}ยืนยัน
                     {'                                   '}
                   </Button>
                 </Dialog.Actions>
@@ -243,7 +268,7 @@ const styles = StyleSheet.create({
   },
   text_Regular: {
     color: '#1A212F',
-    fontSize: 14,
+    fontSize: 12,
     paddingLeft: 18,
     paddingTop: 16,
     fontFamily: 'NotoSansThai-SemiBold',

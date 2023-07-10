@@ -281,9 +281,9 @@ const FoodScreen = ({navigation}) => {
                 <View style={styles.container}>
                   <Card.Title
                     style={{backgroundColor: 'white', borderRadius: 10}}
-                    titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize:12}}
                     title={`${item.nutritionId.name} (${item.servingSize})`}
-                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize:12}}
                     subtitle={String(item.total_calorie) + ' kcal'}
                     left={props => (
                       <Avatar.Icon
@@ -314,7 +314,7 @@ const FoodScreen = ({navigation}) => {
           <Button
             style={{backgroundColor: '#FD9A86', borderRadius: 10}}
             labelStyle={{
-              fontFamily: 'NotoSansThai-Regular',
+              fontFamily: 'NotoSansThai-Regular',fontSize: 12
             }}
             textColor="white"
             mode="contained"
@@ -339,14 +339,14 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   text_header: {
-    fontSize: 20,
+    fontSize: 16,
     paddingHorizontal: 10,
     textAlign: 'center',
     fontFamily: 'NotoSansThai-SemiBold',
     width: 200,
   },
   text_Regular: {
-    fontSize: 14,
+    fontSize: 12,
     paddingTop: 12,
     fontFamily: 'NotoSansThai-SemiBold',
   },
@@ -363,5 +363,6 @@ const styles = StyleSheet.create({
   innerText: {
     color: '#FD9A86',
     fontFamily: 'NotoSansThai-SemiBold',
+    fontSize: 16
   },
 });

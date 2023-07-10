@@ -94,13 +94,13 @@ const ProfileScreen = ({navigation}) => {
               style={{backgroundColor: 'white', borderRadius: 10}}
               title="เพศ"
               titleStyle={{
-                fontSize: 14,
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize: 12,
               }}
               right={props => (
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
                   {{male: 'ชาย', female: 'หญิง'}[context?.user?.gender]}
@@ -128,14 +128,14 @@ const ProfileScreen = ({navigation}) => {
               style={{backgroundColor: 'white', borderRadius: 10}}
               title="วันเกิด"
               titleStyle={{
-                fontSize: 14,
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize: 12,
               }}
               right={props => (
                 <Text
                   style={{
-                    fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
                   }}>
                   {date}
                 </Text>
@@ -158,14 +158,15 @@ const ProfileScreen = ({navigation}) => {
               style={{backgroundColor: 'white', borderRadius: 10}}
               title="น้ำหนัก"
               titleStyle={{
-                fontSize: 14,
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize: 12,
               }}
               right={props => (
                 <Text
                   style={{
                     fontSize: 14,
                     fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
                   }}>
                   {context?.user?.weight}
                 </Text>
@@ -188,13 +189,13 @@ const ProfileScreen = ({navigation}) => {
               style={{backgroundColor: 'white', borderRadius: 10}}
               title="ส่วนสูง"
               titleStyle={{
-                fontSize: 14,
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize: 12,
               }}
               right={props => (
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
                   {context?.user?.height}
@@ -220,13 +221,13 @@ const ProfileScreen = ({navigation}) => {
               style={{backgroundColor: 'white', borderRadius: 10}}
               title="เป้าหมายน้ำหนัก"
               titleStyle={{
-                fontSize: 14,
+                fontSize: 12,
                 fontFamily: 'NotoSansThai-Regular',
               }}
               right={props => (
                 <Text
                   style={{
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'NotoSansThai-Regular',
                   }}>
                   {context?.user?.goal}
@@ -242,6 +243,7 @@ const ProfileScreen = ({navigation}) => {
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize: 12,
               }}
               textColor="white"
               mode="contained"
@@ -266,14 +268,13 @@ const styles = StyleSheet.create({
   },
   text_header: {
     fontFamily: 'NotoSansThai-SemiBold',
-    fontSize: 20,
-    paddingHorizontal: 116,
+    fontSize: 16,
     textAlign: 'center',
     paddingTop: 50,
     paddingBottom: 10,
   },
   text_Regular: {
-    fontSize: 14,
+    fontSize: 12,
     paddingTop: 24,
     fontFamily: 'NotoSansThai-SemiBold',
   },

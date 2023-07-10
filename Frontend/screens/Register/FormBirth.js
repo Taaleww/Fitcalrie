@@ -6,7 +6,7 @@ import DateField from 'react-native-datefield';
 const FormBirth = ({nextStep, onUpdateState, state}) => {
   return (
     <ScrollView style={{backgroundColor: '#F9FBFC'}}>
-      <View style={styles.box}>
+      <View >
         <View style={styles.container}>
           <Image
             style={{width: 300, height: 300}}
@@ -21,6 +21,7 @@ const FormBirth = ({nextStep, onUpdateState, state}) => {
               backgroundColor: 'white',
               marginHorizontal: 10,
               fontFamily: 'NotoSansThai-Regular',
+              fontSize:12
             }}
             
             disabled
@@ -28,13 +29,16 @@ const FormBirth = ({nextStep, onUpdateState, state}) => {
             labelMonth="เดือน"
             labelYear="ปี"
             defaultValue={state.dateOfbirth}
+            maximumDate={new Date(2004, 1, 1)}
+            minimumDate={new Date(1933, 1, 1)}
             onSubmit={value => {
               onUpdateState({dateOfbirth: value});
             }}
+            handleErrors={() => console.error()}
           />
         </View>
 
-        <View style={{paddingTop: 126}}>
+        <View style={{paddingTop: 114}}>
           <View
             style={{
               paddingLeft: 18,
@@ -119,10 +123,11 @@ const FormBirth = ({nextStep, onUpdateState, state}) => {
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize:12
               }}
               textColor="white"
               mode="contained"
-              disabled={state.dateOfbirth === null}
+              disabled={state.dateOfbirth === ""}
               onPress={nextStep}>
               ถัดไป
             </Button>
@@ -134,11 +139,7 @@ const FormBirth = ({nextStep, onUpdateState, state}) => {
 };
 
 const styles = StyleSheet.create({
-  box: {
-    paddingBottom: 13,
-  },
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },

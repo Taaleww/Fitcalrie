@@ -90,6 +90,9 @@ const MainScreen = ({navigation}) => {
   );
 
   const CalculateTotalCal = calories => {
+    if (calories - Number(totalCalories) < 0) {
+      return 0;
+    }
     return calories - Number(totalCalories);
   };
 
@@ -107,7 +110,7 @@ const MainScreen = ({navigation}) => {
     if (BMI <= 18.5) {
       result = ' ผอมเกินไป';
     } else if (BMI >= 18.6 && BMI < 22.9) {
-      result = ' นํ้าหนักปกติ เหมาะสม';
+      result = ' สมส่วน';
     } else if (BMI >= 23 && BMI < 24.9) {
       result = ' นํ้าหนักเกินตัว';
     } else if (BMI >= 25 && BMI < 29.9) {
@@ -187,19 +190,19 @@ const MainScreen = ({navigation}) => {
                     flexDirection: 'row',
                   }}>
                   <Image
-                    style={{width: 110, height: 110}}
+                    style={{width: 90, height: 90}}
                     source={require('../../assets/images/personalgoal.png')}
                   />
                   <View style={{flexDirection: 'column'}}>
                     <View style={styles.container_progress}>
                       <Text
                         style={styles.text_Information}
-                        variant="titleLarge">
+                        variant='titleMedium'>
                         วันนี้คุณควรรับประทาน
                         <Text
                           style={{
                             fontFamily: 'NotoSansThai-SemiBold',
-                            fontSize: 20,
+                            fontSize: 14,
                             color: '#FD9A86',
                           }}>
                           {' '}
@@ -210,16 +213,16 @@ const MainScreen = ({navigation}) => {
                       <View style={styles.ProgressCircle}>
                         <ProgressCircle
                           percent={percentage}
-                          radius={50}
-                          borderWidth={12}
+                          radius={45}
+                          borderWidth={10}
                           color="#FD9A86"
                           shadowColor="#F2B5AA"
                           bgColor="#fff">
                           <Text
                             style={{
-                              fontSize: 14,
-                              paddingHorizontal: 10,
+                              fontSize: 11,
                               textAlign: 'center',
+                              paddingHorizontal: 2,
                               fontFamily: 'NotoSansThai-SemiBold',
                             }}>
                             เหลืออีก{' '}
@@ -250,13 +253,16 @@ const MainScreen = ({navigation}) => {
           <View style={{paddingTop: 10}}>
             <Card.Title
               style={{backgroundColor: '#FBE5E4', borderRadius: 10}}
-              titleStyle={{fontFamily: 'NotoSansThai-SemiBold', fontSize: 14}}
+              titleStyle={{fontFamily: 'NotoSansThai-SemiBold', fontSize: 12}}
               title={
                 'BMI :' +
                 (context?.user?.BMI || 0).toFixed(2) +
                 CalculatorBMI(context?.user.BMI)
               }
-              subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
+              subtitleStyle={{
+                fontFamily: 'NotoSansThai-SemiBold',
+                fontSize: 12,
+              }}
               left={props => (
                 <Avatar.Icon
                   {...props}
@@ -279,22 +285,25 @@ const MainScreen = ({navigation}) => {
             style={{
               paddingTop: 24,
               fontFamily: 'NotoSansThai-SemiBold',
-              fontSize: 14,
+              fontSize: 12,
             }}>
             {' '}
             {currentDate}
           </Text>
           <View style={styles.container_cardtitle}>
-            <View style={{paddingRight: 16}}>
+            <View style={{paddingRight: 4}}>
               <Card.Title
                 style={{
                   backgroundColor: '#DBE9EA',
                   borderRadius: 10,
-                  width: 180,
+                  width: 160,
                 }}
-                titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
+                titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}
                 title="รับประทาน"
-                subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
+                subtitleStyle={{
+                  fontFamily: 'NotoSansThai-SemiBold',
+                  fontSize: 12,
+                }}
                 subtitle={(totalCalories || 0) + ' kcal'}
                 left={props => (
                   <Avatar.Icon
@@ -312,11 +321,14 @@ const MainScreen = ({navigation}) => {
                 style={{
                   backgroundColor: '#D4DEEF',
                   borderRadius: 10,
-                  width: 180,
+                  width: 160,
                 }}
-                titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
+                titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}
                 title="เผาผลาญ "
-                subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
+                subtitleStyle={{
+                  fontFamily: 'NotoSansThai-SemiBold',
+                  fontSize: 12,
+                }}
                 subtitle={(total_calories_burned?.toFixed(0) || 0) + ' kcal'}
                 left={props => (
                   <Avatar.Icon
@@ -332,9 +344,12 @@ const MainScreen = ({navigation}) => {
           <View style={{paddingTop: 10}}>
             <Card.Title
               style={{backgroundColor: '#F5ECDE', borderRadius: 10}}
-              titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
+              titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}
               title="น้ำหนักปัจจุบัน (kg) "
-              subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
+              subtitleStyle={{
+                fontFamily: 'NotoSansThai-SemiBold',
+                fontSize: 12,
+              }}
               subtitle={context?.user?.weight + ' / ' + context?.user?.goal}
               left={props => (
                 <Avatar.Icon
@@ -350,6 +365,7 @@ const MainScreen = ({navigation}) => {
                   textColor="#E4B765"
                   labelStyle={{
                     fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
                   }}
                   onPress={() =>
                     navigation.navigate({
@@ -371,11 +387,12 @@ const MainScreen = ({navigation}) => {
             style={{
               paddingTop: 24,
               fontFamily: 'NotoSansThai-SemiBold',
-              fontSize: 14,
+              fontSize: 12,
+              paddingBottom:10
             }}>
             เมนูแนะนำสำหรับคุณ
           </Text>
-          { recommendationsData !== undefined ? (
+          {recommendationsData !== undefined ? (
             <View>
               {recommendationsData?.model?.map((item, index) => (
                 <TouchableOpacity
@@ -390,9 +407,15 @@ const MainScreen = ({navigation}) => {
                   <View style={styles.container}>
                     <Card.Title
                       style={{backgroundColor: 'white', borderRadius: 10}}
-                      titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                      titleStyle={{
+                        fontFamily: 'NotoSansThai-Regular',
+                        fontSize: 12,
+                      }}
                       title={`${item.name} `}
-                      subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                      subtitleStyle={{
+                        fontFamily: 'NotoSansThai-Regular',
+                        fontSize: 12,
+                      }}
                       subtitle={String(item.calories) + ' kcal'}
                       left={props => (
                         <Avatar.Icon
@@ -416,52 +439,54 @@ const MainScreen = ({navigation}) => {
               ))}
             </View>
           ) : (
-            <View
+            <View style={{
+              backgroundColor:'#FBE5E4',
+              borderRadius: 10,
+            }}>
+              <View
               style={{
-                paddingTop: 10,
-                bottom: 0,
+                backgroundColor:'#FBE5E4',
+                borderRadius: 10,
+                marginBottom:14
               }}>
               <View
                 style={{
-                  backgroundColor: '#FBE5E4',
-                  height: 146,
-                  borderRadius: 10,
                   flexDirection: 'row',
                 }}>
                 <Image
                   style={{width: 160, height: 160}}
                   source={require('../../assets/images/personalname.png')}
                 />
-                <View style={{flexDirection: 'column'}}>
+                <View>
                   <Text
                     style={{
                       paddingHorizontal: 30,
                       paddingTop: 36,
                       fontFamily: 'NotoSansThai-Regular',
                       paddingRight: 180,
-                      textAlign: 'center',
+                      fontSize: 12,
                     }}>
                     กรุณาเพิ่มเมนูอาหารเพื่อให้เราได้แนะนำเมนูอาหารให้แก่คุณ
                   </Text>
-
-                  <View style={{paddingTop: 10, paddingLeft: 20}}>
-                    <Button
-                      style={{
-                        backgroundColor: '#FD9A86',
-                        borderRadius: 10,
-                        width: 180,
-                      }}
-                      labelStyle={{
-                        fontFamily: 'NotoSansThai-Regular',
-                      }}
-                      textColor="white"
-                      mode="contained"
-                      onPress={() => navigation.navigate('SearchFood')}>
-                      เพิ่มมื้ออาหาร
-                    </Button>
-                  </View>
                 </View>
               </View>
+              <View style={{ paddingHorizontal: 10}}>
+                <Button
+                  style={{
+                    backgroundColor: '#FD9A86',
+                    borderRadius: 10,
+                  }}
+                  labelStyle={{
+                    fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
+                  }}
+                  textColor="white"
+                  mode="contained"
+                  onPress={() => navigation.navigate('SearchFood')}>
+                  เพิ่มมื้ออาหาร
+                </Button>
+              </View>
+            </View>
             </View>
           )}
         </View>
@@ -484,7 +509,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
   },
   iconbutton: {
-    paddingHorizontal: 332,
+    paddingHorizontal: 280,
     top: 40,
   },
   text_Regular: {
@@ -495,8 +520,8 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   text_Information: {
-    fontSize: 14,
-    width: 140,
+    fontSize: 12,
+    width: 120,
     fontFamily: 'NotoSansThai-Regular',
     paddingTop: 16,
   },
@@ -507,7 +532,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
     height: 130,
   },
-  ProgressCircle: {},
+  ProgressCircle: {
+    left: -14,
+  },
   container_progress: {
     flexDirection: 'row',
   },

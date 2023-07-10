@@ -22,6 +22,7 @@ const SearchFoodScreen = ({navigation}) => {
     }
   }, [searchQuery]);
 
+
   return (
     <ScrollView style={{backgroundColor: '#F9FBFC'}}>
       <View style={styles.box}>
@@ -44,7 +45,7 @@ const SearchFoodScreen = ({navigation}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
             อาหาร
@@ -59,11 +60,10 @@ const SearchFoodScreen = ({navigation}) => {
             style={{
               borderRadius: 20,
               height: 42,
-              width: 380,
               backgroundColor: '#FBE5E4',
               shadowColor:'transparent',
             }}
-            fontSize={15}
+            fontSize={12}
             cursorColor='#FD9A86'
             fontFamily= 'NotoSansThai-Regular'
             placeholderTextColor='#FCC3B7'
@@ -90,9 +90,9 @@ const SearchFoodScreen = ({navigation}) => {
                 <View style={{paddingTop: 10, paddingHorizontal: 18}}>
                   <Card.Title
                     style={{backgroundColor: 'white', borderRadius: 10}}
-                    titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize: 12}}
                     title={item.name ? String(item.name) : ' '}
-                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize: 12}}
                     // subtitle={String(item.name)}
                     left={props => (
                       <Avatar.Icon
@@ -151,7 +151,7 @@ const styles = StyleSheet.create({
   },
   text_details: {
     paddingRight: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'NotoSansThai-SemiBold',
     color: '#FD9A86',
   },

@@ -105,7 +105,8 @@ const ExerciseScreen = ({navigation}) => {
         <View style={{paddingTop: 10}}>
           <Card.Title
             style={{backgroundColor: 'white', borderRadius: 10}}
-            titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular',
+            fontSize:12}}
             title="เผาผลาญ (kcal)"
             left={props => (
               <Avatar.Icon
@@ -155,9 +156,11 @@ const ExerciseScreen = ({navigation}) => {
                 <View style={{paddingTop: 10}}>
                   <Card.Title
                     style={{backgroundColor: 'white', borderRadius: 10}}
-                    titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    titleStyle={{fontFamily: 'NotoSansThai-Regular',
+                    fontSize:12}}
                     title={item.exerciseId.name}
-                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                    subtitleStyle={{fontFamily: 'NotoSansThai-Regular',
+                    fontSize:12}}
                     subtitle={
                       String(item.total_calories_burned?.toFixed(0)) + ' kcal'
                     }
@@ -190,6 +193,7 @@ const ExerciseScreen = ({navigation}) => {
               style={{backgroundColor: 'white', borderRadius: 10}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize:12
               }}
               textColor="#FD9A86"
               mode="contained"
@@ -207,6 +211,7 @@ const ExerciseScreen = ({navigation}) => {
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize:12
               }}
               textColor="white"
               mode="contained"
@@ -233,20 +238,20 @@ const styles = StyleSheet.create({
     paddingRight: 18,
   },
   text_header: {
-    fontSize: 20,
+    fontSize: 16,
     paddingHorizontal: 10,
     textAlign: 'center',
     fontFamily: 'NotoSansThai-SemiBold',
     width: 200,
   },
   text_Regular: {
-    fontSize: 14,
+    fontSize: 12,
     paddingTop: 24,
     fontFamily: 'NotoSansThai-SemiBold',
   },
   text_details: {
     paddingRight: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'NotoSansThai-Regular',
   },
   progress: {

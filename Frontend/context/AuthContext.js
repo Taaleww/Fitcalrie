@@ -12,7 +12,6 @@ export const AuthProvider = ({children}) => {
   // const [calorieOfUser, setCalorieOfUser] = useState(0);
 
   const login = async payload => {
-    console.log(" LOGIN ");
     setIsLoading(true);
     setUserToken(payload.access_token);
     setUser(JSON.parse(JSON.stringify({...payload.user})));

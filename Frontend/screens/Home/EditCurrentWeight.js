@@ -69,7 +69,7 @@ const EditCurrrentWeight = ({navigation,route}) => {
               <Text
                 style={{
                   color: 'black',
-                  fontSize: 20,
+                  fontSize: 16,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
                 น้ำหนักปัจจุบัน
@@ -85,22 +85,26 @@ const EditCurrrentWeight = ({navigation,route}) => {
                 source={require('../../assets/images/personalweight.png')}
               />
 
+            </View>
+
+            <View style={{padding: 18}}>
               <SafeAreaView>
                 <TextInput
                   style={styles.input}
                   value={values.weight}
                   onChangeText={handleChange('weight')}
                   onBlur={() => setFieldTouched('weight')}
-                  placeholder="น้ำหนัก"
+                  placeholder="  น้ำหนัก                                                        กิโลกรัม"
                   keyboardType="numeric"
                 />
                 {touched.weight && errors.weight && (
                   <Text style={styles.errorTxt}>{errors.weight}</Text>
                 )}
               </SafeAreaView>
+
             </View>
 
-            <View style={{paddingTop: 130}}>
+            <View style={{paddingTop: 110}}>
               <View style={styles.button}>
                 <Button
                   style={{
@@ -139,28 +143,16 @@ const styles = StyleSheet.create({
     paddingBottom: 13,
   },
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  text_header: {
-    color: '#1A212F',
-    fontWeight: 'bold',
-    fontSize: 20,
-    paddingHorizontal: 161,
-    textAlign: 'center',
-  },
-  iconbutton: {
-    top: 50,
-  },
   input: {
-    width: 380,
     height: 40,
-    margin: 12,
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize:12
   },
   button: {
     flex: 1,
@@ -173,6 +165,7 @@ const styles = StyleSheet.create({
     color: '#FD9A86',
     paddingLeft: 16,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize:12
   },
 });
 

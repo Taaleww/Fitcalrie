@@ -19,9 +19,6 @@ const RegisterModule = ({navigation}) => {
   // Pass mutation to useMutation
   const [createUser] = useMutation(CREATE_USER, {
     async onCompleted(data) {
-      // Todo: call login automatically
-      // for now use only navigate to login page
-      console.log('COMPLETE DATA: ', data);
       setModalVisible(true);
       await setTimeout(() => {
         setModalVisible(false);
@@ -62,7 +59,6 @@ const RegisterModule = ({navigation}) => {
     }[step];
   };
 
-  console.log('step', step);
 
   const nextStep = () => {
     setStep(step + 1);
@@ -94,7 +90,6 @@ const RegisterModule = ({navigation}) => {
     await createUser({variables: {createUserInput}});
   };
 
-  console.log(state);
   return (
     <ScrollView>
       <View style={styles.box}>
@@ -121,6 +116,7 @@ const RegisterModule = ({navigation}) => {
                 color: 'black',
                 fontSize: 20,
                 fontFamily: 'NotoSansThai-SemiBold',
+                fontSize: 14,
               }}>
               {getTabName(step)}
             </Text>

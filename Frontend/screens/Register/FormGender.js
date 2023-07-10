@@ -26,6 +26,7 @@ const FormGender = ({nextStep, onUpdateState, state}) => {
             }}
             labelStyle={{
               fontFamily: 'NotoSansThai-Regular',
+              fontSize:12
             }}
             label="ชาย"
             value="male"
@@ -38,13 +39,14 @@ const FormGender = ({nextStep, onUpdateState, state}) => {
             }}
             labelStyle={{
               fontFamily: 'NotoSansThai-Regular',
+              fontSize:12
             }}
             label="หญิง"
             value="female"
           />
         </RadioButton.Group>
 
-        <View style={{paddingTop: 50}}>
+        <View style={{paddingTop: 40}}>
           <View
             style={{
               paddingLeft: 18,
@@ -129,6 +131,7 @@ const FormGender = ({nextStep, onUpdateState, state}) => {
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               labelStyle={{
                 fontFamily: 'NotoSansThai-Regular',
+                fontSize:12
               }}
               textColor="white"
               mode="contained"
@@ -144,7 +147,6 @@ const FormGender = ({nextStep, onUpdateState, state}) => {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },

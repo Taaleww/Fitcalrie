@@ -50,7 +50,7 @@ const DeleteFoodScreen = ({navigation, route}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
             {route.params?.name}
@@ -82,7 +82,7 @@ const DeleteFoodScreen = ({navigation, route}) => {
         <View style={styles.container}>
           <Card.Title
             style={{backgroundColor: 'white', borderRadius: 10}}
-            titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize:12}}
             title="ระยะเวลา (นาที)"
             left={props => (
               <Avatar.Icon
@@ -100,12 +100,12 @@ const DeleteFoodScreen = ({navigation, route}) => {
           />
         </View>
 
-        <View style={{paddingTop: 280}}>
+        <View style={{paddingTop: 210}}>
           <View style={styles.button}>
             <Button
               style={{backgroundColor: '#FD9A86', borderRadius: 10}}
               labelStyle={{
-                fontFamily: 'NotoSansThai-Regular',
+                fontFamily: 'NotoSansThai-Regular',fontSize:12
               }}
               textColor="white"
               mode="contained"
@@ -124,7 +124,7 @@ const DeleteFoodScreen = ({navigation, route}) => {
             <Dialog.Icon color="#EF4444" icon="alert-circle" size={30} />
             <Dialog.Title
               style={{
-                fontSize: 16,
+                fontSize: 14,
                 textAlign: 'center',
                 fontFamily: 'NotoSansThai-SemiBold',
               }}>
@@ -134,17 +134,17 @@ const DeleteFoodScreen = ({navigation, route}) => {
               <Button
                 textColor="#FD9A86"
                 labelStyle={{
-                  fontFamily: 'NotoSansThai-Regular',
+                  fontFamily: 'NotoSansThai-Regular',fontSize:12
                 }}
                 onPress={hideDialog}>
-                {'            '}
-                ยกเลิก{'            '}
+                {'       '}
+                ยกเลิก{'       '}
               </Button>
 
               <Button
                 textColor="white"
                 labelStyle={{
-                  fontFamily: 'NotoSansThai-Regular',
+                  fontFamily: 'NotoSansThai-Regular',fontSize:12
                 }}
                 buttonColor="#FD9A86"
                 onPress={() => {
@@ -154,8 +154,8 @@ const DeleteFoodScreen = ({navigation, route}) => {
                     },
                   });
                 }}>
-                {'            '}
-                ยืนยัน{'            '}
+                {'       '}
+                ยืนยัน{'       '}
               </Button>
             </Dialog.Actions>
           </Dialog>
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
   },
   text_details: {
     paddingRight: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'NotoSansThai-Regular',
   },
   text_Regular: {

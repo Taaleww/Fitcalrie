@@ -37,7 +37,7 @@ export default function ListSummaryNutrition({
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
               percent={percentCalories}
-              radius={30}
+              radius={25}
               borderWidth={5}
               color={
                 kcal > calorieOfUser
@@ -50,7 +50,7 @@ export default function ListSummaryNutrition({
               bgColor="#fff">
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 8,
                   paddingHorizontal: 10,
                   textAlign: 'center',
                   paddingHorizontal: 10,
@@ -63,7 +63,7 @@ export default function ListSummaryNutrition({
               style={{
                 textAlign: 'center',
                 fontFamily: 'NotoSansThai-Regular',
-                fontSize: 12,
+                fontSize: 10,
                 paddingTop: 2,
               }}>
               แคลอรี่
@@ -72,14 +72,14 @@ export default function ListSummaryNutrition({
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
               percent={percentProtein}
-              radius={30}
+              radius={25}
               borderWidth={5}
               color={protein > totalProtein ? '#50BFC3' : '#E2D784'}
               shadowColor="#E9EFF2"
               bgColor="#fff">
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 8,
                   textAlign: 'center',
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
@@ -91,7 +91,7 @@ export default function ListSummaryNutrition({
               style={{
                 textAlign: 'center',
                 fontFamily: 'NotoSansThai-Regular',
-                fontSize: 12,
+                fontSize: 10,
                 paddingTop: 2,
               }}>
               โปรตีน
@@ -100,7 +100,7 @@ export default function ListSummaryNutrition({
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
               percent={percentCarbo}
-              radius={30}
+              radius={25}
               borderWidth={5}
               color={
                 carbo > totalCarbohydrate
@@ -113,7 +113,7 @@ export default function ListSummaryNutrition({
               bgColor="#fff">
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 8,
                   textAlign: 'center',
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
@@ -125,7 +125,7 @@ export default function ListSummaryNutrition({
               style={{
                 textAlign: 'center',
                 fontFamily: 'NotoSansThai-Regular',
-                fontSize: 12,
+                fontSize: 10,
                 paddingTop: 2,
               }}>
               คาร์โบ
@@ -134,7 +134,7 @@ export default function ListSummaryNutrition({
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
               percent={percentFat}
-              radius={30}
+              radius={25}
               borderWidth={5}
               color={
                 fat > totalFat
@@ -147,7 +147,7 @@ export default function ListSummaryNutrition({
               bgColor="#fff">
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 8,
                   textAlign: 'center',
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
@@ -159,7 +159,7 @@ export default function ListSummaryNutrition({
               style={{
                 textAlign: 'center',
                 fontFamily: 'NotoSansThai-Regular',
-                fontSize: 12,
+                fontSize: 10,
                 paddingTop: 2,
               }}>
               ไขมัน
@@ -168,14 +168,14 @@ export default function ListSummaryNutrition({
           <View style={{paddingHorizontal: 6}}>
             <ProgressCircle
               percent={percentVitamin}
-              radius={30}
+              radius={25}
               borderWidth={5}
               color={vitaminc > 1000 ? '#50BFC3' : '#E2D784'}
               shadowColor="#E9EFF2"
               bgColor="#fff">
               <Text
                 style={{
-                  fontSize: 12,
+                  fontSize: 8,
                   textAlign: 'center',
                   paddingHorizontal: 10,
                   fontFamily: 'NotoSansThai-SemiBold',
@@ -187,7 +187,7 @@ export default function ListSummaryNutrition({
               style={{
                 textAlign: 'center',
                 fontFamily: 'NotoSansThai-Regular',
-                fontSize: 12,
+                fontSize: 10,
                 paddingTop: 2,
               }}>
               วิตามินซี

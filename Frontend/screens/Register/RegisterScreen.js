@@ -119,7 +119,7 @@ const Register = ({navigation, nextStep, onUpdateState, state}) => {
                   <Text style={styles.errorTxt}>{errors.confirmpassword}</Text>
                 )}
               </View>
-              <View style={{paddingTop: 55}}>
+              <View style={{paddingTop: 10}}>
                 <View style={styles.button}>
                   <Button
                     style={{
@@ -128,6 +128,7 @@ const Register = ({navigation, nextStep, onUpdateState, state}) => {
                     }}
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
+                      fontSize: 12,
                     }}
                     textColor="white"
                     mode="contained"
@@ -146,9 +147,16 @@ const Register = ({navigation, nextStep, onUpdateState, state}) => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Text style={{fontFamily: 'NotoSansThai-Regular',}}>เคยสมัครแล้ว ?</Text>
+          <Text style={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}>
+            เคยสมัครแล้ว ?
+          </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Login')}>
-            <Text style={{color: '#FD9A86',fontFamily: 'NotoSansThai-SemiBold',}}>
+            <Text
+              style={{
+                color: '#FD9A86',
+                fontFamily: 'NotoSansThai-SemiBold',
+                fontSize: 12,
+              }}>
               {' '}
               เข้าสู่ระบบ
             </Text>
@@ -176,7 +184,8 @@ const styles = StyleSheet.create({
   errorTxt: {
     color: '#FD9A86',
     paddingTop: 8,
-    fontFamily: 'NotoSansThai-Regular'
+    fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
 });
 

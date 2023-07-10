@@ -8,7 +8,7 @@ export default function ListInformation({kcal, protein, carbo, fat, vitaminc}) {
       <View style={styles.container}>
         <Card.Title
           style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+          titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize: 12}}
           title="แคลอรี่ (kcal)"
           left={props => (
             <Avatar.Icon
@@ -25,7 +25,7 @@ export default function ListInformation({kcal, protein, carbo, fat, vitaminc}) {
       <View style={styles.container}>
         <Card.Title
           style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+          titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize: 12}}
           title="โปรตีน (g)"
           left={props => (
             <Avatar.Icon
@@ -42,7 +42,7 @@ export default function ListInformation({kcal, protein, carbo, fat, vitaminc}) {
       <View style={styles.container}>
         <Card.Title
           style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+          titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize: 12}}
           title="คาร์โบไฮเดรต (g)"
           left={props => (
             <Avatar.Icon
@@ -59,7 +59,7 @@ export default function ListInformation({kcal, protein, carbo, fat, vitaminc}) {
       <View style={styles.container}>
         <Card.Title
           style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+          titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize: 12}}
           title="ไขมันทั้งหมด (g)"
           left={props => (
             <Avatar.Icon
@@ -76,7 +76,7 @@ export default function ListInformation({kcal, protein, carbo, fat, vitaminc}) {
       <View style={styles.container}>
         <Card.Title
           style={{backgroundColor: 'white', borderRadius: 10}}
-          titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+          titleStyle={{fontFamily: 'NotoSansThai-Regular',fontSize: 12}}
           title="วิตามินซี (mg)"
           left={props => (
             <Avatar.Icon
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
   },
   text_details: {
     paddingRight: 10,
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'NotoSansThai-Regular',
   },
 });

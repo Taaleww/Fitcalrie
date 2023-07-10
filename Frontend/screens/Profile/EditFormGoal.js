@@ -21,7 +21,7 @@ const EditGoalSchema = Yup.object().shape({
     .required('กรุณากรอกน้ำหนัก'),
 });
 
-const EditFormGoal = ({navigation,route}) => {
+const EditFormGoal = ({navigation, route}) => {
   const [editGoal] = useMutation(UPDATE_USER, {
     onCompleted(data) {
       route.params?.onUpdateUser({goal: data.updateUser.goal});
@@ -69,7 +69,7 @@ const EditFormGoal = ({navigation,route}) => {
               <Text
                 style={{
                   color: 'black',
-                  fontSize: 20,
+                  fontSize: 14,
                   fontFamily: 'NotoSansThai-SemiBold',
                 }}>
                 เป้าหมายน้ำหนัก
@@ -84,14 +84,16 @@ const EditFormGoal = ({navigation,route}) => {
                 style={{width: 300, height: 300}}
                 source={require('../../assets/images/personalgoal.png')}
               />
+            </View>
 
+            <View style={{padding: 18}}>
               <SafeAreaView>
                 <TextInput
                   style={styles.input}
                   value={values.goal}
                   onChangeText={handleChange('goal')}
                   onBlur={() => setFieldTouched('goal')}
-                  placeholder="เป้าหมายน้ำหนัก"
+                  placeholder="เป้าหมายน้ำหนัก                                            กิโลกรัม"
                   keyboardType="numeric"
                 />
                 {touched.goal && errors.goal && (
@@ -100,7 +102,7 @@ const EditFormGoal = ({navigation,route}) => {
               </SafeAreaView>
             </View>
 
-            <View style={{paddingTop: 130}}>
+            <View style={{paddingTop: 110}}>
               <View style={styles.button}>
                 <Button
                   style={{
@@ -109,6 +111,7 @@ const EditFormGoal = ({navigation,route}) => {
                   }}
                   labelStyle={{
                     fontFamily: 'NotoSansThai-Regular',
+                    fontSize: 12,
                   }}
                   textColor="white"
                   mode="contained"
@@ -139,18 +142,16 @@ const styles = StyleSheet.create({
     paddingBottom: 13,
   },
   container: {
-    paddingTop: 40,
     justifyContent: 'center',
     alignItems: 'center',
   },
   input: {
-    width: 380,
     height: 40,
-    margin: 12,
     padding: 10,
     backgroundColor: 'white',
     borderRadius: 10,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
   button: {
     flex: 1,
@@ -163,6 +164,7 @@ const styles = StyleSheet.create({
     color: '#FD9A86',
     paddingLeft: 16,
     fontFamily: 'NotoSansThai-Regular',
+    fontSize: 12,
   },
 });
 

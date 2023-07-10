@@ -249,7 +249,7 @@ const RoutinePlanner = ({navigation}) => {
         <Text
           style={{
             color: 'black',
-            fontSize: 20,
+            fontSize: 16,
             fontFamily: 'NotoSansThai-SemiBold',
           }}>
           สรุปผล
@@ -313,12 +313,12 @@ const RoutinePlanner = ({navigation}) => {
       <Text style={styles.text_Regular}>{currentDate}</Text>
 
       <View style={styles.container_cardtitle}>
-        <View style={{paddingRight: 16}}>
+        <View style={{paddingRight: 4}}>
           <Card.Title
-            style={{backgroundColor: '#DBE9EA', borderRadius: 10, width: 180}}
-            titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
+            style={{backgroundColor: '#DBE9EA', borderRadius: 10, width: 160}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}
             title="รับประทาน"
-            subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
+            subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold', fontSize: 12}}
             subtitle={(totalCalories?.toFixed(0) || 0) + ' kcal'}
             left={props => (
               <Avatar.Icon
@@ -333,10 +333,10 @@ const RoutinePlanner = ({navigation}) => {
 
         <View>
           <Card.Title
-            style={{backgroundColor: '#D4DEEF', borderRadius: 10, width: 180}}
-            titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
+            style={{backgroundColor: '#D4DEEF', borderRadius: 10, width: 160}}
+            titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}
             title="เผาผลาญ "
-            subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold'}}
+            subtitleStyle={{fontFamily: 'NotoSansThai-SemiBold', fontSize: 12}}
             subtitle={(total_calories_burned?.toFixed(0) || 0) + ' kcal'}
             left={props => (
               <Avatar.Icon
@@ -352,7 +352,7 @@ const RoutinePlanner = ({navigation}) => {
       <View style={{paddingTop: 10, paddingHorizontal: 18}}>
         <Card.Title
           style={{backgroundColor: '#F5ECDE', borderRadius: 10}}
-          titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 14}}
+          titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}
           title="น้ำหนักปัจจุบัน (kg) "
           left={props => (
             <Avatar.Icon
@@ -364,7 +364,7 @@ const RoutinePlanner = ({navigation}) => {
           )}
           right={props => (
             <Text
-              style={{fontFamily: 'NotoSansThai-SemiBold', paddingRight: 16}}>
+              style={{fontFamily: 'NotoSansThai-SemiBold', paddingRight: 12, fontSize: 12}}>
               {weightOfUser?.length > 0
                 ? weightOfUser[weightOfUser.length - 1]
                 : weight}
@@ -382,7 +382,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#F9FBFC'
   },
   text_Regular: {
-    fontSize: 14,
+    fontSize: 12,
     paddingTop: 10,
     fontFamily: 'NotoSansThai-SemiBold',
     paddingLeft: 18,

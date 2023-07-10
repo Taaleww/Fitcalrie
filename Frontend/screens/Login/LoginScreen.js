@@ -34,7 +34,6 @@ const Login = ({navigation}) => {
   // Pass mutation to useMutation
   const [signin] = useMutation(LOGIN, {
     async onCompleted(data) {
-      console.log('COMPLETE DATA: ', data.login);
       login(data.login);
     },
     onError(error) {
@@ -113,7 +112,7 @@ const Login = ({navigation}) => {
                   <Text style={styles.errorTxt}>{errors.password}</Text>
                 )}
               </View>
-              <View style={{paddingTop: 120}}>
+              <View style={{paddingTop: 70}}>
                 <View style={styles.button}>
                   <Button
                     style={{
@@ -122,12 +121,11 @@ const Login = ({navigation}) => {
                     }}
                     labelStyle={{
                       fontFamily: 'NotoSansThai-Regular',
+                      fontSize: 12,
                     }}
                     textColor="white"
                     mode="contained"
                     onPress={() => {
-                      // login(values);
-                      console.log(values);
                       signin({variables: {loginUserInput: values}});
                     }}
                     disabled={!isValid}>
@@ -144,12 +142,16 @@ const Login = ({navigation}) => {
             flexDirection: 'row',
             justifyContent: 'center',
           }}>
-          <Text style={{fontFamily: 'NotoSansThai-Regular'}}>
+          <Text style={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}>
             ยังไม่มีบัญชี ?
           </Text>
           <TouchableOpacity onPress={() => navigation.navigate('Register')}>
             <Text
-              style={{color: '#FD9A86', fontFamily: 'NotoSansThai-SemiBold'}}>
+              style={{
+                color: '#FD9A86',
+                fontFamily: 'NotoSansThai-SemiBold',
+                fontSize: 12,
+              }}>
               {' '}
               สมัครสมาชิก
             </Text>

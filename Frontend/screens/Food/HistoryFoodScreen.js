@@ -225,7 +225,7 @@ const HistoryFood = ({navigation, route}) => {
           <Text
             style={{
               color: 'black',
-              fontSize: 20,
+              fontSize: 16,
               fontFamily: 'NotoSansThai-SemiBold',
             }}>
             อาหาร
@@ -271,7 +271,6 @@ const HistoryFood = ({navigation, route}) => {
               selectedTextColor: '',
             };
             setSelectedDate(newSelectedDate);
-            console.log('newSelectedDate', newSelectedDate);
           }}
           onMonthChange={month => {
             const newisoMonth = formatdate(month.dateString);
@@ -315,7 +314,16 @@ const HistoryFood = ({navigation, route}) => {
           BMR={BMR}
         />
         {data?.findList?.length > 0 && (
-          <Text style={styles.text_Regular}>อาหารที่รับประทาน</Text>
+          <Text
+            style={{
+              fontSize: 12,
+              paddingTop: 16,
+              fontFamily: 'NotoSansThai-SemiBold',
+              paddingLeft: 18,
+              paddingBottom:10
+            }}>
+            อาหารที่รับประทาน
+          </Text>
         )}
 
         {data?.findList?.map((item, index) => (
@@ -341,9 +349,12 @@ const HistoryFood = ({navigation, route}) => {
             <View style={styles.container}>
               <Card.Title
                 style={{backgroundColor: 'white', borderRadius: 10}}
-                titleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                titleStyle={{fontFamily: 'NotoSansThai-Regular', fontSize: 12}}
                 title={item.nutritionId.name + ' (' + item.servingSize + ')'}
-                subtitleStyle={{fontFamily: 'NotoSansThai-Regular'}}
+                subtitleStyle={{
+                  fontFamily: 'NotoSansThai-Regular',
+                  fontSize: 12,
+                }}
                 subtitle={String(item.total_calorie) + ' kcal'}
                 left={props => (
                   <Avatar.Icon
@@ -375,11 +386,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
   },
   text_Regular: {
-    fontSize: 14,
-    paddingTop: 10,
+    fontSize: 12,
+    paddingTop: 16,
     fontFamily: 'NotoSansThai-SemiBold',
     paddingLeft: 18,
-    paddingBottom: 10,
   },
 });
 
